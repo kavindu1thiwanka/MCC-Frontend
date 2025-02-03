@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -26,7 +26,8 @@ export class SearchBoxComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getCurrentDate(): string {
     return new Date().toISOString().split('T')[0];
@@ -43,12 +44,12 @@ export class SearchBoxComponent implements OnInit {
 
   setVehicleType(type: string): void {
     this.selectedVehicleType = type;
-    this.searchForm.patchValue({ vehicleType: type });
+    this.searchForm.patchValue({vehicleType: type});
   }
 
   redirectToCarSelection() {
     console.log('Redirecting to car selection...');
-    this.router.navigate(['/car-selection'], {
+    this.router.navigate(['/cars'], {
       queryParams: {
         pickup: this.searchForm.value.pickupLocation,
         return: this.searchForm.value.returnLocation,

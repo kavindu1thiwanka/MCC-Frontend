@@ -20,7 +20,8 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import {NgOptimizedImage} from "@angular/common";
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CarSelectionComponent } from './components/car-selection/car-selection.component';
+import {CarSelectionComponent} from './components/car-selection/car-selection.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CarSelectionComponent } from './components/car-selection/car-selection.
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

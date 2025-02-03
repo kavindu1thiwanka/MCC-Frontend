@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   standalone: false,
 
   templateUrl: './car-selection.component.html',
-  styleUrl: './car-selection.component.scss'
+  styleUrls: ['./car-selection.component.scss']
 })
 export class CarSelectionComponent implements OnInit {
 

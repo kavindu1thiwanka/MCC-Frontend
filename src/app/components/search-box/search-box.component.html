@@ -23,7 +23,7 @@
     </div>
 
     <!-- Search Form -->
-    <form [formGroup]="searchForm" class="row g-3 d-flex justify-content-center">
+    <form [formGroup]="searchForm" class="row g-3 d-flex justify-content-center" (submit)="redirectToCarSelection(); $event.preventDefault()">
 
       <!-- Pickup Location -->
       <div class="col-3">
