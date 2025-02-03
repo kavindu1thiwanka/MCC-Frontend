@@ -1,69 +1,110 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&display=swap');
 
-.landing-container {
-  position: relative;
-  min-height: 100vh;
-  width: 100vw;
+.hero-section {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)),
+  url('/assets/images/Car c1.jpg') center/cover no-repeat;
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
 
-  .landing-page {
-    padding: 24px;
-    background-color: #f5f5f5;
-    min-height: calc(100vh - 64px); 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
 
-    app-vehicle-search-form {
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 32px;
-    }
+.hero-content {
+  background: #FF5F00;
+  padding: 2rem;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 4.5rem;
+}
+
+.about-section, .services-section, .testimonials-section {
+  padding: 4rem 0;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.testimonial {
+  border-left: 5px solid #FF5F00;
+}
+
+.cta-section {
+  background: #FF5F00;
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.btn-light {
+  background: white;
+  color: #FF5F00;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.btn-light:hover {
+  background: #fff3e0;
+}
+
+.footer {
+  background: #000;
+  color: white;
+  font-size: 1rem;
+
+  h5 {
+    color: #FF5F00; // Highlighted header color
+    margin-bottom: 1rem;
   }
 
-  .main-content {
-    flex: 1;
-    padding: 24px;
+  p {
+    color: #ccc;
+    font-size: 0.9rem;
+  }
 
-    .hero-section {
-      height: 95vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url('/assets/images/Car c1.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
+  ul {
+    padding: 0;
+    list-style: none;
 
-      .hero-content {
-        color: #1A1A1AFF;
-        width: 100vw;
-        background: #FF5F00FF;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 1.5rem 0;
+    li {
+      margin-bottom: 0.5rem;
 
-        h1 {
-          font-size: 4.5rem;
-          font-weight: 900;
-          font-style: normal;
-          line-height: 1;
-        }
+      a {
+        color: #fff;
+        transition: color 0.3s;
 
-        p {
-          font-size: 1.1rem;
-          opacity: 0.9;
+        &:hover {
+          color: #FF5F00;
         }
       }
     }
   }
+
+  .social-icons a {
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .border-top {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
 }
+

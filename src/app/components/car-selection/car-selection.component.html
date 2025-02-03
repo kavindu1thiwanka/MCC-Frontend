@@ -1,0 +1,18 @@
+<div class="container mt-5">
+  <h2 class="text-center">Choose Your Desired Car</h2>
+  <p class="text-center text-muted">Showing results for your search</p>
+
+  <div class="row">
+    <div *ngFor="let car of carList" class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4">
+        <img [src]="car.image" class="card-img-top" alt="{{ car.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.name }}</h5>
+          <p class="card-text text-muted">{{ car.type }} | {{ car.seats }} Seats</p>
+          <p class="fw-bold text-warning">${{ car.pricePerDay }} / Day</p>
+          <button class="btn btn-dark w-100" (click)="selectCar(car)">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
