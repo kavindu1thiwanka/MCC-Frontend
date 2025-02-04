@@ -16,27 +16,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.py-7 {
-  padding-top: var(--section-spacing);
-  padding-bottom: var(--section-spacing);
-}
-
-.mb-6 {
-  margin-bottom: 4.5rem;
-}
-
-.mt-6 {
-  margin-top: 4.5rem;
-}
-
-.fs-sm {
-  font-size: 0.875rem;
-}
-
-.backdrop-blur-md {
-  backdrop-filter: blur(12px);
-}
-
 // Hero Section
 .hero-section {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -46,109 +25,6 @@ body {
 
   .hero-content {
     background: rgba(255, 95, 0, 1);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
-    z-index: 1;
-  }
-
-  .hero-search-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border-radius: 1rem;
-    padding: var(--card-spacing);
-  }
-}
-
-// Feature Cards
-.feature-card {
-  transition: all 0.3s ease;
-  padding: var(--card-spacing);
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
-  .feature-icon {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.75rem;
-    color: var(--primary);
-    background: var(--primary-soft);
-    margin-bottom: 1.5rem;
-  }
-}
-
-// Car Cards
-.car-card {
-  transition: all 0.3s ease;
-  height: 100%;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-
-    img {
-      transform: scale(1.05);
-    }
-  }
-
-  .car-image {
-    overflow: hidden;
-    height: 240px;
-
-    img {
-      transition: transform 0.5s ease;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .card-body {
-    padding: var(--card-spacing);
-  }
-
-  .price {
-    color: var(--primary);
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-
-  .badge {
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-  }
-}
-
-// Testimonial Cards
-.testimonial-card {
-  transition: all 0.3s ease;
-  padding: var(--card-spacing);
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
-  .testimonial-avatar {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-  }
-
-  .fa-star {
-    font-size: 1rem;
   }
 }
 
@@ -227,18 +103,6 @@ body {
     --card-spacing: 1.5rem;
   }
 
-  .display-3 {
-    font-size: 2.5rem;
-  }
-
-  .display-4 {
-    font-size: 2.25rem;
-  }
-
-  .display-5 {
-    font-size: 2rem;
-  }
-
   .hero-section {
     text-align: center;
     padding-top: 6rem;
@@ -259,17 +123,4 @@ body {
   .lead {
     font-size: 1rem;
   }
-}
-
-// Animation Classes
-.animate__animated {
-  --animate-duration: 1s;
-}
-
-.animate__delay-1s {
-  --animate-delay: 0.5s;
-}
-
-.animate__delay-2s {
-  --animate-delay: 1s;
 }

@@ -1,6 +1,9 @@
 .search-box {
+  //position: sticky;
+  //top: 0;
   padding: 1rem 9rem;
   margin-top: 5rem;
+  z-index: 1000;
 }
 
 .card {

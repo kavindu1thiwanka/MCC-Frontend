@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 // Component Imports
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
@@ -21,7 +20,9 @@ import {NgOptimizedImage} from "@angular/common";
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {CarSelectionComponent} from './components/car-selection/car-selection.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import {RouterModule} from '@angular/router';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,11 +31,13 @@ import {RouterModule} from '@angular/router';
     LandingPageComponent,
     SearchBoxComponent,
     FooterComponent,
-    CarSelectionComponent
+    CarSelectionComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -45,7 +48,6 @@ import {RouterModule} from '@angular/router';
     MatIconModule,
     MatButtonModule,
     NgOptimizedImage,
-    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
