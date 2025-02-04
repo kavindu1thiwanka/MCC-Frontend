@@ -1,6 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
+interface carFilter {
+  type: string;
+  seats: number;
+  gearshift: string;
+
+  orderBy: string;
+}
+
+interface filterDropdownItem {
+  name: string;
+  value: string;
+  icon?: string;
+}
+
+interface filterButton {
+  name: string;
+  dropdownItems: filterDropdownItem[];
+}
+
 @Component({
   selector: 'app-car-selection',
   standalone: false,
@@ -11,6 +30,43 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class CarSelectionComponent implements OnInit {
 
   searchParams: any = {};
+
+  filterButtonList: filterButton[] = [
+    {
+      name: 'Sort By',
+      dropdownItems: [
+        { name: 'Price low to high', value: 'car.price ASC' },
+        { name: 'Price high to low', value: 'car.price DESC' }
+      ]
+    },
+    {
+      name: 'Vehicle Type',
+      dropdownItems: [
+        { name: 'Sedan', value: 'car.type = "Sedan"' },
+        { name: 'SUV', value: 'car.type = "SUV"' },
+        { name: 'Couple', value: 'car.type = "Couple"' },
+        { name: 'Convertible', value: 'car.type = "Convertible"' },
+        { name: 'Family Car', value: 'car.type = "Family"' },
+        { name: 'Electric Vehicle', value: 'car.type = "Electric"' },
+        { name: 'Luxury Vehicle', value: 'car.type = "Luxury"' }
+      ]
+    },
+    {
+      name: 'Passengers',
+      dropdownItems: [
+        { name: '2+', value: 'car.seats > 2' },
+        { name: '4+', value: 'car.seats > 4' },
+        { name: '5+', value: 'car.seats > 5"' }
+      ]
+    },
+    {
+      name: 'Gearshift',
+      dropdownItems: [
+        { name: 'Automatic', value: 'car.gearshift = "A"' },
+        { name: 'Manual', value: 'car.gearshift = "M"' }
+      ]
+    }
+  ];
 
   carList = [
     { name: 'Tesla Model S', type: 'Electric', seats: 5, pricePerDay: 120, image: '/assets/cars/tesla-model-s.jpg' },

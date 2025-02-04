@@ -16,14 +16,6 @@
   object-fit: cover;
 }
 
-.btn-dark {
-  background: #000;
-  border: none;
-  &:hover {
-    background: #FF5F00;
-  }
-}
-
 .hover-shadow {
   transition: all 0.3s ease-in-out;
 
@@ -58,5 +50,24 @@
 
   &:hover {
     transform: translateY(-1px);
+  }
+}
+
+.filter-button {
+  background: #F4F4F9FF;
+
+  &:hover {
+    background: #e8e8ee;
+  }
+}
+
+.filter-dropdown-item {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background: #F4F4F9FF;
+
+  &:hover {
+    background: #e8e8ee;
   }
 }
