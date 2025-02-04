@@ -1,79 +1,87 @@
 <div class="search-box">
   <div class="container-fluid card shadow-lg p-4 rounded-4 gap-1">
+    <div id="demo" [ngClass]="{ 'collapse': isCollapsed }">
+      <!-- Vehicle Type Selection -->
+      <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
+        <input type="radio" class="btn-check" name="btnradio" id="btnRadioC" autocomplete="off"
+               [checked]="selectedVehicleType === 'car'" (change)="setVehicleType('car')">
+        <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioC">
+          <i class="fa fa-car" aria-hidden="true"></i>Cars
+        </label>
 
-    <!-- Vehicle Type Selection -->
-    <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
-      <input type="radio" class="btn-check" name="btnradio" id="btnRadioC" autocomplete="off"
-             [checked]="selectedVehicleType === 'car'" (change)="setVehicleType('car')">
-      <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioC">
-        <i class="fa fa-car" aria-hidden="true"></i>Cars
-      </label>
+        <input type="radio" class="btn-check" name="btnradio" id="btnRadioT" autocomplete="off"
+               [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">
+        <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioT">
+          <i class="fa fa-truck" aria-hidden="true"></i>Trucks
+        </label>
 
-      <input type="radio" class="btn-check" name="btnradio" id="btnRadioT" autocomplete="off"
-             [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">
-      <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioT">
-        <i class="fa fa-truck" aria-hidden="true"></i>Trucks
-      </label>
+        <input type="radio" class="btn-check" name="btnradio" id="btnRadioM" autocomplete="off"
+               [checked]="selectedVehicleType === 'motorcycle'" (change)="setVehicleType('motorcycle')">
+        <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioM">
+          <i class="fa fa-motorcycle" aria-hidden="true"></i>Motorcycles
+        </label>
+      </div>
 
-      <input type="radio" class="btn-check" name="btnradio" id="btnRadioM" autocomplete="off"
-             [checked]="selectedVehicleType === 'motorcycle'" (change)="setVehicleType('motorcycle')">
-      <label class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2" for="btnRadioM">
-        <i class="fa fa-motorcycle" aria-hidden="true"></i>Motorcycles
-      </label>
+      <!-- Search Form -->
+      <form [formGroup]="searchForm" class="row g-3 d-flex justify-content-center" (submit)="redirectToCarSelection(); $event.preventDefault()">
+
+        <!-- Pickup Location -->
+        <div class="col-3">
+          <label for="pickupLocation" class="form-label">Pickup</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" id="pickupLocation" class="form-control form-control-lg" placeholder="Airport, city or address"
+                   formControlName="pickupLocation">
+          </div>
+        </div>
+
+        <!-- Return Location -->
+        <div class="col-3">
+          <label for="returnLocation" class="form-label">Return</label>
+          <a *ngIf="!showReturnLocation" (click)="toggleReturnLocation()" class="d-flex mt-2 text-decoration-none return-location justify-content-start align-items-center gap-2">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Different return location
+          </a>
+          <div *ngIf="showReturnLocation" class="input-group">
+            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" id="returnLocation" class="form-control form-control-lg" placeholder="Airport, city or address"
+                   formControlName="returnLocation">
+          </div>
+        </div>
+
+        <!-- Pickup Date & Time -->
+        <div class="col-2">
+          <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
+          <div class="input-group" id="pickupDateTimeGroup">
+            <input type="date" id="pickupDate" class="form-control form-control-lg" formControlName="pickupDate">
+            <input type="time" id="pickupTime" class="form-control form-control-lg" formControlName="pickupTime">
+          </div>
+        </div>
+
+        <!-- Return Date & Time -->
+        <div class="col-2">
+          <label for="returnDateTimeGroup" class="form-label">Return date</label>
+          <div class="input-group" id="returnDateTimeGroup">
+            <input type="date" id="returnDate" class="form-control form-control-lg" formControlName="returnDate">
+            <input type="time" id="returnTime" class="form-control form-control-lg" formControlName="returnTime">
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="col-2 w-100h-100 d-flex justify-content-center align-items-end">
+          <button type="button" class="btn btn-lg px-4 w-100 mx-1 rounded-3 bg-warning" (click)="redirectToCarSelection()">
+            Show Cars
+          </button>
+        </div>
+
+      </form>
     </div>
 
-    <!-- Search Form -->
-    <form [formGroup]="searchForm" class="row g-3 d-flex justify-content-center" (submit)="redirectToCarSelection(); $event.preventDefault()">
-
-      <!-- Pickup Location -->
-      <div class="col-3">
-        <label for="pickupLocation" class="form-label">Pickup</label>
-        <div class="input-group input-group-lg">
-          <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" id="pickupLocation" class="form-control form-control-lg" placeholder="Airport, city or address"
-                 formControlName="pickupLocation">
-        </div>
-      </div>
-
-      <!-- Return Location -->
-      <div class="col-3">
-        <label for="returnLocation" class="form-label">Return</label>
-        <a *ngIf="!showReturnLocation" (click)="toggleReturnLocation()" class="d-flex mt-2 text-decoration-none return-location justify-content-start align-items-center gap-2">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          Different return location
-        </a>
-        <div *ngIf="showReturnLocation" class="input-group">
-          <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" id="returnLocation" class="form-control form-control-lg" placeholder="Airport, city or address"
-                 formControlName="returnLocation">
-        </div>
-      </div>
-
-      <!-- Pickup Date & Time -->
-      <div class="col-2">
-        <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
-        <div class="input-group" id="pickupDateTimeGroup">
-          <input type="date" id="pickupDate" class="form-control form-control-lg" formControlName="pickupDate">
-          <input type="time" id="pickupTime" class="form-control form-control-lg" formControlName="pickupTime">
-        </div>
-      </div>
-
-      <!-- Return Date & Time -->
-      <div class="col-2">
-        <label for="returnDateTimeGroup" class="form-label">Return date</label>
-        <div class="input-group" id="returnDateTimeGroup">
-          <input type="date" id="returnDate" class="form-control form-control-lg" formControlName="returnDate">
-          <input type="time" id="returnTime" class="form-control form-control-lg" formControlName="returnTime">
-        </div>
-      </div>
-
-      <!-- Search Button -->
-      <div class="col-2 w-100h-100 d-flex justify-content-center align-items-end">
-        <button type="button" class="btn btn-lg px-4 w-100 mx-1 rounded-3 bg-warning" (click)="redirectToCarSelection()">
-          Show Cars
-        </button>
-      </div>
-
-    </form>
+    <div class="d-flex justify-content-end align-items-end m-0 pt-2">
+      <button class="btn d-flex flex-row justify-content-center align-items-center gap-2"
+              type="button" (click)="isCollapsed = !isCollapsed">
+        <i class="{{isCollapsed ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up'}}" aria-hidden="true"></i> Collapse
+      </button>
+    </div>
   </div>
 </div>

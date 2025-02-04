@@ -13,6 +13,7 @@ export class SearchBoxComponent implements OnInit {
   searchForm: FormGroup;
   showReturnLocation: boolean = false;
   selectedVehicleType: string = 'car';
+  isCollapsed: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.searchForm = this.fb.group({
