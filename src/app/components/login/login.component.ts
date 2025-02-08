@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,9 @@ export class LoginComponent {
   authForm: FormGroup;
   isRegistering = false;
   showPassword = false;
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private commonService: CommonService) {
     this.authForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -33,7 +35,7 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit() {
+  async onSubmit() {
     // Mark all controls as touched to trigger validation feedback
     this.authForm.markAllAsTouched();
 
@@ -44,6 +46,19 @@ export class LoginComponent {
     // Custom validation: Confirm password check during registration
     if (this.isRegistering && this.authForm.value.password !== this.authForm.value.confirmPassword) {
       return;
+    }
+
+    this.isLoading = true;
+    if (this.isRegistering) {
+      await this.commonService.login(this.authForm.value).then((res: any) => {
+        if (res.status === 200) {
+          localStorage.setItem('token', res.body.token);
+        }
+        this.isLoading = false;
+      }).catch((e) => {
+        this.isLoading = false;
+        console.log('Error:', e);
+      });
     }
 
     console.log(this.isRegistering ? "Registering User..." : "Logging in...");

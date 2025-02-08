@@ -25,7 +25,7 @@
             <small *ngIf="authForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</small>
           </div>
         </div>
-        <button type="submit" class="btn bg-dark w-100 text-white">Login</button>
+        <button pButton type="submit" class="btn bg-dark w-100 text-white" [loading]="isLoading">Login</button>
       </div>
 
       <!-- Register Fields -->

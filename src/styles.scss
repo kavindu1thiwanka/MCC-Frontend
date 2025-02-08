@@ -1,90 +1,130 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* Custom Properties */
-:root {
-  /* Colors */
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --secondary: #64748b;
-  --accent: #f59e0b;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --info: #3b82f6;
+// Color Palette
+$primary-blue: #1E3A76;
+$accent-orange: #FF6D1F;
+$eco-green: #8CD50D;
+$neutral-white: #FFFFFF;
+$supporting-gray: #8D8D8D;
 
-  /* Neutral Colors */
-  --neutral-50: #f8fafc;
-  --neutral-100: #f1f5f9;
-  --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
-  --neutral-400: #94a3b8;
-  --neutral-500: #64748b;
-  --neutral-600: #475569;
-  --neutral-700: #e7e7e7;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
-
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-
-  /* Border Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-html, body {
-  height: 100%;
-  overflow-x: hidden;
-  font-family: "Roboto Condensed", serif;
-  font-optical-sizing: auto;
-}
-
+// Base Styles
 body {
-  margin: 0;
-  position: relative;
-  overflow-y: auto;
+  background-color: $neutral-white;
+  color: $supporting-gray;
+  font-family: 'Arial', sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+a {
+  color: $primary-blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $accent-orange;
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  color: $primary-blue;
+}
+
+button {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &.primary-btn {
+    background-color: $primary-blue;
+    color: $neutral-white;
+    padding: 12px 24px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: darken($primary-blue, 10%);
+    }
+
+    &.loading {
+      background-color: $accent-orange;
+    }
+  }
+
+  &.secondary-btn {
+    background-color: $accent-orange;
+    color: $neutral-white;
+    padding: 12px 24px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: darken($accent-orange, 10%);
+    }
+  }
+
+  &.eco-btn {
+    background-color: $eco-green;
+    color: $neutral-white;
+    padding: 12px 24px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: darken($eco-green, 10%);
+    }
+  }
+}
+
+// Card and Container Styles
+.card {
+  background-color: $neutral-white;
+  border: 1px solid $supporting-gray;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+// Form Input Styles
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid $supporting-gray;
+  border-radius: 4px;
+  font-size: 16px;
+
+  &:focus {
+    border-color: $primary-blue;
+    outline: none;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+
+  nav {
+    flex-direction: column;
+    text-align: center;
+
+    a {
+      margin: 5px 0;
+    }
+  }
+}
+
 
 
 // Effects
