@@ -1,0 +1,83 @@
+<div class="auth-container overflow-hidden">
+  <app-header class="position-absolute start-0 top-0 bg-dark" [isLandingPage]="false"></app-header>
+  <div class="auth-box">
+    <div class="auth-header">
+      <h2>{{ isRegistering ? 'Register' : 'Login' }}</h2>
+    </div>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" autocomplete="off">
+      <!-- Login Fields -->
+      <div *ngIf="!isRegistering">
+        <div class="input-group">
+          <input matInput type="email" placeholder="Email" formControlName="email">
+          <div *ngIf="isFieldInvalid('email')" class="error-message">
+            <small *ngIf="authForm.get('email')?.hasError('required')">Email is required</small>
+            <small *ngIf="authForm.get('email')?.hasError('email')">Please enter a valid email</small>
+          </div>
+        </div>
+        <div class="input-group password-group">
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password">
+          <button type="button" class="toggle-password" (click)="togglePassword()">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+          <div *ngIf="isFieldInvalid('password')" class="error-message">
+            <small *ngIf="authForm.get('password')?.hasError('required')">Password is required</small>
+            <small *ngIf="authForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</small>
+          </div>
+        </div>
+        <button type="submit" class="btn bg-dark w-100 text-white">Login</button>
+      </div>
+
+      <!-- Register Fields -->
+      <div *ngIf="isRegistering">
+        <div class="input-group">
+          <input matInput type="text" placeholder="First Name" formControlName="firstName" autocomplete="off">
+          <div *ngIf="isFieldInvalid('firstName')" class="error-message">
+            <small *ngIf="authForm.get('firstName')?.hasError('required')">First Name is required</small>
+          </div>
+        </div>
+        <div class="input-group">
+          <input matInput type="text" placeholder="Last Name" formControlName="lastName" autocomplete="off">
+          <div *ngIf="isFieldInvalid('lastName')" class="error-message">
+            <small *ngIf="authForm.get('lastName')?.hasError('required')">Last Name is required</small>
+          </div>
+        </div>
+        <div class="input-group">
+          <input matInput type="email" placeholder="Email" formControlName="email" autocomplete="off">
+          <div *ngIf="isFieldInvalid('email')" class="error-message">
+            <small *ngIf="authForm.get('email')?.hasError('required')">Email is required</small>
+            <small *ngIf="authForm.get('email')?.hasError('email')">Please enter a valid email</small>
+          </div>
+        </div>
+        <div class="input-group">
+          <input matInput type="tel" placeholder="Phone Number" formControlName="phone" autocomplete="off">
+          <div *ngIf="isFieldInvalid('phone')" class="error-message">
+            <small *ngIf="authForm.get('phone')?.hasError('required')">Phone Number is required</small>
+          </div>
+        </div>
+        <div class="input-group password-group">
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" autocomplete="new-password">
+          <button type="button" class="toggle-password" (click)="togglePassword()">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+          <div *ngIf="isFieldInvalid('password')" class="error-message">
+            <small *ngIf="authForm.get('password')?.hasError('required')">Password is required</small>
+            <small *ngIf="authForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</small>
+          </div>
+        </div>
+        <div class="input-group">
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Confirm Password" formControlName="confirmPassword" autocomplete="off">
+          <div *ngIf="confirmPasswordError" class="error-message">
+            <small>{{ confirmPasswordError }}</small>
+          </div>
+        </div>
+        <button type="submit" class="btn bg-dark w-100 text-white">Register</button>
+      </div>
+    </form>
+
+    <p class="toggle-text">
+      {{ isRegistering ? 'Already have an account?' : "Don't have an account?" }}
+      <a href="#" (click)="toggleForm($event)">{{ isRegistering ? 'Login' : 'Register' }}</a>
+    </p>
+  </div>
+</div>

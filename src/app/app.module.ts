@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Material UI Imports
@@ -20,9 +20,10 @@ import {NgOptimizedImage} from "@angular/common";
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {CarSelectionComponent} from './components/car-selection/car-selection.component';
-import { LoginPageComponent } from './components/login-page/login-page.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
+import { LoginComponent } from './components/login/login.component';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import {AppRoutingModule} from './app-routing.module';
     SearchBoxComponent,
     FooterComponent,
     CarSelectionComponent,
-    LoginPageComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +49,10 @@ import {AppRoutingModule} from './app-routing.module';
     MatIconModule,
     MatButtonModule,
     NgOptimizedImage,
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

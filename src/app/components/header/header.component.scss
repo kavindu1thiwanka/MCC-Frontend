@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&display=swap');
 
 .header {
-  //position: absolute;
-  //top: 0;
   padding: 1rem 9rem;
   z-index: 1000;
 }
@@ -11,3 +9,16 @@ h1 {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 4.5rem;
 }
+
+.back-button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  margin: 0;
+}
+
+
