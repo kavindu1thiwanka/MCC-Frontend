@@ -13,15 +13,17 @@ export class LoginComponent {
   isRegistering = false;
   showPassword = false;
   isLoading = false;
+  successfulRegistration = false;
 
   constructor(private fb: FormBuilder, private commonService: CommonService) {
     this.authForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
+      contactNumber: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
+      confirmPassword: [null, [Validators.required]],
+      identifier: [null]
     });
   }
 
@@ -36,23 +38,41 @@ export class LoginComponent {
   }
 
   async onSubmit() {
-    // Mark all controls as touched to trigger validation feedback
     this.authForm.markAllAsTouched();
 
-    if (this.authForm.invalid) {
-      return;
-    }
+    if (this.isRegistering) {
+      if (this.authForm.invalid) {
+        return;
+      }
 
-    // Custom validation: Confirm password check during registration
-    if (this.isRegistering && this.authForm.value.password !== this.authForm.value.confirmPassword) {
-      return;
+      if (this.authForm.value.password !== this.authForm.value.confirmPassword) {
+        return;
+      }
+    } else {
+      if (this.authForm.get('email')?.invalid || this.authForm.get('password')?.invalid) {
+        return;
+      }
     }
 
     this.isLoading = true;
+    this.authForm.value.identifier = 'BMSCR8754';
+
     if (this.isRegistering) {
+      await this.commonService.registerUser(this.authForm.value).then((res: any) => {
+        if (res.status === 201) {
+          this.authForm.reset();
+          this.isLoading = false;
+          this.successfulRegistration = true;
+        }
+      }).catch((e) => {
+        this.isLoading = false;
+        console.log('Error:', e);
+      });
+    } else {
       await this.commonService.login(this.authForm.value).then((res: any) => {
         if (res.status === 200) {
           localStorage.setItem('token', res.body.token);
+
         }
         this.isLoading = false;
       }).catch((e) => {
@@ -61,7 +81,6 @@ export class LoginComponent {
       });
     }
 
-    console.log(this.isRegistering ? "Registering User..." : "Logging in...");
     console.log(this.authForm.value);
   }
 

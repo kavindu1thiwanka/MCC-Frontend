@@ -2,10 +2,11 @@
   <app-header class="position-absolute start-0 top-0 bg-dark" [isLandingPage]="false"></app-header>
   <div class="auth-box">
     <div class="auth-header">
-      <h2>{{ isRegistering ? 'Register' : 'Login' }}</h2>
+      <h2 *ngIf="!successfulRegistration">{{ isRegistering ? 'Register' : 'Login' }}</h2>
+      <h2 *ngIf="successfulRegistration">Registration Successful</h2>
     </div>
 
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <form *ngIf="!successfulRegistration" [formGroup]="authForm" (ngSubmit)="onSubmit()" autocomplete="off">
       <!-- Login Fields -->
       <div *ngIf="!isRegistering">
         <div class="input-group">
@@ -22,7 +23,6 @@
           </button>
           <div *ngIf="isFieldInvalid('password')" class="error-message">
             <small *ngIf="authForm.get('password')?.hasError('required')">Password is required</small>
-            <small *ngIf="authForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</small>
           </div>
         </div>
         <button pButton type="submit" class="btn bg-dark w-100 text-white" [loading]="isLoading">Login</button>
@@ -50,9 +50,9 @@
           </div>
         </div>
         <div class="input-group">
-          <input matInput type="tel" placeholder="Phone Number" formControlName="phone" autocomplete="off">
+          <input matInput type="tel" placeholder="Contact Number" formControlName="contactNumber" autocomplete="off">
           <div *ngIf="isFieldInvalid('phone')" class="error-message">
-            <small *ngIf="authForm.get('phone')?.hasError('required')">Phone Number is required</small>
+            <small *ngIf="authForm.get('phone')?.hasError('required')">Contact Number is required</small>
           </div>
         </div>
         <div class="input-group password-group">
@@ -75,9 +75,11 @@
       </div>
     </form>
 
-    <p class="toggle-text">
+    <p class="toggle-text" *ngIf="!successfulRegistration">
       {{ isRegistering ? 'Already have an account?' : "Don't have an account?" }}
       <a href="#" (click)="toggleForm($event)">{{ isRegistering ? 'Login' : 'Register' }}</a>
     </p>
+
+    <p *ngIf="successfulRegistration">We received your registration details. Please check your email for confirmation.</p>
   </div>
 </div>

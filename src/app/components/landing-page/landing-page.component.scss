@@ -1,22 +1,6 @@
-// Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-// Custom Variables
-:root {
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --primary-soft: rgba(37, 99, 235, 0.1);
-  --section-spacing: 7rem;
-  --card-spacing: 2rem;
-}
-
-// Global Styles
-body {
-  font-family: 'Poppins', sans-serif;
-}
-
-// Hero Section
 .hero-section {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/assets/images/Car c1.jpg') center/cover no-repeat;

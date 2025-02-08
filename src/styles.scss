@@ -16,64 +16,6 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-a {
-  color: $primary-blue;
-  text-decoration: none;
-
-  &:hover {
-    color: $accent-orange;
-  }
-}
-
-h1, h2, h3, h4, h5 {
-  color: $primary-blue;
-}
-
-button {
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &.primary-btn {
-    background-color: $primary-blue;
-    color: $neutral-white;
-    padding: 12px 24px;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: darken($primary-blue, 10%);
-    }
-
-    &.loading {
-      background-color: $accent-orange;
-    }
-  }
-
-  &.secondary-btn {
-    background-color: $accent-orange;
-    color: $neutral-white;
-    padding: 12px 24px;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: darken($accent-orange, 10%);
-    }
-  }
-
-  &.eco-btn {
-    background-color: $eco-green;
-    color: $neutral-white;
-    padding: 12px 24px;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: darken($eco-green, 10%);
-    }
-  }
-}
-
 // Card and Container Styles
 .card {
   background-color: $neutral-white;
@@ -84,12 +26,6 @@ button {
   margin: 20px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 // Form Input Styles
 input, select, textarea {
   width: 100%;
@@ -98,34 +34,7 @@ input, select, textarea {
   border: 1px solid $supporting-gray;
   border-radius: 4px;
   font-size: 16px;
-
-  &:focus {
-    border-color: $primary-blue;
-    outline: none;
-  }
 }
-
-// Responsive Design
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-
-  header h1 {
-    font-size: 24px;
-  }
-
-  nav {
-    flex-direction: column;
-    text-align: center;
-
-    a {
-      margin: 5px 0;
-    }
-  }
-}
-
-
 
 // Effects
 
