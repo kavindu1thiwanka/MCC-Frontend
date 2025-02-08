@@ -25,7 +25,7 @@
             <small *ngIf="authForm.get('password')?.hasError('required')">Password is required</small>
           </div>
         </div>
-        <button pButton type="submit" class="btn bg-dark w-100 text-white" [loading]="isLoading">Login</button>
+        <button pButton type="submit" class="btn bg-dark w-100 text-white" [disabled]="isLoading" [loading]="isLoading">Login</button>
       </div>
 
       <!-- Register Fields -->
@@ -71,7 +71,7 @@
             <small>{{ confirmPasswordError }}</small>
           </div>
         </div>
-        <button type="submit" class="btn bg-dark w-100 text-white">Register</button>
+        <button pButton type="submit" class="btn bg-dark w-100 text-white" [disabled]="isLoading" [loading]="isLoading">Register</button>
       </div>
     </form>
 

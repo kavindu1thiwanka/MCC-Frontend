@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
+import {AppConstant} from '../../shared/utils/app-constant';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent {
   isLoading = false;
   successfulRegistration = false;
 
-  constructor(private fb: FormBuilder, private commonService: CommonService) {
+  constructor(private fb: FormBuilder, private commonService: CommonService, private router: Router) {
     this.authForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
@@ -55,7 +57,7 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    this.authForm.value.identifier = 'BMSCR8754';
+    this.authForm.value.identifier = AppConstant.IDENTIFIER_ROLE_CUSTOMER;
 
     if (this.isRegistering) {
       await this.commonService.registerUser(this.authForm.value).then((res: any) => {
@@ -70,9 +72,14 @@ export class LoginComponent {
       });
     } else {
       await this.commonService.login(this.authForm.value).then((res: any) => {
+        console.log(res)
         if (res.status === 200) {
           localStorage.setItem('token', res.body.token);
-
+          if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_CUSTOMER) {
+            this.router.navigate(['/#']);
+          } else if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_DRIVER) {
+            this.router.navigate(['/#/driver']);
+          }
         }
         this.isLoading = false;
       }).catch((e) => {
@@ -80,8 +87,6 @@ export class LoginComponent {
         console.log('Error:', e);
       });
     }
-
-    console.log(this.authForm.value);
   }
 
   // Custom getter for password confirmation error
