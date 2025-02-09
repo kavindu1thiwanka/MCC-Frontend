@@ -1,0 +1,16 @@
+<div class="confirmation-container">
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && confirmed" class="confirmation-message">
+    <h2>Registration Complete</h2>
+    <p>Your account has been successfully verified.</p>
+  </div>
+
+  <div *ngIf="!loading && !confirmed" class="failed-message">
+    <h2>Registration Failed</h2>
+    <p>Something went wrong. Please try again later.</p>
+  </div>
+</div>

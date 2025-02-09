@@ -26,6 +26,12 @@ export class CommonService {
     ).toPromise();
   }
 
+  confirmUserEmail(uuid: any) {
+    return this.httpClient.get(ApiEndPoint.USER_V1 + '/confirm?uuid=' + uuid,
+      {observe: 'response', withCredentials: false}
+    ).toPromise();
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['#']);

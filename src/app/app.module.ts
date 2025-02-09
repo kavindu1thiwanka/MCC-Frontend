@@ -26,6 +26,7 @@ import {LoginComponent} from './components/login/login.component';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {ButtonDirective} from "primeng/button";
 import {HttpClientModule} from '@angular/common/http';
+import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {HttpClientModule} from '@angular/common/http';
     SearchBoxComponent,
     FooterComponent,
     CarSelectionComponent,
-    LoginComponent
+    LoginComponent,
+    UserConfirmationComponent
   ],
   imports: [
     BrowserModule,
