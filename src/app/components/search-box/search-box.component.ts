@@ -21,9 +21,7 @@ export class SearchBoxComponent implements OnInit {
       pickupLocation: [''],
       returnLocation: [''],
       pickupDate: [this.getCurrentDate()],
-      pickupTime: [this.getCurrentTime()],
-      returnDate: [this.getCurrentDate()],
-      returnTime: [this.getCurrentTime()]
+      returnDate: [this.getCurrentDate()]
     });
   }
 
@@ -31,12 +29,7 @@ export class SearchBoxComponent implements OnInit {
   }
 
   getCurrentDate(): string {
-    return new Date().toISOString().split('T')[0];
-  }
-
-  getCurrentTime(): string {
-    const now = new Date();
-    return now.toTimeString().slice(0, 5); // Extract HH:MM
+    return new Date().toISOString().split('Z')[0];
   }
 
   toggleReturnLocation(): void {

@@ -63,8 +63,7 @@
         <div class="col-2">
           <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
           <div class="input-group" id="pickupDateTimeGroup">
-            <input type="date" id="pickupDate" class="form-control form-control-lg" formControlName="pickupDate">
-            <input type="time" id="pickupTime" class="form-control form-control-lg" formControlName="pickupTime">
+            <input type="datetime-local" id="pickupDate" class="form-control form-control-lg" formControlName="pickupDate">
           </div>
         </div>
 
@@ -72,8 +71,7 @@
         <div class="col-2">
           <label for="returnDateTimeGroup" class="form-label">Return date</label>
           <div class="input-group" id="returnDateTimeGroup">
-            <input type="date" id="returnDate" class="form-control form-control-lg" formControlName="returnDate">
-            <input type="time" id="returnTime" class="form-control form-control-lg" formControlName="returnTime">
+            <input type="datetime-local" id="returnDate" class="form-control form-control-lg" formControlName="returnDate">
           </div>
         </div>
 
@@ -88,6 +86,43 @@
       </form>
     </div>
 
+    <!-- Collapsed Box -->
+    <div *ngIf="isCollapsed" class="d-grid collapsed-box">
+      <div class="col-1">
+        <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
+          <input type="radio" class="btn-check" id="btnRadioCollapsed" autocomplete="off" checked>
+          <label
+            class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
+            for="btnRadioCollapsed">
+            <i class="fa fa-{{selectedVehicleType}}" aria-hidden="true"></i>{{ selectedVehicleType }}
+          </label>
+        </div>
+      </div>
+      <section class="col-11">
+        <div class="row g-3 d-flex justify-content-center">
+          <!-- Show Pickup Location -->
+          <div class="col-3">
+            <label for="pickupLocationCollapsed" class="form-label">Pickup Location :</label>
+            <span id="pickupLocationCollapsed"> {{ searchForm.get('pickupLocation')?.value }}</span>
+          </div>
+
+          <!-- Show Return Location -->
+          <div class="col-3">
+            <label for="returnLocationCollapsed" class="form-label">Return Location :</label>
+            <span *ngIf="showReturnLocation" id="returnLocationCollapsed">{{ searchForm.get('returnLocation')?.value }}</span>
+            <span *ngIf="!showReturnLocation"> {{ searchForm.get('pickupLocation')?.value }}</span>
+          </div>
+
+          <!-- Show Pickup Date & Time -->
+          <div class="col-5">
+            <label for="pickupDateCollapsed" class="form-label">Pickup Date :</label>
+            <span id="pickupDateCollapsed"> {{ searchForm.get('pickupDate')?.value }} {{ searchForm.get('pickupTime')?.value }} <> {{ searchForm.get('returnDate')?.value }} {{ searchForm.get('returnTime')?.value }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Collapse/Expand Button -->
     <div class="d-flex justify-content-end align-items-end m-0 pt-2">
       <button class="btn d-flex flex-row justify-content-center align-items-center gap-2"
               type="button" (click)="isCollapsed = !isCollapsed">
