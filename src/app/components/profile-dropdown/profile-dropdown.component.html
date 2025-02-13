@@ -1,0 +1,19 @@
+<div class="dropdown">
+  <a class="dropdown-toggle text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center"
+     id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-circle-user"></i>
+    {{ userFullName }}
+<!--    <i class="fa fa-angle-down" style="font-size: 0.7rem" aria-hidden="true"></i>-->
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileDropdown">
+    <li><a class="dropdown-item" href="#">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      Profile
+    </a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item text-danger" (click)="logout()">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+      Logout
+    </a></li>
+  </ul>
+</div>

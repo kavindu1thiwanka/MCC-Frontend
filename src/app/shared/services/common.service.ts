@@ -33,8 +33,8 @@ export class CommonService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['#']);
+    localStorage.clear();
+    location.reload();
   }
 
 }

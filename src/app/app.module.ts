@@ -27,6 +27,7 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {ButtonDirective} from "primeng/button";
 import {HttpClientModule} from '@angular/common/http';
 import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
+import { ProfileDropdownComponent } from './components/profile-dropdown/profile-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserConfirmationComponent } from './components/user-confirmation/user-c
     FooterComponent,
     CarSelectionComponent,
     LoginComponent,
-    UserConfirmationComponent
+    UserConfirmationComponent,
+    ProfileDropdownComponent
   ],
   imports: [
     BrowserModule,

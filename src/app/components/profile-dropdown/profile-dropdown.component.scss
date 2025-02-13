@@ -1,0 +1,18 @@
+.dropdown-menu {
+  min-width: 200px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.dropdown-toggle::after {
+  display:none;
+}

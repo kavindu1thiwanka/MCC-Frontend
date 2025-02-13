@@ -3,22 +3,23 @@
     <button *ngIf="!isLandingPage" class="btn btn-secondary back-button d-flex gap-2 justify-content-center align-items-center"
             (click)="goBack()"><i class="fa-solid fa-angle-left"></i></button>
     <a class="navbar-brand" href="#">
-      <img *ngIf="isLandingPage" ngSrc="assets/logo/6756254_268.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-      Bootstrap
+      <img *ngIf="isLandingPage" ngSrc="assets/logo/Logo.svg" alt="Logo" width="50" height="30" class="d-inline-block align-text-top">
+      Mega City Cab
     </a>
-    <div *ngIf="isLandingPage" class="right-nav d-flex gap-4">
-      <a href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+    <div *ngIf="isLandingPage" class="d-flex gap-4">
+      <a *ngIf="!userLoggedIn" href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
         <i class="fa-solid fa-user-tie"></i>
         Driver
       </a>
-      <a href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+      <a *ngIf="userLoggedIn" href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
         <i class="fa-solid fa-car"></i>
         Manage bookings
       </a>
-      <a href="#/login" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+      <a *ngIf="!userLoggedIn" href="#/login" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
         <i class="fa fa-user" aria-hidden="true"></i>
         Log in | Register
       </a>
+      <app-profile-dropdown *ngIf="userLoggedIn"></app-profile-dropdown>
     </div>
   </div>
 </header>
