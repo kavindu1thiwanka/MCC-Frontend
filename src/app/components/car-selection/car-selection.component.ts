@@ -5,6 +5,8 @@ interface carFilter {
   type: string;
   seats: number;
   gearshift: string;
+  pickUpDate: any;
+  pickUpLocation: any;
 
   orderBy: string;
 }
