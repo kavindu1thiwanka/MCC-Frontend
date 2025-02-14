@@ -90,4 +90,15 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
+  selectPickupSuggestion(suggestion: any): void {
+    this.searchForm.patchValue({ pickupLocation: suggestion.description });
+    this.pickupSuggestions = [];
+  }
+
+  selectReturnSuggestion(suggestion: any): void {
+    this.searchForm.patchValue({ returnLocation: suggestion.description });
+    this.returnSuggestions = [];
+  }
+
+
 }

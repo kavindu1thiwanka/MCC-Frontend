@@ -43,7 +43,7 @@
           </div>
           <div *ngIf="pickupSuggestions.length > 0" class="dropdown-suggestions">
             <ul>
-              <li *ngFor="let suggestion of pickupSuggestions" (click)="searchForm.patchValue({pickupLocation: suggestion.description})">
+              <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
                 {{ suggestion.description }}
               </li>
             </ul>
@@ -66,7 +66,7 @@
           </div>
           <div *ngIf="returnSuggestions.length > 0" class="dropdown-suggestions">
             <ul>
-              <li *ngFor="let suggestion of returnSuggestions" (click)="searchForm.patchValue({returnLocation: suggestion.description})">
+              <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
                 {{ suggestion.description }}
               </li>
             </ul>
