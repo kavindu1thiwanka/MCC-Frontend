@@ -1,6 +1,14 @@
 .car-selection {
-  position: relative;
-  z-index: 10000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #fff;
+  flex-direction: column;
+}
+
+.detail-section {
+  margin-top: 4rem;
 }
 
 .card {
@@ -66,8 +74,20 @@
   justify-content: start;
   align-items: center;
   background: #F4F4F9FF;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background: #e8e8ee;
   }
 }
+
+.selected-filter {
+  background-color: black !important;
+  color: white !important;
+}
+
+.selected-filter:hover {
+  background-color: #333 !important;
+}
+

@@ -1,42 +1,54 @@
 <div class="container py-5 car-selection">
-  <div class="row mb-4">
-    <div class="col-12 d-flex flex-column justify-content-center align-items-start">
-      <h2 class="text-center fw-bold mb-2">Choose Your Desired Car</h2>
-      <p class="text-center text-secondary mb-4">Showing results for your search</p>
-    </div>
-  </div>
-
-  <!-- Filter Section -->
-  <div class="row mb-5">
-    <div class="col-12 d-flex flex-row justify-content-start align-items-center overflow-x-auto gap-2">
-      <div *ngFor="let btn of filterButtonList">
-        <button class="btn dropdown-toggle rounded-5 filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{btn.name}}
-        </button>
-        <ul class="dropdown-menu rounded-3 p-1">
-          <li *ngFor="let data of btn.dropdownItems" class="dropdown-item filter-dropdown-item p-3 rounded-3 mb-1">{{data.name}}</li>
-        </ul>
+  <app-header class="position-absolute start-0 top-0 bg-dark" [isLandingPage]="false"></app-header>
+  <section class="detail-section">
+    <div class="row mb-4">
+      <div class="col-12 d-flex flex-column justify-content-center align-items-start">
+        <h2 class="text-center fw-bold mb-2">Choose Your Desired Car</h2>
+        <p class="text-center text-secondary mb-4">Showing results for your search</p>
       </div>
     </div>
-  </div>
 
-  <div class="row g-4">
-    <div *ngFor="let car of carList" class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100 shadow-sm border-0 rounded-3 hover-shadow">
-        <img [src]="car.image" class="card-img-top object-fit-cover" style="height: 200px;" [alt]="car.name">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold mb-2">{{ car.name }}</h5>
-          <div class="d-flex align-items-center mb-3">
-            <span class="badge bg-primary me-2">{{ car.type }}</span>
-            <span class="badge bg-secondary">{{ car.seats }} Seats</span>
-          </div>
-          <p class="card-text fs-4 fw-bold text-primary mb-3">${{ car.pricePerDay }} <small
-            class="fs-6 text-secondary fw-normal">/ Day</small></p>
-          <button class="btn btn-primary mt-auto w-100" (click)="selectCar(car)">
-            <i class="fas fa-car me-2"></i>Select Vehicle
+    <!-- Filter Section -->
+    <div class="row mb-5">
+      <div class="col-12 d-flex flex-row justify-content-start align-items-center overflow-x-auto gap-2">
+        <div *ngFor="let btn of filterButtonList">
+          <button class="btn dropdown-toggle rounded-5 filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{btn.name}}
           </button>
+          <ul class="dropdown-menu rounded-3 p-1">
+            <li *ngFor="let data of btn.dropdownItems"
+                class="dropdown-item filter-dropdown-item p-3 rounded-3 mb-1"
+                [ngClass]="{'selected-filter': isFilterSelected(btn.name, data)}"
+                (click)="applyFilter(btn.name, data)">
+              {{data.name}}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Car List -->
+    <div *ngIf="carList && carList > 0" class="row g-4">
+      <div *ngFor="let car of carList" class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 hover-shadow">
+          <img [src]="car.image" class="card-img-top object-fit-cover" style="height: 200px;" [alt]="car.name">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold mb-2">{{ car.name }}</h5>
+            <div class="d-flex align-items-center mb-3">
+              <span class="badge bg-primary me-2">{{ car.type }}</span>
+              <span class="badge bg-secondary">{{ car.seats }} Seats</span>
+            </div>
+            <p class="card-text fs-4 fw-bold text-primary mb-3">${{ car.pricePerDay }} <small
+              class="fs-6 text-secondary fw-normal">/ Day</small></p>
+            <button class="btn btn-primary mt-auto w-100" (click)="selectCar(car)">
+              <i class="fas fa-car me-2"></i>Select Vehicle
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!carList || carList == 0">
+      Vehicle not available
+    </div>
+  </section>
 </div>
