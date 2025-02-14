@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LocationService } from '../../shared/services/location.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LocationService} from '../../shared/services/location.service';
 
 @Component({
   selector: 'app-search-box',
@@ -28,10 +28,12 @@ export class SearchBoxComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getCurrentDate(): string {
-    return new Date().toISOString().split('Z')[0];
+    const date = new Date().toISOString().split('Z')[0].split(':');
+    return date[0] + ':' + date[1];
   }
 
   toggleReturnLocation(): void {
@@ -50,7 +52,7 @@ export class SearchBoxComponent implements OnInit {
 
   setVehicleType(type: string): void {
     this.selectedVehicleType = type;
-    this.searchForm.patchValue({ vehicleType: type });
+    this.searchForm.patchValue({vehicleType: type});
   }
 
   redirectToCarSelection(): void {
@@ -105,12 +107,12 @@ export class SearchBoxComponent implements OnInit {
   }
 
   selectPickupSuggestion(suggestion: any): void {
-    this.searchForm.patchValue({ pickupLocation: suggestion.description });
+    this.searchForm.patchValue({pickupLocation: suggestion.description});
     this.pickupSuggestions = [];
   }
 
   selectReturnSuggestion(suggestion: any): void {
-    this.searchForm.patchValue({ returnLocation: suggestion.description });
+    this.searchForm.patchValue({returnLocation: suggestion.description});
     this.returnSuggestions = [];
   }
 }
