@@ -109,7 +109,8 @@
           <label
             class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
             for="btnRadioCollapsed">
-            <i class="fa fa-{{selectedVehicleType}}" aria-hidden="true"></i>{{ selectedVehicleType }}
+            <i class="fa fa-{{selectedVehicleType}}" aria-hidden="true"></i>
+            {{ selectedVehicleType == 'car' ? 'Cars' : selectedVehicleType == 'truck' ? 'Trucks' : 'Motorcycles' }}
           </label>
         </div>
       </div>
