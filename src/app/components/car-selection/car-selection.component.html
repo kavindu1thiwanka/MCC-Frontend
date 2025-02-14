@@ -12,7 +12,8 @@
     <div class="row mb-5">
       <div class="col-12 d-flex flex-row justify-content-start align-items-center overflow-x-auto gap-2">
         <div *ngFor="let btn of filterButtonList">
-          <button class="btn dropdown-toggle rounded-5 filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn dropdown-toggle rounded-5 filter-button" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false" [ngClass]="{'selected-filter': isDropdownItemSelected(btn.name)}">
             {{btn.name}}
           </button>
           <ul class="dropdown-menu rounded-3 p-1">
@@ -24,6 +25,10 @@
             </li>
           </ul>
         </div>
+        <a *ngIf="filterDto.filters && filterDto.filters.length > 0"
+           class="mx-2 text-decoration-none text-dark fw-semibold" role="button" (click)="clearFilter()">
+          Clear Filters
+        </a>
       </div>
     </div>
 

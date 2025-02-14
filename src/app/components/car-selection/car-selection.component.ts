@@ -13,7 +13,6 @@ interface CommonFilterDto {
 interface filterDropdownItem {
   name: string;
   value: string;
-  icon?: string;
 }
 
 interface filterButton {
@@ -43,8 +42,8 @@ export class CarSelectionComponent implements OnInit {
     {
       name: 'Sort By',
       dropdownItems: [
-        {name: 'Price low to high', value: 'car.price ASC'},
-        {name: 'Price high to low', value: 'car.price DESC'}
+        {name: 'Price low to high', value: 'car.priceForDay ASC'},
+        {name: 'Price high to low', value: 'car.priceForDay DESC'}
       ]
     },
     {
@@ -120,6 +119,10 @@ export class CarSelectionComponent implements OnInit {
     return this.selectedFilters[filterName] === filterItem.value;
   }
 
+  isDropdownItemSelected(filterName: string): boolean {
+    return this.selectedFilters[filterName] != undefined || this.selectedFilters[filterName] != null;
+  }
+
   async getCarList() {
     await this.vehicleService.getVehicleList(this.filterDto).then(res => {
       if (res?.status === 200 && res.body) {
@@ -134,5 +137,10 @@ export class CarSelectionComponent implements OnInit {
     alert(`You selected ${car.name}`);
     // Redirect to car details page (optional)
     // this.router.navigate(['/car-details'], { queryParams: { carName: car.name } });
+  }
+
+  clearFilter() {
+    this.selectedFilters = {};
+    this.filterDto.filters = [];
   }
 }
