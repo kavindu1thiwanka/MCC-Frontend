@@ -12,3 +12,29 @@
 .return-location {
   color: #828287;
 }
+
+.dropdown-suggestions {
+  position: absolute;
+  background-color: white;
+  max-height: 200px;
+  min-width: 40%;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  z-index: 999;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}

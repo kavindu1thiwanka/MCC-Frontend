@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import {LocationService} from '../../shared/services/location.service';
 
 @Component({
   selector: 'app-search-box',
@@ -14,8 +15,10 @@ export class SearchBoxComponent implements OnInit {
   showReturnLocation: boolean = false;
   selectedVehicleType: string = 'car';
   isCollapsed: boolean = false;
+  pickupSuggestions: any[] = [];
+  returnSuggestions: any[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService) {
     this.searchForm = this.fb.group({
       vehicleType: ['car'],
       pickupLocation: [''],
@@ -25,8 +28,7 @@ export class SearchBoxComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getCurrentDate(): string {
     return new Date().toISOString().split('Z')[0];
@@ -42,16 +44,50 @@ export class SearchBoxComponent implements OnInit {
   }
 
   redirectToCarSelection() {
-    console.log('Redirecting to car selection...');
     this.router.navigate(['/cars'], {
       queryParams: {
         pickup: this.searchForm.value.pickupLocation,
         return: this.searchForm.value.returnLocation,
         pickupDate: this.searchForm.value.pickupDate,
-        pickupTime: this.searchForm.value.pickupTime,
-        returnDate: this.searchForm.value.returnDate,
-        returnTime: this.searchForm.value.returnTime
+        returnDate: this.searchForm.value.returnDate
       }
     });
   }
+
+  onPickupLocationChange(event: Event): void {
+    const input = event.target as HTMLInputElement;  // Cast to HTMLInputElement
+    const query = input.value;  // Now you can access `value` safely
+
+    if (query) {
+      this.locationService.getLocationSuggestions(query).subscribe(
+        (data) => {
+          this.pickupSuggestions = data;  // Adjust according to API response structure
+        },
+        (error) => {
+          console.error('Error fetching location suggestions', error);
+        }
+      );
+    } else {
+      this.pickupSuggestions = [];
+    }
+  }
+
+  onReturnLocationChange(event: Event): void {
+    const input = event.target as HTMLInputElement;  // Cast to HTMLInputElement
+    const query = input.value;  // Now you can access `value` safely
+
+    if (query) {
+      this.locationService.getLocationSuggestions(query).subscribe(
+        (data) => {
+          this.returnSuggestions = data;  // Adjust according to API response structure
+        },
+        (error) => {
+          console.error('Error fetching location suggestions', error);
+        }
+      );
+    } else {
+      this.returnSuggestions = [];
+    }
+  }
+
 }

@@ -39,7 +39,14 @@
             <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
             <input type="text" id="pickupLocation" class="form-control form-control-lg"
                    placeholder="Airport, city or address"
-                   formControlName="pickupLocation">
+                   formControlName="pickupLocation" (input)="onPickupLocationChange($event)">
+          </div>
+          <div *ngIf="pickupSuggestions.length > 0" class="dropdown-suggestions">
+            <ul>
+              <li *ngFor="let suggestion of pickupSuggestions" (click)="searchForm.patchValue({pickupLocation: suggestion.description})">
+                {{ suggestion.description }}
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -55,9 +62,17 @@
             <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
             <input type="text" id="returnLocation" class="form-control form-control-lg"
                    placeholder="Airport, city or address"
-                   formControlName="returnLocation">
+                   formControlName="returnLocation" (input)="onReturnLocationChange($event)">
+          </div>
+          <div *ngIf="returnSuggestions.length > 0" class="dropdown-suggestions">
+            <ul>
+              <li *ngFor="let suggestion of returnSuggestions" (click)="searchForm.patchValue({returnLocation: suggestion.description})">
+                {{ suggestion.description }}
+              </li>
+            </ul>
           </div>
         </div>
+
 
         <!-- Pickup Date & Time -->
         <div class="col-2">
