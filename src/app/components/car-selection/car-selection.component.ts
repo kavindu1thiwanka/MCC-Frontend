@@ -5,8 +5,6 @@ import {AppConstant} from '../../shared/utils/app-constant';
 
 interface CommonFilterDto {
   sortBy: string;
-  pickUpDate: any;
-  returnDate: any;
   filters: string[];
 }
 
@@ -31,8 +29,6 @@ export class CarSelectionComponent implements OnInit {
   searchParams: any = {};
   filterDto: CommonFilterDto = {
     sortBy: '',
-    pickUpDate: new Date(),
-    returnDate: new Date(),
     filters: []
   };
 
