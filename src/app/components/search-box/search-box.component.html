@@ -124,7 +124,7 @@
           <!-- Show Return Location -->
           <div class="col-3">
             <label for="returnLocationCollapsed" class="form-label">Return Location :</label>
-            <span *ngIf="showReturnLocation" id="returnLocationCollapsed">{{ searchForm.get('returnLocation')?.value }}</span>
+            <span *ngIf="showReturnLocation" id="returnLocationCollapsed"> {{ searchForm.get('returnLocation')?.value }}</span>
             <span *ngIf="!showReturnLocation"> {{ searchForm.get('pickupLocation')?.value }}</span>
           </div>
 
