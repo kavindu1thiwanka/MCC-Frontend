@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {LocationService} from '../../shared/services/location.service';
+import { LocationService } from '../../shared/services/location.service';
 
 @Component({
   selector: 'app-search-box',
@@ -12,7 +12,7 @@ import {LocationService} from '../../shared/services/location.service';
 export class SearchBoxComponent implements OnInit {
 
   searchForm: FormGroup;
-  showReturnLocation: boolean = false;
+  differentReturnLocation: boolean = false;
   selectedVehicleType: string = 'car';
   isCollapsed: boolean = false;
   pickupSuggestions: any[] = [];
@@ -21,10 +21,10 @@ export class SearchBoxComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService) {
     this.searchForm = this.fb.group({
       vehicleType: ['car'],
-      pickupLocation: [''],
+      pickupLocation: ['', Validators.required],
       returnLocation: [''],
-      pickupDate: [this.getCurrentDate()],
-      returnDate: [this.getCurrentDate()]
+      pickupDate: [this.getCurrentDate(), Validators.required],
+      returnDate: [this.getCurrentDate(), Validators.required]
     });
   }
 
@@ -35,33 +35,47 @@ export class SearchBoxComponent implements OnInit {
   }
 
   toggleReturnLocation(): void {
-    this.showReturnLocation = !this.showReturnLocation;
+    this.differentReturnLocation = !this.differentReturnLocation;
+
+    const returnLocationControl = this.searchForm.get('returnLocation');
+
+    if (this.differentReturnLocation) {
+      returnLocationControl?.setValidators(Validators.required);
+    } else {
+      returnLocationControl?.clearValidators();
+    }
+
+    returnLocationControl?.updateValueAndValidity();
   }
 
   setVehicleType(type: string): void {
     this.selectedVehicleType = type;
-    this.searchForm.patchValue({vehicleType: type});
+    this.searchForm.patchValue({ vehicleType: type });
   }
 
-  redirectToCarSelection() {
-    this.router.navigate(['/cars'], {
-      queryParams: {
-        pickup: this.searchForm.value.pickupLocation,
-        return: this.searchForm.value.returnLocation,
-        pickupDate: this.searchForm.value.pickupDate,
-        returnDate: this.searchForm.value.returnDate
-      }
-    });
+  redirectToCarSelection(): void {
+    if (this.searchForm.valid) {
+      this.router.navigate(['/cars'], {
+        queryParams: {
+          pickup: this.searchForm.value.pickupLocation,
+          return: this.searchForm.value.returnLocation,
+          pickupDate: this.searchForm.value.pickupDate,
+          returnDate: this.searchForm.value.returnDate
+        }
+      });
+    } else {
+      this.searchForm.markAllAsTouched();
+    }
   }
 
   onPickupLocationChange(event: Event): void {
-    const input = event.target as HTMLInputElement;  // Cast to HTMLInputElement
-    const query = input.value;  // Now you can access `value` safely
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
 
     if (query) {
       this.locationService.getLocationSuggestions(query).subscribe(
         (data) => {
-          this.pickupSuggestions = data;  // Adjust according to API response structure
+          this.pickupSuggestions = data;
         },
         (error) => {
           console.error('Error fetching location suggestions', error);
@@ -73,13 +87,13 @@ export class SearchBoxComponent implements OnInit {
   }
 
   onReturnLocationChange(event: Event): void {
-    const input = event.target as HTMLInputElement;  // Cast to HTMLInputElement
-    const query = input.value;  // Now you can access `value` safely
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
 
     if (query) {
       this.locationService.getLocationSuggestions(query).subscribe(
         (data) => {
-          this.returnSuggestions = data;  // Adjust according to API response structure
+          this.returnSuggestions = data;
         },
         (error) => {
           console.error('Error fetching location suggestions', error);
@@ -99,6 +113,4 @@ export class SearchBoxComponent implements OnInit {
     this.searchForm.patchValue({ returnLocation: suggestion.description });
     this.returnSuggestions = [];
   }
-
-
 }

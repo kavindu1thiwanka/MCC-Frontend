@@ -84,8 +84,9 @@ export class CarSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchParams = params;
-      console.log('Search Parameters:', this.searchParams);
     });
+
+
   }
 
   selectCar(car: any) {

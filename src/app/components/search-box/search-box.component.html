@@ -53,12 +53,12 @@
         <!-- Return Location -->
         <div class="col-3">
           <label for="returnLocation" class="form-label">Return</label>
-          <a *ngIf="!showReturnLocation" (click)="toggleReturnLocation()"
+          <a *ngIf="!differentReturnLocation" (click)="toggleReturnLocation()"
              class="d-flex mt-2 text-decoration-none return-location justify-content-start align-items-center gap-2">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Different return location
           </a>
-          <div *ngIf="showReturnLocation" class="input-group">
+          <div *ngIf="differentReturnLocation" class="input-group">
             <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
             <input type="text" id="returnLocation" class="form-control form-control-lg"
                    placeholder="Airport, city or address"
@@ -125,8 +125,8 @@
           <!-- Show Return Location -->
           <div class="col-3">
             <label for="returnLocationCollapsed" class="form-label">Return Location :</label>
-            <span *ngIf="showReturnLocation" id="returnLocationCollapsed"> {{ searchForm.get('returnLocation')?.value }}</span>
-            <span *ngIf="!showReturnLocation"> {{ searchForm.get('pickupLocation')?.value }}</span>
+            <span *ngIf="differentReturnLocation" id="returnLocationCollapsed"> {{ searchForm.get('returnLocation')?.value }}</span>
+            <span *ngIf="!differentReturnLocation"> {{ searchForm.get('pickupLocation')?.value }}</span>
           </div>
 
           <!-- Show Pickup Date & Time -->
