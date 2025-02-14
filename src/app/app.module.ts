@@ -25,9 +25,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {LoginComponent} from './components/login/login.component';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {ButtonDirective} from "primeng/button";
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
 import { ProfileDropdownComponent } from './components/profile-dropdown/profile-dropdown.component';
+import {AuthInterceptor} from './shared/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,13 @@ import { ProfileDropdownComponent } from './components/profile-dropdown/profile-
     ButtonDirective,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

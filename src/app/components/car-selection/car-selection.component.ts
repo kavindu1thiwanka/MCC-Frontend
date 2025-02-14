@@ -1,14 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {VehicleService} from '../../shared/services/vehicle.service';
 
-interface carFilter {
-  type: string;
-  seats: number;
-  gearshift: string;
-  pickUpDate: any;
-  pickUpLocation: any;
+interface filter {
+  value: string;
+  operator: string;
+}
 
-  orderBy: string;
+interface CommonFilterDto {
+  sortFiled: string;
+  sortOrder: string;
+
+  filters: Record<string, filter>;
 }
 
 interface filterDropdownItem {
@@ -32,6 +35,11 @@ interface filterButton {
 export class CarSelectionComponent implements OnInit {
 
   searchParams: any = {};
+  filterDto: CommonFilterDto = {
+    sortFiled: '',
+    sortOrder: '',
+    filters: {}
+  }
 
   filterButtonList: filterButton[] = [
     {
@@ -79,14 +87,22 @@ export class CarSelectionComponent implements OnInit {
     { name: 'Honda CR-V', type: 'SUV', seats: 5, pricePerDay: 100, image: '/assets/cars/honda-crv.jpg' }
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private vehicleService: VehicleService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchParams = params;
     });
 
+    this.getCarList();
+  }
 
+  async getCarList() {
+    await this.vehicleService.getVehicleList(this.filterDto).then(res => {
+
+    }).catch(e => {
+
+    });
   }
 
   selectCar(car: any) {

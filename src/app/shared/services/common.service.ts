@@ -8,7 +8,7 @@ import {ApiEndPoint} from '../utils/api-end-point';
 })
 export class CommonService {
 
-  constructor(public httpClient: HttpClient, public router: Router) {
+  constructor(public httpClient: HttpClient) {
   }
 
   login(obj: any) {
