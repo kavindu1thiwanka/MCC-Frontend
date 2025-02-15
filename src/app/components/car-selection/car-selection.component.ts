@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VehicleService } from '../../shared/services/vehicle.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {VehicleService} from '../../shared/services/vehicle.service';
 
 interface CommonFilterDto {
   sortBy: string;
@@ -15,6 +15,7 @@ interface filterDropdownItem {
 
 interface filterButton {
   name: string;
+  category?: string[];
   dropdownItems: filterDropdownItem[];
 }
 
@@ -33,43 +34,73 @@ export class CarSelectionComponent implements OnInit {
 
   filterDto: CommonFilterDto = {
     sortBy: '',
-    category: '',
+    category: this.searchParams.category || '',
     filters: []
   };
 
   filterButtonList: filterButton[] = [
     {
       name: 'Sort By',
+      category: ['motorcycle', 'car', 'van-shuttle', 'truck'],
       dropdownItems: [
-        { name: 'Price low to high', value: 'car.priceForDay ASC' },
-        { name: 'Price high to low', value: 'car.priceForDay DESC' }
+        {name: 'Price low to high', value: 'car.priceForDay ASC'},
+        {name: 'Price high to low', value: 'car.priceForDay DESC'}
       ]
     },
     {
       name: 'Vehicle Type',
+      category: ['car'],
       dropdownItems: [
-        { name: 'Sedan', value: 'car.vehicleType = "Sedan"' },
-        { name: 'SUV', value: 'car.vehicleType = "SUV"' },
-        { name: 'Couple', value: 'car.vehicleType = "Couple"' },
-        { name: 'Convertible', value: 'car.vehicleType = "Convertible"' },
-        { name: 'Family Car', value: 'car.vehicleType = "Family"' },
-        { name: 'Electric Vehicle', value: 'car.vehicleType = "Electric"' },
-        { name: 'Luxury Vehicle', value: 'car.vehicleType = "Luxury"' }
+        {name: 'Sedan', value: 'car.vehicleType = "Sedan"'},
+        {name: 'SUV', value: 'car.vehicleType = "SUV"'},
+        {name: 'Couple', value: 'car.vehicleType = "Couple"'},
+        {name: 'Convertible', value: 'car.vehicleType = "Convertible"'},
+        {name: 'Family Car', value: 'car.vehicleType = "Family"'},
+        {name: 'Electric Vehicle', value: 'car.vehicleType = "Electric"'},
+        {name: 'Luxury Vehicle', value: 'car.vehicleType = "Luxury"'}
+      ]
+    },
+    {
+      name: 'Vehicle Type',
+      category: ['motorcycle'],
+      dropdownItems: [
+        {name: 'Standard', value: 'car.vehicleType = "Standard"'},
+        {name: 'Sport', value: 'car.vehicleType = "Sport"'},
+        {name: 'Off Road', value: 'car.vehicleType = "OffRoad"'},
+        {name: 'Scooter', value: 'car.vehicleType = "Scooter"'}
       ]
     },
     {
       name: 'Passengers',
+      category: ['car'],
       dropdownItems: [
-        { name: '2+', value: 'car.seats > 2' },
-        { name: '4+', value: 'car.seats > 4' },
-        { name: '5+', value: 'car.seats > 5' }
+        {name: '2+', value: 'car.seats > 2'},
+        {name: '4+', value: 'car.seats > 4'},
+        {name: '5+', value: 'car.seats > 5'}
+      ]
+    },
+    {
+      name: 'Passengers',
+      category: ['truck'],
+      dropdownItems: [
+        {name: '2', value: 'car.seats = 2'},
+        {name: '2+', value: 'car.seats > 2'}
+      ]
+    },
+    {
+      name: 'Passengers',
+      category: ['van-shuttle'],
+      dropdownItems: [
+        {name: '4+', value: 'car.seats > 4'},
+        {name: '6+', value: 'car.seats > 6'}
       ]
     },
     {
       name: 'Gearshift',
+      category: ['car', 'motorcycle', 'van-shuttle', 'truck'],
       dropdownItems: [
-        { name: 'Automatic', value: "car.gearType = 'A'" },
-        { name: 'Manual', value: "car.gearType = 'M'" }
+        {name: 'Automatic', value: "car.gearType = 'A'"},
+        {name: 'Manual', value: "car.gearType = 'M'"}
       ]
     }
   ];

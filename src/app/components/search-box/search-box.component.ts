@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocationService } from '../../shared/services/location.service';
@@ -13,6 +13,8 @@ declare var google: any;
 })
 export class SearchBoxComponent implements OnInit {
 
+  @ViewChild('locationSuggestionsDropdown') locationSuggestionsDropdown!: ElementRef;
+
   searchForm: FormGroup;
   differentReturnLocation: boolean = false;
   selectedVehicleType: string = 'motorcycle';
@@ -21,7 +23,7 @@ export class SearchBoxComponent implements OnInit {
   returnSuggestions: any[] = [];
   bookingType: string = 'ride';
 
-  constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService) {
+  constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService, private eRef: ElementRef) {
     this.searchForm = this.fb.group({
       vehicleType: ['car'],
       pickupLocation: ['', Validators.required],
@@ -50,17 +52,59 @@ export class SearchBoxComponent implements OnInit {
     returnLocationControl?.updateValueAndValidity();
   }
 
+  // Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (this.locationSuggestionsDropdown && !this.locationSuggestionsDropdown.nativeElement.contains(event.target)) {
+      this.pickupSuggestions = [];
+      this.returnSuggestions = [];
+    }
+  }
+
+  // Close dropdown on Escape key press
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscape(event: KeyboardEvent) {
+    this.pickupSuggestions = [];
+    this.returnSuggestions = [];
+  }
+
   // Location Search Input Event Handlers
   onPickupLocationChange(event: any): void {
-    this.locationService.getLocationSuggestions(event.target.value).subscribe((res: any) => {
-      this.pickupSuggestions = res.predictions;
-    });
+
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+
+    if (query) {
+      this.locationService.getLocationSuggestions(query).subscribe(
+        (data) => {
+          this.pickupSuggestions = data;
+        },
+        (error) => {
+          console.error('Error fetching location suggestions', error);
+        }
+      );
+    } else {
+      this.pickupSuggestions = [];
+    }
   }
 
   onReturnLocationChange(event: any): void {
-    this.locationService.getLocationSuggestions(event.target.value).subscribe((res: any) => {
-      this.returnSuggestions = res.predictions;
-    });
+
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+
+    if (query) {
+      this.locationService.getLocationSuggestions(query).subscribe(
+        (data) => {
+          this.returnSuggestions = data;
+        },
+        (error) => {
+          console.error('Error fetching location suggestions', error);
+        }
+      );
+    } else {
+      this.returnSuggestions = [];
+    }
   }
 
   selectPickupSuggestion(suggestion: any): void {
@@ -135,7 +179,9 @@ export class SearchBoxComponent implements OnInit {
           pickup: this.searchForm.value.pickupLocation,
           return: this.searchForm.value.returnLocation,
           pickupDate: this.searchForm.value.pickupDate,
-          returnDate: this.searchForm.value.returnDate
+          returnDate: this.searchForm.value.returnDate,
+          category: this.selectedVehicleType,
+          bookingType: this.bookingType
         }
       });
     } else {
@@ -149,6 +195,8 @@ export class SearchBoxComponent implements OnInit {
   }
 
   setBookingType(type: string): void {
+    this.searchForm.reset();
+    this.selectedVehicleType = 'motorcycle';
     this.bookingType = type;
   }
 }

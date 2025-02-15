@@ -5,14 +5,13 @@
       <!-- Booking Type Tabs -->
       <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{ 'active': bookingType === 'ride', 'text-muted': bookingType !== 'ride' }"
+          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'ride', 'text-muted': bookingType !== 'ride' }"
              (click)="setBookingType('ride')">
             <i class="fa fa-taxi" aria-hidden="true"></i> Book a Ride
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"
-             [ngClass]="{ 'active': bookingType === 'reserve', 'text-muted': bookingType !== 'reserve' }"
+          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'reserve', 'text-muted': bookingType !== 'reserve' }"
              (click)="setBookingType('reserve')">
             <i class="fa fa-car" aria-hidden="true"></i> Reserve a Vehicle
           </a>
@@ -21,26 +20,33 @@
 
       <!-- Vehicle Type Selection -->
       <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
-        <input type="radio" class="btn-check" name="btnradio" id="btnRadioM" autocomplete="off"
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioM" autocomplete="off"
                [checked]="selectedVehicleType === 'motorcycle'" (change)="setVehicleType('motorcycle')">
         <label
           class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
           for="btnRadioM">
-          <i class="fa fa-motorcycle" aria-hidden="true"></i>Motorcycles
+          <i class="fa fa-motorcycle" aria-hidden="true"></i>Motorcycle
         </label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnRadioC" autocomplete="off"
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioC" autocomplete="off"
                [checked]="selectedVehicleType === 'car'" (change)="setVehicleType('car')">
         <label
           class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
           for="btnRadioC">
-          <i class="fa fa-car" aria-hidden="true"></i>Cars
+          <i class="fa fa-car" aria-hidden="true"></i>Car
         </label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnRadioT" autocomplete="off"
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioV" autocomplete="off"
+               [checked]="selectedVehicleType === 'van-shuttle'" (change)="setVehicleType('van-shuttle')">
+        <label
+          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
+          for="btnRadioV">
+          <i class="fa-solid fa-van-shuttle"></i>Van
+        </label>
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioT" autocomplete="off"
                [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">
         <label
           class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
           for="btnRadioT">
-          <i class="fa fa-truck" aria-hidden="true"></i>Trucks
+          <i class="fa fa-truck" aria-hidden="true"></i>Truck
         </label>
       </div>
 
@@ -60,7 +66,7 @@
           <button type="button" class="btn btn-link p-0" (click)="openMap('pickup')">
             <i class="fa fa-map" aria-hidden="true"></i> Select from map
           </button>
-          <div *ngIf="pickupSuggestions.length > 0" class="dropdown-suggestions">
+          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
             <ul>
               <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
                 {{ suggestion.description }}
@@ -80,7 +86,7 @@
           <button type="button" class="btn btn-link p-0" (click)="openMap('return')">
             <i class="fa fa-map" aria-hidden="true"></i> Select from map
           </button>
-          <div *ngIf="returnSuggestions.length > 0" class="dropdown-suggestions">
+          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
             <ul>
               <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
                 {{ suggestion.description }}
@@ -98,7 +104,7 @@
                    placeholder="Airport, city or address"
                    formControlName="pickupLocation" (input)="onPickupLocationChange($event)">
           </div>
-          <div *ngIf="pickupSuggestions.length > 0" class="dropdown-suggestions">
+          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
             <ul>
               <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
                 {{ suggestion.description }}
@@ -120,7 +126,7 @@
                    placeholder="Airport, city or address"
                    formControlName="returnLocation" (input)="onReturnLocationChange($event)">
           </div>
-          <div *ngIf="returnSuggestions.length > 0" class="dropdown-suggestions">
+          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
             <ul>
               <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
                 {{ suggestion.description }}
