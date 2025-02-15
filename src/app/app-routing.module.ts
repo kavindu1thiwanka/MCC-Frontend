@@ -7,7 +7,7 @@ import {UserConfirmationComponent} from './components/user-confirmation/user-con
 
 const routes: Routes = [
   {path: '', component: LandingPageComponent},
-  {path: 'cars', component: CarSelectionComponent},
+  {path: 'vehicle-selection', component: CarSelectionComponent},
   {path: 'login', component: LoginComponent},
   {path: 'confirm-email', component: UserConfirmationComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'},
