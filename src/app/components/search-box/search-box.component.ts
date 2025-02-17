@@ -21,7 +21,7 @@ export class SearchBoxComponent implements OnInit {
   isCollapsed: boolean = false;
   pickupSuggestions: any[] = [];
   returnSuggestions: any[] = [];
-  bookingType: string = 'ride';
+  bookingType: string = 'reserve';
 
   constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService, private eRef: ElementRef) {
     this.searchForm = this.fb.group({

@@ -2,21 +2,21 @@
   <div class="container-fluid card shadow-lg p-4 rounded-4 gap-1">
     <div id="demo" [ngClass]="{ 'collapse': isCollapsed }">
 
-      <!-- Booking Type Tabs -->
-      <ul class="nav nav-tabs mb-4">
-        <li class="nav-item">
-          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'ride', 'text-muted': bookingType !== 'ride' }"
-             (click)="setBookingType('ride')">
-            <i class="fa fa-taxi" aria-hidden="true"></i> Book a Ride
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'reserve', 'text-muted': bookingType !== 'reserve' }"
-             (click)="setBookingType('reserve')">
-            <i class="fa fa-car" aria-hidden="true"></i> Reserve a Vehicle
-          </a>
-        </li>
-      </ul>
+<!--      &lt;!&ndash; Booking Type Tabs &ndash;&gt;-->
+<!--      <ul class="nav nav-tabs mb-4">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'ride', 'text-muted': bookingType !== 'ride' }"-->
+<!--             (click)="setBookingType('ride')">-->
+<!--            <i class="fa fa-taxi" aria-hidden="true"></i> Book a Ride-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'reserve', 'text-muted': bookingType !== 'reserve' }"-->
+<!--             (click)="setBookingType('reserve')">-->
+<!--            <i class="fa fa-car" aria-hidden="true"></i> Reserve a Vehicle-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
 
       <!-- Vehicle Type Selection -->
       <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
@@ -55,45 +55,45 @@
             (submit)="redirectToCarSelection(); $event.preventDefault()">
 
         <!-- Pickup and Return Locations for Ride Booking -->
-        <div *ngIf="bookingType === 'ride'" class="col-5">
-          <label for="pickupLocationRide" class="form-label">Pickup Location</label>
-          <div class="input-group input-group-lg">
-            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-            <input type="text" id="pickupLocationRide" class="form-control form-control-lg"
-                   placeholder="Enter location or select from map"
-                   formControlName="pickupLocation" (input)="onPickupLocationChange($event)">
-          </div>
-          <button type="button" class="btn btn-link p-0" (click)="openMap('pickup')">
-            <i class="fa fa-map" aria-hidden="true"></i> Select from map
-          </button>
-          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
-            <ul>
-              <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
-                {{ suggestion.description }}
-              </li>
-            </ul>
-          </div>
-        </div>
+<!--        <div *ngIf="bookingType === 'ride'" class="col-5">-->
+<!--          <label for="pickupLocationRide" class="form-label">Pickup Location</label>-->
+<!--          <div class="input-group input-group-lg">-->
+<!--            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
+<!--            <input type="text" id="pickupLocationRide" class="form-control form-control-lg"-->
+<!--                   placeholder="Enter location or select from map"-->
+<!--                   formControlName="pickupLocation" (input)="onPickupLocationChange($event)">-->
+<!--          </div>-->
+<!--          <button type="button" class="btn btn-link p-0" (click)="openMap('pickup')">-->
+<!--            <i class="fa fa-map" aria-hidden="true"></i> Select from map-->
+<!--          </button>-->
+<!--          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">-->
+<!--            <ul>-->
+<!--              <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">-->
+<!--                {{ suggestion.description }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <div *ngIf="bookingType === 'ride'" class="col-5">
-          <label for="returnLocationRide" class="form-label">Drop-off Location</label>
-          <div class="input-group input-group-lg">
-            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-            <input type="text" id="returnLocationRide" class="form-control form-control-lg"
-                   placeholder="Enter location or select from map"
-                   formControlName="returnLocation" (input)="onReturnLocationChange($event)">
-          </div>
-          <button type="button" class="btn btn-link p-0" (click)="openMap('return')">
-            <i class="fa fa-map" aria-hidden="true"></i> Select from map
-          </button>
-          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
-            <ul>
-              <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
-                {{ suggestion.description }}
-              </li>
-            </ul>
-          </div>
-        </div>
+<!--        <div *ngIf="bookingType === 'ride'" class="col-5">-->
+<!--          <label for="returnLocationRide" class="form-label">Drop-off Location</label>-->
+<!--          <div class="input-group input-group-lg">-->
+<!--            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
+<!--            <input type="text" id="returnLocationRide" class="form-control form-control-lg"-->
+<!--                   placeholder="Enter location or select from map"-->
+<!--                   formControlName="returnLocation" (input)="onReturnLocationChange($event)">-->
+<!--          </div>-->
+<!--          <button type="button" class="btn btn-link p-0" (click)="openMap('return')">-->
+<!--            <i class="fa fa-map" aria-hidden="true"></i> Select from map-->
+<!--          </button>-->
+<!--          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">-->
+<!--            <ul>-->
+<!--              <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">-->
+<!--                {{ suggestion.description }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <!-- Pickup Date & Time for Reserve -->
         <div *ngIf="bookingType === 'reserve'" class="col-3">
