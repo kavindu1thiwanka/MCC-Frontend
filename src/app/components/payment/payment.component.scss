@@ -1,0 +1,75 @@
+::ng-deep .p-dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.car-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  width: 40%;
+  min-width: 150px;
+
+  .car-image {
+    width: 80px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .car-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .car-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .car-price {
+      font-size: 0.9rem;
+      color: #28a745;
+    }
+
+    .car-duration {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  }
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 60%;
+
+  label {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  input {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 100%;
+  }
+}
+
+.p-button {
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+}
