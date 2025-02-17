@@ -30,7 +30,8 @@ export class CarSelectionComponent implements OnInit {
   searchParams: any = {};
   selectedFilters: Record<string, string> = {};
   carList: any = [];
-  activeCollapseIndex: number | null = null;
+  visible: boolean = false;
+  selectedCar: any = {};
 
   filterDto: CommonFilterDto = {
     sortBy: '',
@@ -158,20 +159,6 @@ export class CarSelectionComponent implements OnInit {
     return this.selectedFilters[filterName] != undefined || this.selectedFilters[filterName] != null;
   }
 
-  // Toggle collapse visibility
-  toggleCollapse(index: number): void {
-    if (this.activeCollapseIndex === index) {
-      this.activeCollapseIndex = null;
-    } else {
-      this.activeCollapseIndex = index;
-    }
-  }
-
-  // Check if the collapse should be visible for the clicked card
-  isCollapseVisible(index: number): boolean {
-    return this.activeCollapseIndex === index;
-  }
-
   async getCarList() {
     await this.vehicleService.getVehicleList(this.filterDto).then(res => {
       if (res?.status === 200 && res.body) {
@@ -182,12 +169,6 @@ export class CarSelectionComponent implements OnInit {
     });
   }
 
-  selectCar(car: any) {
-    alert(`You selected ${car.name}`);
-    // Redirect to car details page (optional)
-    // this.router.navigate(['/car-details'], { queryParams: { carName: car.name } });
-  }
-
   clearFilter() {
     this.selectedFilters = {};
     this.filterDto = {
@@ -196,5 +177,10 @@ export class CarSelectionComponent implements OnInit {
       filters: []
     };
     this.getCarList();
+  }
+
+  openCarModal(car: any) {
+    this.visible = !this.visible;
+    this.selectedCar = car;
   }
 }

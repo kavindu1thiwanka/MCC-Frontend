@@ -33,6 +33,7 @@ import {Dialog, DialogModule} from 'primeng/dialog';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {providePrimeNG} from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import Aura from '@primeng/themes/aura';
     CarSelectionComponent,
     LoginComponent,
     UserConfirmationComponent,
-    ProfileDropdownComponent
+    ProfileDropdownComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,10 @@ import Aura from '@primeng/themes/aura';
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+          darkModeSelector: 'none'
+        }
       }
     })
   ],
