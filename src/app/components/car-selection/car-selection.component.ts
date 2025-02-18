@@ -30,7 +30,6 @@ export class CarSelectionComponent implements OnInit {
   searchParams: any = {};
   selectedFilters: Record<string, string> = {};
   carList: any = [];
-  visible: boolean = false;
   selectedCar: any = {};
 
   filterDto: CommonFilterDto = {
@@ -180,7 +179,6 @@ export class CarSelectionComponent implements OnInit {
   }
 
   openCarModal(car: any) {
-    this.visible = !this.visible;
     this.selectedCar = car;
   }
 }

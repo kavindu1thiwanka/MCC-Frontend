@@ -33,7 +33,10 @@ import {Dialog, DialogModule} from 'primeng/dialog';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {providePrimeNG} from 'primeng/config';
 import Aura from '@primeng/themes/aura';
-import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
+import { CardModule } from 'primeng/card';
+import { VehicleDetailsComponent } from './components/vehicle-details/vehicle-details.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     LoginComponent,
     UserConfirmationComponent,
     ProfileDropdownComponent,
-    PaymentComponent
+    PaymentSuccessComponent,
+    PaymentCancelComponent,
+    VehicleDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     Button,
     Dialog,
     DialogModule,
+    CardModule,
   ],
   providers: [
     {
