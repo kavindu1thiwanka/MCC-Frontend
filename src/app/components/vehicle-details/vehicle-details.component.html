@@ -38,8 +38,13 @@
   </div>
 </div>
 
-<!-- Address Modal -->
+<!-- Modals -->
 <app-address-modal
   [display]="showAddressModal"
   (close)="handleAddressModalClose($event)">
 </app-address-modal>
+
+<app-auth-modal
+  [display]="loginToProceed"
+  (close)="handleLoginModalClose($event)">
+</app-auth-modal>

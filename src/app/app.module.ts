@@ -38,6 +38,7 @@ import { PaymentCancelComponent } from './components/payment-cancel/payment-canc
 import { CardModule } from 'primeng/card';
 import { VehicleDetailsComponent } from './components/vehicle-details/vehicle-details.component';
 import { AddressModalComponent } from './components/address-modal/address-modal.component';
+import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AddressModalComponent } from './components/address-modal/address-modal.
     PaymentSuccessComponent,
     PaymentCancelComponent,
     VehicleDetailsComponent,
-    AddressModalComponent
+    AddressModalComponent,
+    AuthModalComponent
   ],
   imports: [
     BrowserModule,

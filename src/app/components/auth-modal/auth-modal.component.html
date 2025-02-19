@@ -1,0 +1,42 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ isLoginMode ? 'Login' : 'Register' }}</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+      <input formControlName="username" type="text" placeholder="Username" required />
+      <div class="password-wrapper">
+        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" required />
+        <i class="toggle-password" (click)="togglePasswordVisibility()">
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </i>
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+      <div class="toggle-link">
+        <span>Don't have an account?</span>
+        <a (click)="toggleMode()">Register</a>
+      </div>
+    </form>
+
+    <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+      <input formControlName="firstName" type="text" placeholder="First Name" required />
+      <input formControlName="lastName" type="text" placeholder="Last Name" required />
+      <input formControlName="email" type="email" placeholder="Email" required />
+      <input formControlName="contactNumber" type="text" placeholder="Contact Number" required />
+      <div class="password-wrapper">
+        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" required />
+        <i class="toggle-password" (click)="togglePasswordVisibility()">
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </i>
+      </div>
+      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" required />
+      <button type="submit" class="submit-btn">Register</button>
+      <div class="toggle-link">
+        <span>Already have an account?</span>
+        <a (click)="toggleMode()">Login</a>
+      </div>
+    </form>
+  </div>
+</div>

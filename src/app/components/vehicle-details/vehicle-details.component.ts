@@ -71,4 +71,8 @@ export class VehicleDetailsComponent {
       this.incompleteAddress = false;
     }
   }
+
+  handleLoginModalClose($event: boolean) {
+    this.loginToProceed = false;
+  }
 }
