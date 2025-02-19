@@ -32,11 +32,6 @@ export class CommonService {
     ).toPromise();
   }
 
-  isAddressAvailable() {
-    return this.httpClient.get(ApiEndPoint.USER_V1 + '/is_address_available',
-      {observe: 'response', withCredentials: true}).toPromise();
-  }
-
 
   logout(): void {
     localStorage.clear();

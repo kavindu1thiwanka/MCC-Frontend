@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {PaymentService} from '../../shared/services/payment.service';
 import {AppConstant} from '../../shared/utils/app-constant';
-import {CommonService} from '../../shared/services/common.service';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -19,7 +19,7 @@ export class VehicleDetailsComponent {
   addressIsMissing: boolean = false;
   incompleteAddress: boolean = false;
 
-  constructor(private paymentService: PaymentService, private commonService: CommonService) {
+  constructor(private paymentService: PaymentService, private userService: UserService) {
   }
 
   async checkout() {
@@ -39,7 +39,7 @@ export class VehicleDetailsComponent {
       return;
     }
 
-    await this.commonService.isAddressAvailable().then((res: any) => {
+    await this.userService.getUserAddress().then((res: any) => {
       if (res?.status === 200) {
         if (!res.body || res.body == '') {
           this.addressIsMissing = true;
