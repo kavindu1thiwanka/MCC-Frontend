@@ -1,39 +1,34 @@
-<div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="vehicleModalLabel">Vehicle Information</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+<div class="vehicle-modal" *ngIf="visible">
+  <div class="modal-overlay" (click)="handleClose()"></div>
 
-      <div class="modal-body">
-        <div *ngIf="vehicle">
-          <p-card>
-            <p-header>
-              <i class="pi pi-car text-primary fs-3"></i> {{ vehicle.name }}
-            </p-header>
-            <div class="row">
-              <div class="col-md-6">
-                <img [src]="vehicle.vehicleImage" class="img-fluid rounded shadow" alt="Vehicle Image">
-              </div>
-              <div class="col-md-6">
-                <table class="table table-bordered mt-3">
-                  <tr><th>Model</th><td>{{ vehicle.model }}</td></tr>
-                  <tr><th>Year</th><td>{{ vehicle.year }}</td></tr>
-                  <tr><th>Type</th><td>{{ vehicle.type }}</td></tr>
-                  <tr><th>Seats</th><td>{{ vehicle.seats }}</td></tr>
-                  <tr><th>Price per Day</th><td>${{ vehicle.price }}</td></tr>
-                </table>
-              </div>
-            </div>
-          </p-card>
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-title">Vehicle Information</h2>
+      <button class="close-btn" (click)="handleClose()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngIf="vehicle" class="vehicle-info">
+        <div class="vehicle-image">
+          <img [src]="vehicle.vehicleImage" alt="Vehicle Image" />
+        </div>
+
+        <div class="vehicle-details">
+          <h3>{{ vehicle.name }}</h3>
+          <table class="details-table">
+            <tr><th>Model</th><td>{{ vehicle.model }}</td></tr>
+            <tr><th>Year</th><td>{{ vehicle.year }}</td></tr>
+            <tr><th>Type</th><td>{{ vehicle.type }}</td></tr>
+            <tr><th>Seats</th><td>{{ vehicle.seats }}</td></tr>
+            <tr><th>Price per Day</th><td>${{ vehicle.price }}</td></tr>
+          </table>
         </div>
       </div>
+    </div>
 
-      <div class="modal-footer">
-        <button pButton label="Close" icon="pi pi-times" class="btn btn-secondary" data-bs-dismiss="modal"></button>
-        <button pButton label="Book Now" icon="pi pi-check" class="btn btn-success" (click)="checkout()"></button>
-      </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="handleClose()">Close</button>
+      <button class="btn btn-primary" (click)="checkout()">Book Now</button>
     </div>
   </div>
 </div>

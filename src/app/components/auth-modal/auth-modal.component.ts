@@ -9,10 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthModalComponent {
-  @Input() display: boolean = false; // Controls modal visibility
-  @Output() close = new EventEmitter<void>(); // Emits event to close modal
+  @Input() display: boolean = false;
+  @Output() close = new EventEmitter<void>();
 
-  isLoginMode: boolean = true; // Default mode is login
+  isLoginMode: boolean = true;
   loginForm: FormGroup;
   registerForm: FormGroup;
   showPassword: boolean = false;

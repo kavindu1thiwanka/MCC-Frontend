@@ -31,6 +31,7 @@ export class CarSelectionComponent implements OnInit {
   selectedFilters: Record<string, string> = {};
   carList: any = [];
   selectedCar: any = {};
+  showVehicleModal: boolean = false;
 
   filterDto: CommonFilterDto = {
     sortBy: '',
@@ -181,5 +182,10 @@ export class CarSelectionComponent implements OnInit {
 
   openCarModal(car: any) {
     this.selectedCar = car;
+    this.showVehicleModal = true;
+  }
+
+  handleVehicleDetailsModalClose($event: void) {
+    this.showVehicleModal = false;
   }
 }
