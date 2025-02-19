@@ -1,39 +1,42 @@
-<p-dialog header="Update Address" [(visible)]="display" [modal]="true"
-          [closable]="true" [style]="{ width: '500px' }" (onHide)="closeModal()">
-  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="addressLine1">Address Line 1</label>
-      <input id="addressLine1" type="text" formControlName="addressLine1" class="p-inputtext" required />
+<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true" [ngClass]="{'show': display}" [ngStyle]="{'display': display ? 'block' : 'none'}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">Update Address</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="addressLine1" class="form-label">Address Line 1</label>
+            <input id="addressLine1" type="text" formControlName="addressLine1" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="addressLine2" class="form-label">Address Line 2</label>
+            <input id="addressLine2" type="text" formControlName="addressLine2" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input id="city" type="text" formControlName="city" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input id="state" type="text" formControlName="state" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input id="country" type="text" formControlName="country" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="postalCode" class="form-label">Postal Code</label>
+            <input id="postalCode" type="text" formControlName="postalCode" class="form-control" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-success" [disabled]="addressForm.invalid">Update</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label for="addressLine2">Address Line 2</label>
-      <input id="addressLine2" type="text" formControlName="addressLine2" class="p-inputtext" />
-    </div>
-
-    <div class="form-group">
-      <label for="city">City</label>
-      <input id="city" type="text" formControlName="city" class="p-inputtext" required />
-    </div>
-
-    <div class="form-group">
-      <label for="state">State</label>
-      <input id="state" type="text" formControlName="state" class="p-inputtext" />
-    </div>
-
-    <div class="form-group">
-      <label for="country">Country</label>
-      <input id="country" type="text" formControlName="country" class="p-inputtext" required />
-    </div>
-
-    <div class="form-group">
-      <label for="postalCode">Postal Code</label>
-      <input id="postalCode" type="text" formControlName="postalCode" class="p-inputtext" required />
-    </div>
-
-    <div class="modal-footer">
-      <button pButton label="Cancel" class="p-button-secondary" type="button" (click)="closeModal()"></button>
-      <button pButton label="Update" class="p-button-success" type="submit" [disabled]="addressForm.invalid"></button>
-    </div>
-  </form>
-</p-dialog>
+  </div>
+</div>
