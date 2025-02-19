@@ -42,8 +42,7 @@ export class VehicleDetailsComponent {
   }
 
   async validateUserDetails() {
-    const token = localStorage.getItem(AppConstant.TOKEN);
-    if (!token) {
+    if (!localStorage.getItem(AppConstant.REFRESH_TOKEN) || !localStorage.getItem(AppConstant.ACCESS_TOKEN)) {
       this.loginToProceed = true;
       return;
     }

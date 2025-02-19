@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   constructor(private location: Location) {}
 
   ngOnInit(): void {
-    this.userLoggedIn = localStorage.getItem(AppConstant.TOKEN) != null;
+    this.userLoggedIn = localStorage.getItem(AppConstant.REFRESH_TOKEN) != null && localStorage.getItem(AppConstant.ACCESS_TOKEN) != null;
   }
 
   goBack(): void {
