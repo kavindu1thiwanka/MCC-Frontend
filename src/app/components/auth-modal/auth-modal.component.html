@@ -5,37 +5,75 @@
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
 
+    <!-- Login Form -->
     <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
-      <input formControlName="username" type="text" placeholder="Username" required />
-      <div class="password-wrapper">
-        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" required />
+      <div class="form-group">
+        <input formControlName="username" type="text" placeholder="Username" />
+        <small *ngIf="hasError('username', 'required', loginForm)">Username is required.</small>
+        <small *ngIf="hasError('username', 'minlength', loginForm)">Username must be at least 3 characters.</small>
+      </div>
+
+      <div class="form-group password-wrapper">
+        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" />
         <i class="toggle-password" (click)="togglePasswordVisibility()">
           <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
         </i>
+        <small *ngIf="hasError('password', 'required', loginForm)">Password is required.</small>
+        <small *ngIf="hasError('password', 'minlength', loginForm)">Password must be at least 6 characters.</small>
       </div>
+
       <button type="submit" class="submit-btn">Login</button>
       <div class="toggle-link">
-        <span>Don't have an account?</span>
-        <a (click)="toggleMode()">Register</a>
+        <span>Don't have an account?</span><a (click)="toggleMode()">Register</a>
       </div>
     </form>
 
-    <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
-      <input formControlName="firstName" type="text" placeholder="First Name" required />
-      <input formControlName="lastName" type="text" placeholder="Last Name" required />
-      <input formControlName="email" type="email" placeholder="Email" required />
-      <input formControlName="contactNumber" type="text" placeholder="Contact Number" required />
-      <div class="password-wrapper">
-        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" required />
-        <i class="toggle-password" (click)="togglePasswordVisibility()">
-          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-        </i>
+    <!-- Register Form -->
+    <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form" autocomplete="off">
+      <div class="form-group">
+        <input formControlName="firstName" type="text" placeholder="First Name" autocomplete="off"/>
+        <small *ngIf="hasError('firstName', 'required', registerForm)">First Name is required.</small>
       </div>
-      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" required />
+
+      <div class="form-group">
+        <input formControlName="lastName" type="text" placeholder="Last Name" autocomplete="off"/>
+        <small *ngIf="hasError('lastName', 'required', registerForm)">Last Name is required.</small>
+      </div>
+
+      <div class="form-group">
+        <input formControlName="email" type="email" placeholder="Email" autocomplete="off"/>
+        <small *ngIf="hasError('email', 'required', registerForm)">Email is required.</small>
+        <small *ngIf="hasError('email', 'email', registerForm)">Enter a valid email.</small>
+      </div>
+
+      <div class="form-group">
+        <input formControlName="contactNumber" type="text" placeholder="Contact Number" autocomplete="off"/>
+        <small *ngIf="hasError('contactNumber', 'required', registerForm)">Contact Number is required.</small>
+        <small *ngIf="hasError('contactNumber', 'pattern', registerForm)">Must be a 10-digit number.</small>
+      </div>
+
+      <div class="form-group password-wrapper">
+        <section>
+          <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" autocomplete="new-password"/>
+          <i class="toggle-password" (click)="togglePasswordVisibility()">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </i>
+        </section>
+        <small *ngIf="hasError('password', 'required', registerForm)">Password is required.</small>
+        <small *ngIf="hasError('password', 'minlength', registerForm)">At least 6 characters.</small>
+      </div>
+
+      <div class="form-group">
+        <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="off"/>
+        <small *ngIf="hasError('confirmPassword', 'required', registerForm)">Confirmation is required.</small>
+        <small *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+          Passwords do not match.
+        </small>
+      </div>
+
       <button type="submit" class="submit-btn">Register</button>
       <div class="toggle-link">
-        <span>Already have an account?</span>
-        <a (click)="toggleMode()">Login</a>
+        <span>Already have an account?</span><a (click)="toggleMode()">Login</a>
       </div>
     </form>
   </div>

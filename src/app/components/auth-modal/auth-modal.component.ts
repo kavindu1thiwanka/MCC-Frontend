@@ -19,34 +19,40 @@ export class AuthModalComponent {
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      contactNumber: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    });
+      contactNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
   }
 
   toggleMode() {
+    this.loginForm.reset();
+    this.registerForm.reset();
     this.isLoginMode = !this.isLoginMode;
   }
 
   onLogin() {
-    if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
+    console.log('Login data:', this.loginForm.value);
   }
 
   onRegister() {
-    if (this.registerForm.valid) {
-      console.log('Register data:', this.registerForm.value);
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
     }
+    console.log('Register data:', this.registerForm.value);
   }
 
   togglePasswordVisibility() {
@@ -54,6 +60,23 @@ export class AuthModalComponent {
   }
 
   closeModal() {
+    this.loginForm.reset();
+    this.registerForm.reset();
+    this.isLoginMode = true;
+    this.showPassword = false;
     this.close.emit();
   }
+
+  // Custom validator to check password match
+  private passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  hasError(controlName: string, error: string, form: FormGroup): boolean {
+    const control = form.get(controlName);
+    return !!control?.hasError(error) && (control.touched || control.dirty);
+  }
+
 }
