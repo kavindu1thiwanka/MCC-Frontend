@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {PaymentService} from '../../shared/services/payment.service';
-import {AppConstant} from '../../shared/utils/app-constant';
-import {UserService} from '../../shared/services/user.service';
+import { Component, Input } from '@angular/core';
+import { PaymentService } from '../../shared/services/payment.service';
+import { UserService } from '../../shared/services/user.service';
+import { AppConstant } from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -18,41 +18,58 @@ export class VehicleDetailsComponent {
   loginToProceed: boolean = false;
   addressIsMissing: boolean = false;
   incompleteAddress: boolean = false;
+  showAddressModal: boolean = false;
 
-  constructor(private paymentService: PaymentService, private userService: UserService) {
-  }
+  constructor(private paymentService: PaymentService, private userService: UserService) {}
 
   async checkout() {
-
     await this.validateUserDetails();
 
-    if (!this.loginToProceed && !this.addressIsMissing && !this.incompleteAddress) {
-      this.paymentService.createCheckoutSession(1).subscribe(({ checkoutUrl }) => {
-        window.location.href = checkoutUrl;
-      });
+    if (this.loginToProceed) {
+      // Handle login prompt
+      return;
     }
+
+    if (this.addressIsMissing || this.incompleteAddress) {
+      this.showAddressModal = true;
+      return;
+    }
+
+    // Proceed to payment if everything is valid
+    this.paymentService.createCheckoutSession(1).subscribe(({ checkoutUrl }) => {
+      window.location.href = checkoutUrl;
+    });
   }
 
-   async validateUserDetails() {
-    if (!localStorage.getItem(AppConstant.TOKEN) || localStorage.getItem(AppConstant.TOKEN) == null || localStorage.getItem(AppConstant.TOKEN) == '') {
+  async validateUserDetails() {
+    const token = localStorage.getItem(AppConstant.TOKEN);
+    if (!token) {
       this.loginToProceed = true;
       return;
     }
 
-    await this.userService.getUserAddress().then((res: any) => {
+    try {
+      const res: any = await this.userService.getUserAddress();
       if (res?.status === 200) {
-        if (!res.body || res.body == '') {
+        const { addressLine1, city, country } = res.body || {};
+
+        if (!res.body || res.body === '') {
           this.addressIsMissing = true;
-          return;
-        } else {
-          if (res.body.addressLine1 || res.body.city || res.body.country) {
-            this.incompleteAddress = true;
-            return;
-          }
+        } else if (!addressLine1 || !city || !country) {
+          this.incompleteAddress = true;
         }
       }
-    }).catch(e => {
+    } catch (err) {
+      console.error('Error fetching address:', err);
+    }
+  }
 
-    })
+  handleAddressModalClose(updated: boolean) {
+    this.showAddressModal = false;
+
+    if (updated) {
+      this.addressIsMissing = false;
+      this.incompleteAddress = false;
+    }
   }
 }

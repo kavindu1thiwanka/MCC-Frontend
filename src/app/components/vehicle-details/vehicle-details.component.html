@@ -18,26 +18,11 @@
               </div>
               <div class="col-md-6">
                 <table class="table table-bordered mt-3">
-                  <tr>
-                    <th>Model</th>
-                    <td>{{ vehicle.model }}</td>
-                  </tr>
-                  <tr>
-                    <th>Year</th>
-                    <td>{{ vehicle.year }}</td>
-                  </tr>
-                  <tr>
-                    <th>Type</th>
-                    <td>{{ vehicle.type }}</td>
-                  </tr>
-                  <tr>
-                    <th>Seats</th>
-                    <td>{{ vehicle.seats }}</td>
-                  </tr>
-                  <tr>
-                    <th>Price per Day</th>
-                    <td>${{ vehicle.price }}</td>
-                  </tr>
+                  <tr><th>Model</th><td>{{ vehicle.model }}</td></tr>
+                  <tr><th>Year</th><td>{{ vehicle.year }}</td></tr>
+                  <tr><th>Type</th><td>{{ vehicle.type }}</td></tr>
+                  <tr><th>Seats</th><td>{{ vehicle.seats }}</td></tr>
+                  <tr><th>Price per Day</th><td>${{ vehicle.price }}</td></tr>
                 </table>
               </div>
             </div>
@@ -53,4 +38,8 @@
   </div>
 </div>
 
-<app-address-modal [display]="addressIsMissing || incompleteAddress"></app-address-modal>
+<!-- 🔑 Address Modal -->
+<app-address-modal
+  [display]="showAddressModal"
+  (close)="handleAddressModalClose($event)">
+</app-address-modal>

@@ -1,4 +1,5 @@
-<p-dialog header="Update Address" [(visible)]="display" [modal]="true" [closable]="true" [style]="{ width: '500px' }">
+<p-dialog header="Update Address" [(visible)]="display" [modal]="true"
+          [closable]="true" [style]="{ width: '500px' }" (onHide)="closeModal()">
   <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="addressLine1">Address Line 1</label>

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../shared/services/user.service';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-address-modal',
@@ -9,15 +9,14 @@ import {UserService} from '../../shared/services/user.service';
   templateUrl: './address-modal.component.html',
   styleUrl: './address-modal.component.scss'
 })
-export class AddressModalComponent implements OnInit{
+export class AddressModalComponent implements OnInit {
 
   @Input() display: boolean = false;
+  @Output() close = new EventEmitter<boolean>();
+
   addressForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService
-  ) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
     this.addressForm = this.fb.group({
@@ -45,16 +44,15 @@ export class AddressModalComponent implements OnInit{
     if (this.addressForm.valid) {
       this.userService.updateUserAddress(this.addressForm.value).then(res => {
         if (res?.status === 200) {
-
+          this.close.emit(true);
         }
-      }).catch(e => {
-
+      }).catch(() => {
+        this.close.emit(false);
       });
     }
   }
 
   closeModal() {
-    this.display = false;
-    this.addressForm.reset();
+    this.close.emit(false);
   }
 }
