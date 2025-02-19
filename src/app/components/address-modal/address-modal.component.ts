@@ -11,7 +11,20 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class AddressModalComponent implements OnInit {
 
-  @Input() display: boolean = false;
+  private _display: boolean = false;
+
+  @Input()
+  set display(value: boolean) {
+    this._display = value;
+    if (value) {
+      this.loadUserAddress();
+    }
+  }
+
+  get display(): boolean {
+    return this._display;
+  }
+
   @Output() close = new EventEmitter<boolean>();
 
   addressForm!: FormGroup;
@@ -28,8 +41,6 @@ export class AddressModalComponent implements OnInit {
       country: ['', Validators.required],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]]
     });
-
-    this.loadUserAddress();
   }
 
   loadUserAddress() {
