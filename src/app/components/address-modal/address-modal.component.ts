@@ -7,27 +7,23 @@ import { UserService } from '../../shared/services/user.service';
   standalone: false,
 
   templateUrl: './address-modal.component.html',
-  styleUrl: './address-modal.component.scss'
+  styleUrls: ['./address-modal.component.scss'],
 })
 export class AddressModalComponent implements OnInit {
 
-  private _display: boolean = false;
-
-  @Input()
-  set display(value: boolean) {
-    this._display = value;
-    if (value) {
-      this.loadUserAddress();
-    }
-  }
-
-  get display(): boolean {
-    return this._display;
-  }
-
+  @Input() display: boolean = false;
   @Output() close = new EventEmitter<boolean>();
 
   addressForm!: FormGroup;
+
+  fields = [
+    { id: 'addressLine1', label: 'Address Line 1', controlName: 'addressLine1', required: true, placeholder: 'Enter primary address' },
+    { id: 'addressLine2', label: 'Address Line 2', controlName: 'addressLine2', required: false, placeholder: 'Enter secondary address (optional)' },
+    { id: 'city', label: 'City', controlName: 'city', required: true, placeholder: 'Enter city' },
+    { id: 'state', label: 'State', controlName: 'state', required: false, placeholder: 'Enter state' },
+    { id: 'country', label: 'Country', controlName: 'country', required: true, placeholder: 'Enter country' },
+    { id: 'postalCode', label: 'Postal Code', controlName: 'postalCode', required: true, placeholder: 'Enter postal code' }
+  ];
 
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
@@ -39,7 +35,7 @@ export class AddressModalComponent implements OnInit {
       city: ['', Validators.required],
       state: [''],
       country: ['', Validators.required],
-      postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]]
+      postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]],
     });
   }
 
@@ -54,12 +50,8 @@ export class AddressModalComponent implements OnInit {
   onSubmit() {
     if (this.addressForm.valid) {
       this.userService.updateUserAddress(this.addressForm.value).then(res => {
-        if (res?.status === 200) {
-          this.close.emit(true);
-        }
-      }).catch(() => {
-        this.close.emit(false);
-      });
+        if (res?.status === 200) this.close.emit(true);
+      }).catch(() => this.close.emit(false));
     }
   }
 
