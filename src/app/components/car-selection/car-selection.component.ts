@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VehicleService} from '../../shared/services/vehicle.service';
-import {AppConstant} from '../../shared/utils/app-constant';
-import {CommonService} from '../../shared/services/common.service';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 interface CommonFilterDto {
   sortBy: string;
@@ -34,9 +31,6 @@ export class CarSelectionComponent implements OnInit {
   selectedFilters: Record<string, string> = {};
   carList: any = [];
   selectedCar: any = {};
-  loginToProceed: boolean = false;
-  addressIsMissing: boolean = false;
-  incompleteAddress: boolean = false;
 
   filterDto: CommonFilterDto = {
     sortBy: '',
@@ -111,7 +105,7 @@ export class CarSelectionComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router, private vehicleService: VehicleService, private commonService: CommonService) {
+  constructor(private route: ActivatedRoute, private router: Router, private vehicleService: VehicleService) {
   }
 
   ngOnInit(): void {
@@ -186,29 +180,6 @@ export class CarSelectionComponent implements OnInit {
   }
 
   openCarModal(car: any) {
-
-    if (!localStorage.getItem(AppConstant.TOKEN) || localStorage.getItem(AppConstant.TOKEN) == null || localStorage.getItem(AppConstant.TOKEN) == '') {
-      this.loginToProceed = true;
-      return;
-    }
-
-    this.commonService.isAddressAvailable().then((res: any) => {
-      if (res?.status === 200) {
-        if (!res.body || res.body == '') {
-          this.addressIsMissing = true;
-          return;
-        } else {
-          if (res.body.addressLine1 || res.body.city || res.body.country) {
-            this.incompleteAddress = true;
-            return;
-          }
-        }
-      }
-    }).catch(e => {
-
-    })
-
-
     this.selectedCar = car;
   }
 }
