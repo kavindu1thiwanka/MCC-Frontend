@@ -18,6 +18,7 @@ export class ApiEndPoint {
   private static ROLE = this.API_URL + '/role';
   private static VEHICLE = this.API_URL + '/vehicle';
   public static PAYMENTS = this.API_URL + '/payments';
+  public static RESERVATION = this.API_URL + '/res';
 
   public static AUTH_V1 = this.AUTH + this.V1;
   public static USER_V1 = this.USER + this.V1;
@@ -25,4 +26,5 @@ export class ApiEndPoint {
   public static ROLE_V1 = this.ROLE + this.V1;
   public static VEHICLE_V1 = this.VEHICLE + this.V1;
   public static PAYMENTS_V1 = this.PAYMENTS + this.V1;
+  public static RESERVATION_V1 = this.RESERVATION + this.V1;
 }

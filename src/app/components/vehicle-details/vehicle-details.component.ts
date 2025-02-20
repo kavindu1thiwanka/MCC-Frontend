@@ -13,7 +13,7 @@ import { AppConstant } from '../../shared/utils/app-constant';
 export class VehicleDetailsComponent {
 
   @Input() visible: boolean = false;
-  @Input() vehicle: any = { vehicleImage: '', name: '', model: '', year: '', type: '', seats: 0, price: 0 };
+  @Input() vehicle: any = {};
   @Output() close = new EventEmitter<void>();
 
   loginToProceed: boolean = false;
@@ -32,7 +32,7 @@ export class VehicleDetailsComponent {
       return;
     }
 
-    this.paymentService.createCheckoutSession(1).subscribe(({ checkoutUrl }) => {
+    this.paymentService.createCheckoutSessionAndMakeReservation(1).subscribe(({ checkoutUrl }) => {
       window.location.href = checkoutUrl;
     });
   }
