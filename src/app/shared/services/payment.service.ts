@@ -13,4 +13,10 @@ export class PaymentService {
   createCheckoutSessionAndMakeReservation(amount: number) {
     return this.httpClient.post<{ checkoutUrl: string }>(`${ApiEndPoint.RESERVATION_V1}/create_reservation`, {amount}, {withCredentials: true});
   }
+
+  updateReservationDetails(trxId: number, status: any) {
+    return this.httpClient.put(ApiEndPoint.RESERVATION_V1 + '/update_reservation_details',
+      {observe: 'response', withCredentials: false, params: {trxId:trxId, paymentStatus: status}}
+    ).toPromise();
+  }
 }
