@@ -32,7 +32,7 @@ export class VehicleDetailsComponent {
       return;
     }
 
-    this.paymentService.createCheckoutSessionAndMakeReservation(1).subscribe(({ checkoutUrl }) => {
+    this.paymentService.createCheckoutSessionAndMakeReservation(this.vehicle).subscribe(({ checkoutUrl }) => {
       window.location.href = checkoutUrl;
     });
   }

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, EventEmitter, Output, Input, ChangeDetectionStrategy} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-auth-modal',
@@ -16,8 +17,9 @@ export class AuthModalComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
   showPassword: boolean = false;
+  successfulRegistration: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private commonService: CommonService) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -30,7 +32,7 @@ export class AuthModalComponent {
       contactNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+    }, {validators: this.passwordMatchValidator});
   }
 
   toggleMode() {
@@ -39,20 +41,36 @@ export class AuthModalComponent {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  onLogin() {
+  async onLogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
-    console.log('Login data:', this.loginForm.value);
+
+    await this.commonService.login(this.loginForm.value).then(res => {
+      if (res && res.status === 200) {
+        this.commonService.setUserDetails(res.body);
+        this.closeModal();
+      }
+    }).catch(e => {
+
+    });
   }
 
-  onRegister() {
+  async onRegister() {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
     }
-    console.log('Register data:', this.registerForm.value);
+
+    await this.commonService.registerUser(this.registerForm.value).then((res: any) => {
+      if (res.status === 201) {
+        this.registerForm.reset();
+        this.successfulRegistration = true;
+      }
+    }).catch((e) => {
+      console.log('Error:', e);
+    });
   }
 
   togglePasswordVisibility() {
@@ -71,7 +89,7 @@ export class AuthModalComponent {
   private passwordMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    return password === confirmPassword ? null : {mismatch: true};
   }
 
   hasError(controlName: string, error: string, form: FormGroup): boolean {

@@ -50,7 +50,10 @@ export class AddressModalComponent implements OnInit {
   onSubmit() {
     if (this.addressForm.valid) {
       this.userService.updateUserAddress(this.addressForm.value).then(res => {
-        if (res?.status === 200) this.close.emit(true);
+        if (res?.status === 200) {
+          this.addressForm.reset();
+          this.close.emit(true);
+        }
       }).catch(() => this.close.emit(false));
     }
   }

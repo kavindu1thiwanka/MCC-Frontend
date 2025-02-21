@@ -10,8 +10,8 @@ export class PaymentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  createCheckoutSessionAndMakeReservation(amount: number) {
-    return this.httpClient.post<{ checkoutUrl: string }>(`${ApiEndPoint.RESERVATION_V1}/create_reservation`, {amount}, {withCredentials: true});
+  createCheckoutSessionAndMakeReservation(vehicle: any) {
+    return this.httpClient.post<{ checkoutUrl: string }>(`${ApiEndPoint.RESERVATION_V1}/create_reservation`, vehicle, {withCredentials: true});
   }
 
   updateReservationDetails(trxId: number, status: any) {

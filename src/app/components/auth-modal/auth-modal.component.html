@@ -1,12 +1,12 @@
 <div class="modal-overlay" *ngIf="display" (click)="closeModal()">
   <div class="modal-container" (click)="$event.stopPropagation()">
-    <div class="modal-header">
+    <div *ngIf="!successfulRegistration" class="modal-header">
       <h2>{{ isLoginMode ? 'Login' : 'Register' }}</h2>
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
 
     <!-- Login Form -->
-    <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+    <form *ngIf="isLoginMode && !successfulRegistration" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
       <div class="form-group">
         <input formControlName="username" type="text" placeholder="Username" />
         <small *ngIf="hasError('username', 'required', loginForm)">Username is required.</small>
@@ -29,7 +29,7 @@
     </form>
 
     <!-- Register Form -->
-    <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form" autocomplete="off">
+    <form *ngIf="!isLoginMode && !successfulRegistration" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form" autocomplete="off">
       <div class="form-group">
         <input formControlName="firstName" type="text" placeholder="First Name" autocomplete="off"/>
         <small *ngIf="hasError('firstName', 'required', registerForm)">First Name is required.</small>
@@ -76,5 +76,7 @@
         <span>Already have an account?</span><a (click)="toggleMode()">Login</a>
       </div>
     </form>
+
+    <p *ngIf="successfulRegistration">We received your registration details. Please check your email for confirmation.</p>
   </div>
 </div>

@@ -72,12 +72,8 @@ export class LoginComponent {
       });
     } else {
       await this.commonService.login(this.authForm.value).then((res: any) => {
-        console.log(res)
         if (res.status === 200) {
-          localStorage.setItem(AppConstant.REFRESH_TOKEN, res.body.refreshToken);
-          localStorage.setItem(AppConstant.ACCESS_TOKEN, res.body.accessToken);
-          localStorage.setItem(AppConstant.NAME, res.body.firstName + ' ' + res.body.lastName);
-          localStorage.setItem(AppConstant.IDENTIFIER, res.body.identifier);
+          this.commonService.setUserDetails(res.body);
           if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_CUSTOMER) {
             this.router.navigate(['/#']);
           } else if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_DRIVER) {

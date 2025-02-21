@@ -15,7 +15,7 @@ export class UserService {
   }
 
   updateUserAddress(addressDetails: any) {
-    return this.httpClient.put(ApiEndPoint.USER_V1 + '/update_user_address', {address : addressDetails},
+    return this.httpClient.put(ApiEndPoint.USER_V1 + '/update_user_address', addressDetails,
       {observe: 'response', withCredentials: true}).toPromise();
   }
 }
