@@ -20,25 +20,34 @@ $shadow-color: rgba(0, 0, 0, 0.15);
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
   }
 
   .modal-container {
     position: relative;
     background: $background-color;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 900px;
-    box-shadow: 0 10px 30px $shadow-color;
-    padding: 1rem;
-    animation: fadeIn 0.4s ease-in-out;
+    border-radius: 16px;
+    width: 80%;
+    max-width: 1100px;
+    max-height: 80%;
+    box-shadow: 0 15px 40px $shadow-color;
+    padding: 1.5rem;
+    animation: fadeIn 0.4s ease;
 
     .modal-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .modal-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $primary-color;
+      }
 
       .close-btn {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         background: none;
         border: none;
         color: $text-color;
@@ -55,57 +64,61 @@ $shadow-color: rgba(0, 0, 0, 0.15);
       display: flex;
       gap: 2rem;
       border-top: 1px solid #dee2e6;
-      padding-top: 1rem;
+      padding-top: 1.5rem;
+      flex-wrap: wrap;
+      overflow-y: auto;
 
       .vehicle-section {
         flex: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-right: 1rem;
 
         .vehicle-image {
           width: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 6px 20px $shadow-color;
+
           img {
             width: 100%;
             height: auto;
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px $shadow-color;
           }
         }
 
         .vehicle-details {
-          margin-top: 1rem;
+          margin-top: 1.2rem;
 
           h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: $primary-color;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
           }
 
           p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: $text-color;
+            line-height: 1.6;
             margin-bottom: 1rem;
-            line-height: 1.5;
           }
 
           .details-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
 
             th, td {
-              padding: 0.6rem;
-              font-size: 0.9rem;
+              padding: 0.7rem;
+              font-size: 0.95rem;
               text-align: left;
             }
 
             th {
               background: $secondary-color;
               color: #fff;
-              font-weight: 500;
+              font-weight: 600;
             }
 
             td {
@@ -113,8 +126,7 @@ $shadow-color: rgba(0, 0, 0, 0.15);
               color: $text-color;
             }
 
-            tr:not(:last-child) td,
-            tr:not(:last-child) th {
+            tr:not(:last-child) td, tr:not(:last-child) th {
               border-bottom: 1px solid #dee2e6;
             }
           }
@@ -127,8 +139,8 @@ $shadow-color: rgba(0, 0, 0, 0.15);
         padding-left: 1.5rem;
 
         h3 {
-          font-size: 1.3rem;
-          font-weight: 600;
+          font-size: 1.4rem;
+          font-weight: 700;
           color: $primary-color;
           margin-bottom: 1rem;
         }
@@ -136,11 +148,10 @@ $shadow-color: rgba(0, 0, 0, 0.15);
         ul {
           list-style: none;
           padding: 0;
-          margin-bottom: 1rem;
 
           li {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.6rem;
             color: $text-color;
 
             strong {
@@ -150,8 +161,8 @@ $shadow-color: rgba(0, 0, 0, 0.15);
         }
 
         .full-amount {
-          font-weight: 600;
-          font-size: 1rem;
+          font-weight: 700;
+          font-size: 1.1rem;
           margin: 1rem 0;
           color: $primary-color;
         }
@@ -162,26 +173,26 @@ $shadow-color: rgba(0, 0, 0, 0.15);
           gap: 0.8rem;
 
           .btn {
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            border: 1px solid $text-color;
-            transition: background 0.2s ease, color 0.2s ease;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
 
             &.btn-secondary {
               background: transparent;
               color: $text-color;
+              border-color: $text-color;
 
               &:hover {
-                background: lighten($text-color, 30%);
+                background: lighten($text-color, 35%);
               }
             }
 
             &.btn-primary {
               background: $secondary-color;
               color: #fff;
-              border: none;
 
               &:hover {
                 background: darken($secondary-color, 10%);
@@ -196,16 +207,15 @@ $shadow-color: rgba(0, 0, 0, 0.15);
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: translateY(-10px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0);
     }
   }
 }
 
-// Responsive Design
 @media (max-width: 768px) {
   .modal-body {
     flex-direction: column;

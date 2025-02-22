@@ -7,43 +7,25 @@
     </div>
 
     <div class="modal-body">
-      <!-- Left Section: Vehicle Image + Details -->
       <div class="vehicle-section">
         <div class="vehicle-image">
-          <img [src]="vehicle?.vehicleImage" alt="Vehicle Image"/>
+          <img [src]="vehicle?.vehicleImage" alt="Vehicle Image" />
         </div>
         <div class="vehicle-details">
-          <h2> {{ vehicle.name }}</h2>
+          <h2>{{ vehicle?.name }}</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <table class="details-table">
-            <tr>
-              <th>Vehicle Number</th>
-              <td>{{ vehicle?.vehicleNo }}</td>
-            </tr>
-            <tr>
-              <th>Type</th>
-              <td>{{ vehicle?.vehicleType }}</td>
-            </tr>
-            <tr>
-              <th>Gear Type</th>
-              <td>{{ vehicle?.gearType === 'M' ? 'Manual' : 'Automatic' }}</td>
-            </tr>
-            <tr>
-              <th>Seats</th>
-              <td>{{ vehicle?.seats }}</td>
-            </tr>
-            <tr>
-              <th>Price per Day</th>
-              <td>${{ vehicle?.pricePerDay }}</td>
-            </tr>
+            <tr><th>Vehicle Number</th><td>{{ vehicle?.vehicleNo }}</td></tr>
+            <tr><th>Type</th><td>{{ vehicle?.vehicleType }}</td></tr>
+            <tr><th>Gear Type</th><td>{{ vehicle?.gearType === 'M' ? 'Manual' : 'Automatic' }}</td></tr>
+            <tr><th>Seats</th><td>{{ vehicle?.seats }}</td></tr>
+            <tr><th>Price per Day</th><td>${{ vehicle?.pricePerDay }}</td></tr>
           </table>
         </div>
       </div>
 
-      <!-- Right Section: Checkout Details -->
       <div class="checkout-section">
         <h3>Checkout Details</h3>
         <ul>
@@ -63,13 +45,5 @@
   </div>
 </div>
 
-<!-- Modals -->
-<app-address-modal
-  [display]="showAddressModal"
-  (close)="handleAddressModalClose($event)">
-</app-address-modal>
-
-<app-auth-modal
-  [display]="loginToProceed"
-  (close)="handleLoginModalClose($event)">
-</app-auth-modal>
+<app-address-modal [display]="showAddressModal" (close)="handleAddressModalClose($event)"></app-address-modal>
+<app-auth-modal [display]="loginToProceed" (close)="handleLoginModalClose($event)"></app-auth-modal>
