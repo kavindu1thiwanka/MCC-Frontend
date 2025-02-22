@@ -240,6 +240,20 @@ $glass-blur: 12px;
   }
 }
 
+.driver-selection {
+  margin-top: 10px;
+  label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 8px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .modal-container {
     max-height: 90vh;

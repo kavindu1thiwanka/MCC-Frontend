@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import { PaymentService } from '../../shared/services/payment.service';
-import { UserService } from '../../shared/services/user.service';
-import { AppConstant } from '../../shared/utils/app-constant';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {PaymentService} from '../../shared/services/payment.service';
+import {UserService} from '../../shared/services/user.service';
 import {VehicleService} from '../../shared/services/vehicle.service';
+import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -33,6 +33,11 @@ export class VehicleDetailsComponent implements OnChanges{
       this.setReservationDetails();
       this.getTotalAmount();
     }
+  }
+
+  onCheckboxChange() {
+    this.setReservationDetails();
+    this.getTotalAmount();
   }
 
   async checkout() {
@@ -74,7 +79,7 @@ export class VehicleDetailsComponent implements OnChanges{
         this.totalAmount = (res?.body as any)?.totalCost;
       }
     }).catch(e => {
-
+      console.error('Error fetching total cost:', e);
     });
   }
 

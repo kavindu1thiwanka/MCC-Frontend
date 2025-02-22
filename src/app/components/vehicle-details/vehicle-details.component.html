@@ -35,6 +35,14 @@
           <li><strong>Return date & time:</strong> {{ bookingDetails?.returnDate | date:'medium' }}</li>
           <li><strong>Price per day:</strong> ${{ vehicle?.pricePerDay }}</li>
         </ul>
+
+        <div class="driver-selection">
+          <label>
+            <input type="checkbox" [(ngModel)]="needDriver" (change)="onCheckboxChange()" />
+            <span>Include Driver</span>
+          </label>
+        </div>
+
         <div class="full-amount"><strong>Full Amount:</strong> ${{ totalAmount }}</div>
         <div class="action-buttons">
           <button class="btn btn-secondary" (click)="handleClose()">Close</button>
