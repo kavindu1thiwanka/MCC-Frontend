@@ -37,10 +37,16 @@ $shadow-color: rgba(0, 0, 0, 0.3);
       }
 
       .close-btn {
-        font-size: 1.8rem; background: none; border: none; color: $text-color;
-        cursor: pointer; transition: color 0.2s ease;
+        font-size: 1.8rem;
+        background: transparent;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        transition: color 0.2s ease;
 
-        &:hover { color: $accent-color; }
+        &:hover {
+          color: $accent-color;
+        }
       }
     }
 
