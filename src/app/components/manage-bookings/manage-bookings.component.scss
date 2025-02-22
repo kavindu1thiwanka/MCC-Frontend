@@ -1,0 +1,121 @@
+$primary-color: #2c3e50;
+$accent-color: #1abc9c;
+$error-color: #e74c3c;
+$background-color: rgba(255, 255, 255, 0.15);
+$shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+$backdrop-filter: blur(16px);
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1060 !important;
+  backdrop-filter: blur(8px);
+}
+
+.modal-container {
+  background: $background-color;
+  backdrop-filter: $backdrop-filter;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: $shadow;
+  animation: fadeIn 0.4s ease-in-out;
+  color: #fff;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      font-size: 1.6rem;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+
+  .reservations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    .reservation-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: $shadow;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+
+      .reservation-info {
+        h3 {
+          font-size: 1.4rem;
+          margin-bottom: 0.6rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+          margin: 0.3rem 0;
+        }
+      }
+
+      .reservation-actions {
+        .cancel-btn {
+          background: $error-color;
+          color: #fff;
+          border: none;
+          padding: 0.6rem 1rem;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+
+          &:hover {
+            background: darken($error-color, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

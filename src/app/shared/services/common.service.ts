@@ -43,6 +43,11 @@ export class CommonService {
     ).toPromise();
   }
 
+  getReservationDetails() {
+    return this.httpClient.get(ApiEndPoint.RESERVATION_V1 + '/get_reservation_details',
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
 
   logout(): void {
     localStorage.clear();

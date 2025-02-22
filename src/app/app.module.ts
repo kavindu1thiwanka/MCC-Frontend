@@ -39,6 +39,7 @@ import { CardModule } from 'primeng/card';
 import { VehicleDetailsComponent } from './components/vehicle-details/vehicle-details.component';
 import { AddressModalComponent } from './components/address-modal/address-modal.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
+import { ManageBookingsComponent } from './components/manage-bookings/manage-bookings.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     PaymentCancelComponent,
     VehicleDetailsComponent,
     AddressModalComponent,
-    AuthModalComponent
+    AuthModalComponent,
+    ManageBookingsComponent
   ],
   imports: [
     BrowserModule,

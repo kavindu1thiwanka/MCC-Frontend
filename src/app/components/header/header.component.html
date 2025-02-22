@@ -11,7 +11,8 @@
         <i class="fa-solid fa-user-tie"></i>
         Driver
       </a>
-      <a *ngIf="userLoggedIn" href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+      <a *ngIf="userLoggedIn" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline"
+      role="button" (click)="showBookingsDetails = true">
         <i class="fa-solid fa-car"></i>
         Manage bookings
       </a>
@@ -23,3 +24,5 @@
     </div>
   </div>
 </header>
+
+<app-manage-bookings [display]="showBookingsDetails" (close)="closeManageBookings()"></app-manage-bookings>

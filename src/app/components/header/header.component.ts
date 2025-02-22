@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() public isLandingPage = true;
   userLoggedIn = false;
+  showBookingsDetails: boolean = false;
 
   constructor(private location: Location) {}
 
@@ -22,5 +23,9 @@ export class HeaderComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  closeManageBookings() {
+    this.showBookingsDetails = false;
   }
 }
