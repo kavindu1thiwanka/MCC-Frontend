@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { PaymentService } from '../../shared/services/payment.service';
 import { UserService } from '../../shared/services/user.service';
 import { AppConstant } from '../../shared/utils/app-constant';
+import {VehicleService} from '../../shared/services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -10,7 +11,7 @@ import { AppConstant } from '../../shared/utils/app-constant';
   templateUrl: './vehicle-details.component.html',
   styleUrls: ['./vehicle-details.component.scss'],
 })
-export class VehicleDetailsComponent {
+export class VehicleDetailsComponent implements OnChanges{
 
   @Input() visible: boolean = false;
   @Input() vehicle: any = {};
@@ -23,8 +24,16 @@ export class VehicleDetailsComponent {
   showAddressModal: boolean = false;
   needDriver: boolean = false;
   totalAmount: number = 0;
+  reservationDetails: any = {};
 
-  constructor(private paymentService: PaymentService, private userService: UserService) {}
+  constructor(private paymentService: PaymentService, private userService: UserService, private vehicleService: VehicleService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['visible'] && this.visible) {
+      this.setReservationDetails();
+      this.getTotalAmount();
+    }
+  }
 
   async checkout() {
     await this.validateUserDetails();
@@ -35,17 +44,9 @@ export class VehicleDetailsComponent {
       return;
     }
 
-    const reservationDetails = {
-      vehicleNo: this.vehicle.vehicleNo,
-      pickUpDate: this.bookingDetails.pickupDate,
-      returnDate: this.bookingDetails.returnDate,
-      pickUpLocation: this.bookingDetails.pickup,
-      returnLocation: this.bookingDetails.return,
-      needDriver: this.needDriver,
-      amount: this.totalAmount
-    };
+    this.setReservationDetails();
 
-    this.paymentService.createCheckoutSessionAndMakeReservation(reservationDetails).subscribe(({ checkoutUrl }) => {
+    this.paymentService.createCheckoutSessionAndMakeReservation(this.reservationDetails).subscribe(({ checkoutUrl }) => {
       window.location.href = checkoutUrl;
     });
   }
@@ -67,6 +68,16 @@ export class VehicleDetailsComponent {
     }
   }
 
+  getTotalAmount() {
+    this.vehicleService.getVehicleTotalCost(this.reservationDetails).then(res => {
+      if (res?.status === 200 && res.body) {
+        this.totalAmount = (res?.body as any)?.totalCost;
+      }
+    }).catch(e => {
+
+    });
+  }
+
   handleClose() {
     this.visible = false;
     this.close.emit();
@@ -83,5 +94,18 @@ export class VehicleDetailsComponent {
 
   handleLoginModalClose($event: any) {
     this.loginToProceed = false;
+  }
+
+  setReservationDetails() {
+    this.reservationDetails = {
+      vehicleNo: this.vehicle.vehicleNo,
+      pickUpDate: this.bookingDetails.pickupDate,
+      returnDate: this.bookingDetails.returnDate,
+      pickUpLocation: this.bookingDetails.pickup,
+      returnLocation: this.bookingDetails.return,
+      needDriver: this.needDriver,
+      pricePerDay: this.vehicle.pricePerDay,
+      totalCost: this.totalAmount
+    };
   }
 }

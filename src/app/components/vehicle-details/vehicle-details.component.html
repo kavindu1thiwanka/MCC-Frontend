@@ -30,9 +30,9 @@
         <h3>Checkout Details</h3>
         <ul>
           <li><strong>Pickup location:</strong> {{ bookingDetails?.pickup }}</li>
-          <li><strong>Drop location:</strong> {{ bookingDetails.return ? bookingDetails?.return : 'Same as pickup location' }}</li>
+          <li><strong>Return location:</strong> {{ bookingDetails.return ? bookingDetails?.return : 'Same as pickup location' }}</li>
           <li><strong>Pickup date & time:</strong> {{ bookingDetails?.pickupDate | date:'medium' }}</li>
-          <li><strong>Drop date & time:</strong> {{ bookingDetails?.returnDate | date:'medium' }}</li>
+          <li><strong>Return date & time:</strong> {{ bookingDetails?.returnDate | date:'medium' }}</li>
           <li><strong>Price per day:</strong> ${{ vehicle?.pricePerDay }}</li>
         </ul>
         <div class="full-amount"><strong>Full Amount:</strong> ${{ totalAmount }}</div>

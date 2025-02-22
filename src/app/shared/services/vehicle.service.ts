@@ -14,4 +14,10 @@ export class VehicleService {
       {observe: 'response', withCredentials: false}
     ).toPromise();
   }
+
+  getVehicleTotalCost(reservationDetails: any) {
+    return this.httpClient.post(ApiEndPoint.VEHICLE_V1 + '/get_vehicle_total_cost', reservationDetails,
+      {observe: 'response', withCredentials: false}
+    ).toPromise();
+  }
 }
