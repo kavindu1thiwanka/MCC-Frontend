@@ -17,7 +17,9 @@
           <p><strong>Status:</strong> {{ reservation.status }}</p>
         </div>
         <div class="reservation-actions">
-          <button class="cancel-btn" *ngIf="reservation.status === 'Booked'" (click)="cancelReservation(reservation.id)">Cancel</button>
+          <button class="cancel-btn" *ngIf="reservation.status === 'Booked'" (click)="cancelReservation(reservation.id)">
+            Cancel
+          </button>
         </div>
       </div>
     </div>

@@ -58,6 +58,22 @@ $backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    max-height: 400px; // Adjust for desired scroll area height
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
 
     .reservation-card {
       background: rgba(255, 255, 255, 0.1);
