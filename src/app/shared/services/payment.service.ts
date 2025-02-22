@@ -11,12 +11,14 @@ export class PaymentService {
   }
 
   createCheckoutSessionAndMakeReservation(reservationDetails: any) {
-    return this.httpClient.post<{ checkoutUrl: string }>(`${ApiEndPoint.RESERVATION_V1}/create_reservation`, reservationDetails, {withCredentials: true});
+    return this.httpClient.post(ApiEndPoint.RESERVATION_V1 + '/create_reservation', reservationDetails,
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
   }
 
   updateReservationDetails(trxId: number, status: any) {
-    return this.httpClient.put(ApiEndPoint.RESERVATION_V1 + '/update_reservation_details',
-      {observe: 'response', withCredentials: false, params: {trxId:trxId, paymentStatus: status}}
+    return this.httpClient.put(ApiEndPoint.RESERVATION_V1 + '/update_reservation_details',{},
+      {observe: 'response', withCredentials: true, params: {trxId: trxId, paymentStatus: status}}
     ).toPromise();
   }
 }

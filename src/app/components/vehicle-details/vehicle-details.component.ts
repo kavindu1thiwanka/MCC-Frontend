@@ -51,8 +51,9 @@ export class VehicleDetailsComponent implements OnChanges{
 
     this.setReservationDetails();
 
-    this.paymentService.createCheckoutSessionAndMakeReservation(this.reservationDetails).subscribe(({ checkoutUrl }) => {
-      window.location.href = checkoutUrl;
+    this.paymentService.createCheckoutSessionAndMakeReservation(this.reservationDetails).then(res => {
+      console.log(res?.body)
+      window.location.href = (res?.body as any)?.checkoutUrl;
     });
   }
 
