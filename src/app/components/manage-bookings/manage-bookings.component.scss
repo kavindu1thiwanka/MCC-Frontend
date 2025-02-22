@@ -15,14 +15,14 @@ $backdrop-filter: blur(16px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1060 !important;
+  z-index: 1060;
   backdrop-filter: blur(8px);
 }
 
 .modal-container {
   background: $background-color;
   backdrop-filter: $backdrop-filter;
-  width: 95%;
+  width: 90%;
   max-width: 900px;
   padding: 2rem;
   border-radius: 20px;
@@ -31,10 +31,6 @@ $backdrop-filter: blur(16px);
   color: #fff;
   max-height: 90vh;
   overflow-y: auto;
-
-  &.wide {
-    max-width: 1100px;
-  }
 
   .modal-header {
     display: flex;
@@ -63,26 +59,29 @@ $backdrop-filter: blur(16px);
   .reservations-list {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    max-height: 65vh;
+    gap: 1.5rem;
+    max-height: 70vh;
     overflow-y: auto;
     padding-right: 0.5rem;
+  }
 
-    .reservation-card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: $shadow;
+  .reservation-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    border-radius: 15px;
+    box-shadow: $shadow;
+    display: flex;
+    flex-direction: column;
+
+    .reservation-content {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      transition: transform 0.2s ease;
-
-      &:hover {
-        transform: translateY(-4px);
-      }
+      gap: 1rem;
 
       .reservation-info {
+        flex: 2;
+
         h3 {
           font-size: 1.4rem;
           margin-bottom: 0.6rem;
@@ -95,14 +94,33 @@ $backdrop-filter: blur(16px);
       }
 
       .reservation-actions {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+
+        button {
+          width: 100%;
+          padding: 0.6rem;
+          border-radius: 10px;
+          font-size: 0.9rem;
+          cursor: pointer;
+        }
+
+        .edit-btn {
+          background: $accent-color;
+          color: #fff;
+          border: none;
+
+          &:hover {
+            background: darken($accent-color, 10%);
+          }
+        }
+
         .cancel-btn {
           background: $error-color;
           color: #fff;
           border: none;
-          padding: 0.6rem 1rem;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: background 0.3s ease;
 
           &:hover {
             background: darken($error-color, 10%);

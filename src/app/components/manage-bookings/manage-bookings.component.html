@@ -1,5 +1,5 @@
 <div class="modal-overlay" *ngIf="display" (click)="closeModal()">
-  <div class="modal-container wide" (click)="$event.stopPropagation()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2>Your Reservations</h2>
       <button class="close-btn" (click)="closeModal()">×</button>
@@ -7,19 +7,22 @@
 
     <div *ngIf="reservations.length > 0; else noReservations" class="reservations-list">
       <div *ngFor="let reservation of reservations" class="reservation-card">
-        <div class="reservation-info">
-          <h3>{{ reservation.vehicleName }}</h3>
-          <p><strong>Pickup:</strong> {{ reservation.pickUpLocation }}</p>
-          <p><strong>Return:</strong> {{ reservation.returnLocation }}</p>
-          <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
-          <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
-          <p><strong>Payment Status:</strong> {{ reservation.paymentStatus }}</p>
-          <p><strong>Status:</strong> {{ reservation.status }}</p>
-        </div>
-        <div class="reservation-actions">
-          <button class="cancel-btn" *ngIf="reservation.status === 'Booked'" (click)="cancelReservation(reservation.id)">
-            Cancel
-          </button>
+        <div class="reservation-content">
+          <div class="reservation-info">
+            <h3>{{ reservation.vehicleName }}</h3>
+            <p><strong>Pickup:</strong> {{ reservation.pickUpLocation }}</p>
+            <p><strong>Return:</strong> {{ reservation.returnLocation }}</p>
+            <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
+            <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
+            <p><strong>Payment Status:</strong> {{ reservation.paymentStatus }}</p>
+            <p><strong>Status:</strong> {{ reservation.status }}</p>
+          </div>
+
+          <div class="reservation-actions">
+            <button class="edit-btn" *ngIf="reservation.status === 'P'" (click)="editReservation(reservation)">Edit</button>
+            <button class="cancel-btn" *ngIf="reservation.status === 'P'" (click)="cancelReservation(reservation.id)">Cancel</button>
+            <button class="edit-btn" *ngIf="reservation.status === 'A'" (click)="cancelReservation(reservation.id)">Return Vehicle</button>
+          </div>
         </div>
       </div>
     </div>

@@ -11,7 +11,6 @@ import { CommonService } from '../../shared/services/common.service';
 export class ManageBookingsComponent implements OnChanges {
   @Input() display: boolean = false;
   @Output() close = new EventEmitter<void>();
-
   reservations: any = [];
 
   constructor(private commonService: CommonService) {}
@@ -25,11 +24,9 @@ export class ManageBookingsComponent implements OnChanges {
   getReservations() {
     this.commonService.getReservationDetails().then(res => {
       if (res?.status === 200) {
-        this.reservations = res?.body;
+        this.reservations = res.body;
       }
-    }).catch(e => {
-      console.error('Error fetching reservations:', e);
-    });
+    }).catch(() => alert('Failed to fetch reservations.'));
   }
 
   closeModal() {
@@ -38,11 +35,13 @@ export class ManageBookingsComponent implements OnChanges {
     this.close.emit();
   }
 
+  editReservation(reservation: any) {
+    alert(`Edit functionality for reservation ID: ${reservation.id}`);
+  }
+
   cancelReservation(reservationId: string) {
-    const confirmed = confirm('Are you sure you want to cancel this reservation?');
-    if (confirmed) {
-      // Implement actual cancellation logic here
-      alert('Reservation canceled successfully.');
+    if (confirm('Are you sure you want to cancel this reservation?')) {
+      alert(`Reservation with ID ${reservationId} canceled.`);
     }
   }
 }
