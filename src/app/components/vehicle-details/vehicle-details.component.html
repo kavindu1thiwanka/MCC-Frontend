@@ -1,6 +1,5 @@
 <div class="vehicle-modal" *ngIf="visible">
   <div class="modal-overlay" (click)="handleClose()"></div>
-
   <div class="modal-container">
     <div class="modal-header">
       <h2 class="modal-title">Vehicle Information</h2>
@@ -8,27 +7,58 @@
     </div>
 
     <div class="modal-body">
-      <div *ngIf="vehicle" class="vehicle-info">
+      <!-- Left Section: Vehicle Image + Details -->
+      <div class="vehicle-section">
         <div class="vehicle-image">
-          <img [src]="vehicle.vehicleImage" alt="Vehicle Image" />
+          <img [src]="vehicle?.vehicleImage" alt="Vehicle Image"/>
         </div>
-
         <div class="vehicle-details">
-          <h3>{{ vehicle.name }}</h3>
+          <h2> {{ vehicle.name }}</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.
+          </p>
           <table class="details-table">
-            <tr><th>Vehicle Number</th><td>{{ vehicle.vehicleNo }}</td></tr>
-            <tr><th>Type</th><td>{{ vehicle.vehicleType }}</td></tr>
-            <tr><th>Gear Type</th><td>{{ vehicle.gearType === 'M' ? 'Manual' : 'Automatic' }}</td></tr>
-            <tr><th>Seats</th><td>{{ vehicle.seats }}</td></tr>
-            <tr><th>Price per Day</th><td>${{ vehicle.pricePerDay }}</td></tr>
+            <tr>
+              <th>Vehicle Number</th>
+              <td>{{ vehicle?.vehicleNo }}</td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td>{{ vehicle?.vehicleType }}</td>
+            </tr>
+            <tr>
+              <th>Gear Type</th>
+              <td>{{ vehicle?.gearType === 'M' ? 'Manual' : 'Automatic' }}</td>
+            </tr>
+            <tr>
+              <th>Seats</th>
+              <td>{{ vehicle?.seats }}</td>
+            </tr>
+            <tr>
+              <th>Price per Day</th>
+              <td>${{ vehicle?.pricePerDay }}</td>
+            </tr>
           </table>
         </div>
       </div>
-    </div>
 
-    <div class="modal-footer">
-      <button class="btn btn-secondary" (click)="handleClose()">Close</button>
-      <button class="btn btn-primary" (click)="checkout()">Proceed to Checkout</button>
+      <!-- Right Section: Checkout Details -->
+      <div class="checkout-section">
+        <h3>Checkout Details</h3>
+        <ul>
+          <li><strong>Pickup location:</strong> {{ bookingDetails?.pickupLocation }}</li>
+          <li><strong>Drop location:</strong> {{ bookingDetails?.dropLocation }}</li>
+          <li><strong>Pickup date & time:</strong> {{ bookingDetails?.pickupDateTime | date:'medium' }}</li>
+          <li><strong>Drop date & time:</strong> {{ bookingDetails?.dropDateTime | date:'medium' }}</li>
+          <li><strong>Price per day:</strong> ${{ vehicle?.pricePerDay }}</li>
+        </ul>
+        <div class="full-amount"><strong>Full Amount:</strong> ${{ totalAmount }}</div>
+        <div class="action-buttons">
+          <button class="btn btn-secondary" (click)="handleClose()">Close</button>
+          <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

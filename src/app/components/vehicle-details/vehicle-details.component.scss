@@ -6,36 +6,44 @@ $shadow-color: rgba(0, 0, 0, 0.15);
 
 .vehicle-modal {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  display: flex; justify-content: center; align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1050;
 
   .modal-overlay {
-    position: absolute; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
   }
 
   .modal-container {
     position: relative;
     background: $background-color;
     border-radius: 12px;
-    width: 100%;
-    max-width: 800px;
+    width: 90%;
+    max-width: 900px;
     box-shadow: 0 10px 30px $shadow-color;
-    padding: 1.5rem;
+    padding: 1rem;
     animation: fadeIn 0.4s ease-in-out;
 
     .modal-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 1rem;
-
-      .modal-title {
-        font-size: 1.6rem; font-weight: 600; color: $text-color;
-      }
+      display: flex;
+      justify-content: space-between;
 
       .close-btn {
-        font-size: 1.8rem; background: none; border: none; color: $text-color;
-        cursor: pointer; transition: color 0.2s ease;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: $text-color;
+        cursor: pointer;
+        transition: color 0.2s ease;
 
         &:hover {
           color: $secondary-color;
@@ -44,67 +52,141 @@ $shadow-color: rgba(0, 0, 0, 0.15);
     }
 
     .modal-body {
-      .vehicle-info {
-        display: flex; flex-wrap: wrap; gap: 1rem;
+      display: flex;
+      gap: 2rem;
+      border-top: 1px solid #dee2e6;
+      padding-top: 1rem;
+
+      .vehicle-section {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
 
         .vehicle-image {
-          flex: 1 1 45%;
+          width: 100%;
           img {
-            width: 100%; height: auto; border-radius: 10px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
             box-shadow: 0 4px 10px $shadow-color;
           }
         }
 
         .vehicle-details {
-          flex: 1 1 50%;
+          margin-top: 1rem;
 
-          h3 {
-            font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem;
+          h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
             color: $primary-color;
+            margin-bottom: 0.8rem;
+          }
+
+          p {
+            font-size: 0.95rem;
+            color: $text-color;
+            margin-bottom: 1rem;
+            line-height: 1.5;
           }
 
           .details-table {
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+
             th, td {
-              padding: 0.6rem; text-align: left;
+              padding: 0.6rem;
+              font-size: 0.9rem;
+              text-align: left;
             }
 
             th {
-              background: $secondary-color; color: #fff; font-weight: 500;
+              background: $secondary-color;
+              color: #fff;
+              font-weight: 500;
             }
 
             td {
-              background: #fff; color: $text-color;
+              background: #fff;
+              color: $text-color;
             }
 
-            tr:not(:last-child) td, tr:not(:last-child) th {
+            tr:not(:last-child) td,
+            tr:not(:last-child) th {
               border-bottom: 1px solid #dee2e6;
             }
           }
         }
       }
-    }
 
-    .modal-footer {
-      display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem;
+      .checkout-section {
+        flex: 1;
+        border-left: 1px solid #dee2e6;
+        padding-left: 1.5rem;
 
-      .btn {
-        padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none;
-        transition: background 0.2s ease;
+        h3 {
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: $primary-color;
+          margin-bottom: 1rem;
+        }
 
-        &.btn-secondary {
-          background: #adb5bd; color: #fff;
+        ul {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 1rem;
 
-          &:hover {
-            background: darken(#adb5bd, 10%);
+          li {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: $text-color;
+
+            strong {
+              font-weight: 600;
+            }
           }
         }
 
-        &.btn-primary {
-          background: $secondary-color; color: #fff;
+        .full-amount {
+          font-weight: 600;
+          font-size: 1rem;
+          margin: 1rem 0;
+          color: $primary-color;
+        }
 
-          &:hover {
-            background: darken($secondary-color, 10%);
+        .action-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+
+          .btn {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid $text-color;
+            transition: background 0.2s ease, color 0.2s ease;
+
+            &.btn-secondary {
+              background: transparent;
+              color: $text-color;
+
+              &:hover {
+                background: lighten($text-color, 30%);
+              }
+            }
+
+            &.btn-primary {
+              background: $secondary-color;
+              color: #fff;
+              border: none;
+
+              &:hover {
+                background: darken($secondary-color, 10%);
+              }
+            }
           }
         }
       }
@@ -112,18 +194,27 @@ $shadow-color: rgba(0, 0, 0, 0.15);
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
 // Responsive Design
 @media (max-width: 768px) {
-  .vehicle-modal .modal-container {
-    padding: 1rem;
-    .modal-body .vehicle-info {
-      flex-direction: column;
-      .vehicle-image, .vehicle-details { flex: 1 1 100%; }
+  .modal-body {
+    flex-direction: column;
+
+    .checkout-section {
+      border-left: none;
+      border-top: 1px solid #dee2e6;
+      padding-top: 1rem;
+      padding-left: 0;
     }
   }
 }

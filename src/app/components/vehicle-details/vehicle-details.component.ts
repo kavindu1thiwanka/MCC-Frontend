@@ -20,6 +20,8 @@ export class VehicleDetailsComponent {
   addressIsMissing: boolean = false;
   incompleteAddress: boolean = false;
   showAddressModal: boolean = false;
+  bookingDetails: any = {}
+  totalAmount: number = 0;
 
   constructor(private paymentService: PaymentService, private userService: UserService) {}
 
