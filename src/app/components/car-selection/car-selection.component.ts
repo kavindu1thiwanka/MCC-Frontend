@@ -44,8 +44,8 @@ export class CarSelectionComponent implements OnInit {
       name: 'Sort By',
       category: ['motorcycle', 'car', 'van-shuttle', 'truck'],
       dropdownItems: [
-        {name: 'Price low to high', value: 'car.priceForDay ASC'},
-        {name: 'Price high to low', value: 'car.priceForDay DESC'}
+        {name: 'Price low to high', value: 'car.pricePerDay ASC'},
+        {name: 'Price high to low', value: 'car.pricePerDay DESC'}
       ]
     },
     {

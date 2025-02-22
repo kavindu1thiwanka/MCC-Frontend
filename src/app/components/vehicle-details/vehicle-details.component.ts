@@ -21,6 +21,7 @@ export class VehicleDetailsComponent {
   addressIsMissing: boolean = false;
   incompleteAddress: boolean = false;
   showAddressModal: boolean = false;
+  needDriver: boolean = false;
   totalAmount: number = 0;
 
   constructor(private paymentService: PaymentService, private userService: UserService) {}
@@ -34,7 +35,17 @@ export class VehicleDetailsComponent {
       return;
     }
 
-    this.paymentService.createCheckoutSessionAndMakeReservation(this.vehicle).subscribe(({ checkoutUrl }) => {
+    const reservationDetails = {
+      vehicleNo: this.vehicle.vehicleNo,
+      pickUpDate: this.bookingDetails.pickupDate,
+      returnDate: this.bookingDetails.returnDate,
+      pickUpLocation: this.bookingDetails.pickup,
+      returnLocation: this.bookingDetails.return,
+      needDriver: this.needDriver,
+      amount: this.totalAmount
+    };
+
+    this.paymentService.createCheckoutSessionAndMakeReservation(reservationDetails).subscribe(({ checkoutUrl }) => {
       window.location.href = checkoutUrl;
     });
   }
