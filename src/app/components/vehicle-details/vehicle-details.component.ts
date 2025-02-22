@@ -14,13 +14,13 @@ export class VehicleDetailsComponent {
 
   @Input() visible: boolean = false;
   @Input() vehicle: any = {};
+  @Input() bookingDetails: any = {};
   @Output() close = new EventEmitter<void>();
 
   loginToProceed: boolean = false;
   addressIsMissing: boolean = false;
   incompleteAddress: boolean = false;
   showAddressModal: boolean = false;
-  bookingDetails: any = {}
   totalAmount: number = 0;
 
   constructor(private paymentService: PaymentService, private userService: UserService) {}
