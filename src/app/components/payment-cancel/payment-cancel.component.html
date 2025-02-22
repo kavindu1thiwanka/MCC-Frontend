@@ -8,7 +8,10 @@
         <h2 class="text-danger fw-bold">Payment Canceled</h2>
         <p class="text-secondary">Your payment was not completed. If this was a mistake, try again.</p>
         <button pButton label="Try Again" icon="pi pi-replay"
-                class="btn btn-danger w-100" routerLink="/cab-payment"></button>
+                class="btn btn-danger w-100" (click)="redirectToCarSelection()"></button>
+
+        <button pButton label="Back to Home" icon="pi pi-home"
+                class="btn btn-success w-100" routerLink="/"></button>
       </p-card>
     </div>
   </div>

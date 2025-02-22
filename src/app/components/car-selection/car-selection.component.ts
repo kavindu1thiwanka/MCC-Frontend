@@ -6,6 +6,8 @@ interface CommonFilterDto {
   sortBy: string;
   category: string;
   filters: string[];
+  pickUpDate: Date;
+  returnDate: Date;
 }
 
 interface filterDropdownItem {
@@ -36,7 +38,9 @@ export class CarSelectionComponent implements OnInit {
   filterDto: CommonFilterDto = {
     sortBy: '',
     category: this.searchParams.category || '',
-    filters: []
+    filters: [],
+    pickUpDate: this.searchParams.pickupDate,
+    returnDate: this.searchParams.returnDate
   };
 
   filterButtonList: filterButton[] = [
@@ -115,6 +119,8 @@ export class CarSelectionComponent implements OnInit {
     });
 
     this.filterDto.category = this.searchParams.category || '';
+    this.filterDto.pickUpDate = this.searchParams.pickupDate;
+    this.filterDto.returnDate = this.searchParams.returnDate;
 
     this.getCarList();
   }
@@ -175,7 +181,9 @@ export class CarSelectionComponent implements OnInit {
     this.filterDto = {
       sortBy: '',
       category: this.searchParams.category || '',
-      filters: []
+      filters: [],
+      pickUpDate: this.searchParams.pickUpDate,
+      returnDate: this.searchParams.returnDate
     };
     this.getCarList();
   }
