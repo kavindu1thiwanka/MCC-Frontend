@@ -1,8 +1,9 @@
 $primary-color: #1f1f1f;
 $accent-color: #00d1b2;
-$background-color: #f8f9fa;
-$text-color: #2c3e50;
-$shadow-color: rgba(0, 0, 0, 0.15);
+$background-blur: rgba(255, 255, 255, 0.1);
+$glass-border: rgba(255, 255, 255, 0.3);
+$text-color: #f1f1f1;
+$shadow-color: rgba(0, 0, 0, 0.3);
 
 .address-modal {
   position: fixed;
@@ -12,28 +13,31 @@ $shadow-color: rgba(0, 0, 0, 0.15);
 
   .modal-overlay {
     position: absolute; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px);
   }
 
   .modal-container {
     position: relative;
-    background: $background-color;
-    border-radius: 14px;
     width: 100%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px $shadow-color;
-    padding: 1.8rem;
-    animation: slideIn 0.4s ease;
+    max-width: 520px;
+    padding: 2rem;
+    border-radius: 20px;
+    background: $background-blur;
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid $glass-border;
+    box-shadow: 0 15px 40px $shadow-color;
+    animation: fadeInScale 0.4s ease;
+    color: $text-color;
 
     .modal-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;
 
       .modal-title {
-        font-size: 1.5rem; font-weight: 600; color: $text-color;
+        font-size: 1.6rem; font-weight: 700; color: $text-color;
       }
 
       .close-btn {
-        font-size: 1.6rem; background: none; border: none; color: $text-color;
+        font-size: 1.8rem; background: none; border: none; color: $text-color;
         cursor: pointer; transition: color 0.2s ease;
 
         &:hover { color: $accent-color; }
@@ -45,68 +49,66 @@ $shadow-color: rgba(0, 0, 0, 0.15);
 
       .form-group {
         label {
-          font-weight: 500; font-size: 0.95rem; color: $primary-color; margin-bottom: 0.4rem; display: block;
+          font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; display: block; color: lighten($text-color, 15%);
         }
 
         .form-input {
           width: 100%;
-          padding: 0.7rem 1rem;
-          border: 1px solid #dee2e6;
-          border-radius: 10px;
-          font-size: 1rem; color: $text-color;
-          box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+          padding: 0.8rem 1rem;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          color: $text-color;
+          font-size: 1rem;
+          transition: all 0.2s ease;
 
           &:focus {
             border-color: $accent-color;
-            box-shadow: 0 0 8px rgba(0, 209, 178, 0.4);
+            box-shadow: 0 0 10px rgba(0, 209, 178, 0.4);
             outline: none;
           }
 
-          &::placeholder {
-            color: #adb5bd;
-          }
+          &::placeholder { color: rgba(241, 241, 241, 0.6); }
         }
       }
     }
 
     .modal-footer {
-      display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem;
+      display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.8rem;
 
       .btn {
-        padding: 0.65rem 1.4rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer;
-        transition: background-color 0.2s ease;
+        padding: 0.7rem 1.5rem;
+        font-weight: 600; font-size: 0.95rem;
+        border-radius: 12px; cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
 
         &.btn-secondary {
-          background: #adb5bd; color: #fff;
+          background: rgba(255, 255, 255, 0.2); color: $text-color;
 
-          &:hover { background: darken(#adb5bd, 10%); }
+          &:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.05); }
         }
 
         &.btn-primary {
           background: $accent-color; color: #fff;
 
-          &:hover { background: darken($accent-color, 10%); }
-        }
-
-        &:disabled {
-          background: lighten($accent-color, 30%);
-          cursor: not-allowed;
+          &:hover { background: darken($accent-color, 10%); transform: scale(1.05); }
+          &:disabled { background: lighten($accent-color, 20%); cursor: not-allowed; }
         }
       }
     }
   }
 
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
   }
 }
 
 // Responsive
 @media (max-width: 576px) {
   .modal-container {
-    width: 90%;
-    padding: 1.2rem;
+    width: 92%;
+    padding: 1.4rem;
   }
 }
