@@ -2,11 +2,12 @@
   <app-header class="position-absolute start-0 top-0 bg-dark" [isLandingPage]="false"></app-header>
   <div class="auth-box">
     <div class="auth-header">
-      <h2 *ngIf="!successfulRegistration">{{ isRegistering ? 'Register' : 'Login' }}</h2>
+      <h2 *ngIf="!successfulRegistration && !isForgotPassword">{{ isRegistering ? 'Register' : 'Login' }}</h2>
       <h2 *ngIf="successfulRegistration">Registration Successful</h2>
+      <h2 *ngIf="isForgotPassword">Forgot Password</h2>
     </div>
 
-    <form *ngIf="!successfulRegistration" [formGroup]="authForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <form *ngIf="!successfulRegistration && !isForgotPassword" [formGroup]="authForm" (ngSubmit)="onSubmit()" autocomplete="off">
       <!-- Login Fields -->
       <div *ngIf="!isRegistering">
         <div class="input-group">
@@ -75,11 +76,26 @@
       </div>
     </form>
 
-    <p class="toggle-text" *ngIf="!successfulRegistration">
+    <form *ngIf="isForgotPassword" [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()" autocomplete="off">
+      <div class="input-group">
+        <input matInput type="email" placeholder="Enter your email" formControlName="email">
+        <div *ngIf="isFieldInvalid('email')" class="error-message">
+          <small *ngIf="forgotPasswordForm.get('email')?.hasError('required')">Email is required</small>
+          <small *ngIf="forgotPasswordForm.get('email')?.hasError('email')">Please enter a valid email</small>
+        </div>
+      </div>
+      <button pButton type="submit" class="btn bg-dark w-100 text-white" [disabled]="isLoading" [loading]="isLoading">Reset Password</button>
+    </form>
+
+    <p class="toggle-text" *ngIf="!successfulRegistration && !isForgotPassword">
       {{ isRegistering ? 'Already have an account?' : "Don't have an account?" }}
       <a href="#" (click)="toggleForm($event)">{{ isRegistering ? 'Login' : 'Register' }}</a>
     </p>
 
     <p *ngIf="successfulRegistration">We received your registration details. Please check your email for confirmation.</p>
+
+    <p *ngIf="!successfulRegistration && !isRegistering && !isForgotPassword">
+      <a href="#" (click)="toggleForgotPassword($event)">Forgot Password?</a>
+    </p>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {CommonService} from '../../shared/services/common.service';
-import {AppConstant} from '../../shared/utils/app-constant';
-import {Router} from '@angular/router';
+import { CommonService } from '../../shared/services/common.service';
+import { AppConstant } from '../../shared/utils/app-constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,9 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent {
   authForm: FormGroup;
+  forgotPasswordForm: FormGroup;
   isRegistering = false;
+  isForgotPassword = false;
   showPassword = false;
   isLoading = false;
   successfulRegistration = false;
@@ -26,6 +28,10 @@ export class LoginComponent {
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmPassword: [null, [Validators.required]],
       identifier: [null]
+    });
+
+    this.forgotPasswordForm = this.fb.group({
+      email: [null, [Validators.required, Validators.email]]
     });
   }
 
@@ -86,6 +92,29 @@ export class LoginComponent {
         console.log('Error:', e);
       });
     }
+  }
+
+  async onForgotPasswordSubmit() {
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    await this.commonService.sendPasswordResetEmail(this.forgotPasswordForm.value.email).then((res: any) => {
+      this.isLoading = false;
+      if (res.status === 200) {
+        // Show message that the reset email was sent
+      }
+    }).catch((e) => {
+      this.isLoading = false;
+      console.log('Error:', e);
+    });
+  }
+
+  toggleForgotPassword(event: Event) {
+    event.preventDefault();
+    this.isForgotPassword = !this.isForgotPassword;
   }
 
   // Custom getter for password confirmation error
