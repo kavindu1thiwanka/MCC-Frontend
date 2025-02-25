@@ -68,7 +68,7 @@ export class CommonService {
 
     return this.httpClient.post(
       ApiEndPoint.USER_V1 + '/reset_password',
-      {newPassword: payload.newPassword},
+      payload,
       {
         headers: headers,
         observe: 'response',
