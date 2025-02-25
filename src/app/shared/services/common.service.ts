@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ApiEndPoint} from '../utils/api-end-point';
 import {AppConstant} from '../utils/app-constant';
@@ -24,10 +24,10 @@ export class CommonService {
   }
 
   setUserDetails(userDetails: any) {
-      localStorage.setItem(AppConstant.REFRESH_TOKEN, userDetails.refreshToken);
-      localStorage.setItem(AppConstant.ACCESS_TOKEN, userDetails.accessToken);
-      localStorage.setItem(AppConstant.NAME, userDetails.firstName + ' ' + userDetails.lastName);
-      localStorage.setItem(AppConstant.IDENTIFIER, userDetails.identifier);
+    localStorage.setItem(AppConstant.REFRESH_TOKEN, userDetails.refreshToken);
+    localStorage.setItem(AppConstant.ACCESS_TOKEN, userDetails.accessToken);
+    localStorage.setItem(AppConstant.NAME, userDetails.firstName + ' ' + userDetails.lastName);
+    localStorage.setItem(AppConstant.IDENTIFIER, userDetails.identifier);
   }
 
   registerUser(user: any) {
@@ -52,6 +52,29 @@ export class CommonService {
   logout(): void {
     localStorage.clear();
     location.reload();
+  }
+
+  async sendPasswordResetEmail(email: string) {
+    return this.httpClient.post(ApiEndPoint.AUTH_V1 + '/send_pws_reset', {},
+      {observe: 'response', withCredentials: false, params: {email: email}}
+    ).toPromise();
+  }
+
+  resetPassword(payload: { newPassword: any; token: string }) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${payload.token}`
+    });
+
+    return this.httpClient.post(
+      ApiEndPoint.USER_V1 + '/reset_password',
+      {newPassword: payload.newPassword},
+      {
+        headers: headers,
+        observe: 'response',
+        withCredentials: false
+      }
+    ).toPromise();
   }
 
 }

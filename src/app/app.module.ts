@@ -40,6 +40,7 @@ import { VehicleDetailsComponent } from './components/vehicle-details/vehicle-de
 import { AddressModalComponent } from './components/address-modal/address-modal.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
 import { ManageBookingsComponent } from './components/manage-bookings/manage-bookings.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ManageBookingsComponent } from './components/manage-bookings/manage-boo
     VehicleDetailsComponent,
     AddressModalComponent,
     AuthModalComponent,
-    ManageBookingsComponent
+    ManageBookingsComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
