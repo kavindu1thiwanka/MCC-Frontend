@@ -13,6 +13,7 @@ export class UserConfirmationComponent implements OnInit {
 
   loading: boolean = true;
   confirmed: boolean = false;
+  alreadyVerified: boolean = false;
   uuid: string | null = '';
 
   constructor(private commonService: CommonService, private route: ActivatedRoute) {
@@ -25,11 +26,14 @@ export class UserConfirmationComponent implements OnInit {
 
   async confirmUserEmail() {
     await this.commonService.confirmUserEmail(this.uuid).then((res: any) => {
+      this.loading = false;
       if (res.status === 200) {
-        this.loading = false;
         this.confirmed = true;
-      } else {
-        this.loading = false;
+      } else if (res.status === 208) {
+        this.alreadyVerified = true;
+        this.confirmed = false;
+      }
+      else {
         this.confirmed = false;
       }
     }).catch((e) => {
