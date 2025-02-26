@@ -28,4 +28,6 @@ export class HeaderComponent implements OnInit {
   closeManageBookings() {
     this.showBookingsDetails = false;
   }
+
+    protected readonly AppConstant = AppConstant;
 }

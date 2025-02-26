@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../shared/services/common.service';
 import { AppConstant } from '../../shared/utils/app-constant';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   authForm: FormGroup;
   forgotPasswordForm: FormGroup;
   isRegistering = false;
@@ -18,8 +18,9 @@ export class LoginComponent {
   showPassword = false;
   isLoading = false;
   successfulRegistration = false;
+  identifier: string | null = AppConstant.IDENTIFIER_ROLE_CUSTOMER;
 
-  constructor(private fb: FormBuilder, private commonService: CommonService, private router: Router) {
+  constructor(private fb: FormBuilder, private commonService: CommonService, private router: Router, private activeRouter: ActivatedRoute) {
     this.authForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
@@ -33,6 +34,10 @@ export class LoginComponent {
     this.forgotPasswordForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]]
     });
+  }
+
+  ngOnInit(): void {
+    this.identifier = this.activeRouter.snapshot.queryParamMap.get('identifier') ? this.activeRouter.snapshot.queryParamMap.get('identifier') : null;
   }
 
   toggleForm(event: Event) {
@@ -63,7 +68,7 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    this.authForm.value.identifier = AppConstant.IDENTIFIER_ROLE_CUSTOMER;
+    this.authForm.value.identifier = this.identifier;
 
     if (this.isRegistering) {
       await this.commonService.registerUser(this.authForm.value).then((res: any) => {

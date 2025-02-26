@@ -1,22 +1,28 @@
 <header class="header navbar navbar-expand-lg navbar-dark vw-100 {{!isLandingPage ? 'px-2' : ''}}">
-  <div class="container-fluid d-flex align-items-center {{isLandingPage ? 'justify-content-between' : 'justify-content-start gap-2'}}">
-    <button *ngIf="!isLandingPage" class="btn btn-secondary back-button d-flex gap-2 justify-content-center align-items-center"
+  <div
+    class="container-fluid d-flex align-items-center {{isLandingPage ? 'justify-content-between' : 'justify-content-start gap-2'}}">
+    <button *ngIf="!isLandingPage"
+            class="btn btn-secondary back-button d-flex gap-2 justify-content-center align-items-center"
             (click)="goBack()"><i class="fa-solid fa-angle-left"></i></button>
     <a class="navbar-brand" href="#">
-      <img *ngIf="isLandingPage" ngSrc="assets/logo/Logo.svg" alt="Logo" width="50" height="30" class="d-inline-block align-text-top">
+      <img *ngIf="isLandingPage" ngSrc="assets/logo/Logo.svg" alt="Logo" width="50" height="30"
+           class="d-inline-block align-text-top">
       Mega City Cab
     </a>
     <div *ngIf="isLandingPage" class="d-flex gap-4">
-      <a *ngIf="!userLoggedIn" href="#" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+      <a *ngIf="!userLoggedIn" href="#/login?identifier={{AppConstant.IDENTIFIER_ROLE_DRIVER}}"
+         class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
         <i class="fa-solid fa-user-tie"></i>
         Driver
       </a>
-      <a *ngIf="userLoggedIn" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline"
-      role="button" (click)="showBookingsDetails = true">
+      <a *ngIf="userLoggedIn"
+         class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline"
+         role="button" (click)="showBookingsDetails = true">
         <i class="fa-solid fa-car"></i>
         Manage bookings
       </a>
-      <a *ngIf="!userLoggedIn" href="#/login" class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
+      <a *ngIf="!userLoggedIn" href="#/login?identifier={{AppConstant.IDENTIFIER_ROLE_CUSTOMER}}"
+         class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline">
         <i class="fa fa-user" aria-hidden="true"></i>
         Log in | Register
       </a>
