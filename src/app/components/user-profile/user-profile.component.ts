@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-user-profile',
@@ -61,11 +62,14 @@ export class UserProfileComponent implements OnChanges {
   updateUserDetails() {
     this.profileForm.markAllAsTouched();
     if (this.profileForm.valid && !this.confirmPasswordMismatch) {
-      console.log(this.profileForm.value);
-      // Proceed with updating user details
-      this.closeModal();
-    } else {
-      console.log('Form is invalid or passwords do not match.');
+      this.userService.updateUserProfile(this.profileForm.value).then(res => {
+        if (res?.status === 200 && res.body) {
+          localStorage.setItem(AppConstant.NAME, (res.body as any).firstName + ' ' + (res.body as any).lastName);
+          this.closeModal();
+          this.profileForm.reset();
+          window.location.reload();
+        }
+      })
     }
   }
 
