@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiEndPoint} from '../utils/api-end-point';
 import {HttpClient} from '@angular/common/http';
 
@@ -7,7 +7,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   getUserAddress() {
     return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_user_address',
@@ -21,6 +22,11 @@ export class UserService {
 
   getLoggedInUserDetails() {
     return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_logged_in_user_details',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
+
+  updateUserProfile(values: any) {
+    return this.httpClient.put(ApiEndPoint.USER_V1 + '/update_user', values,
       {observe: 'response', withCredentials: true}).toPromise();
   }
 }

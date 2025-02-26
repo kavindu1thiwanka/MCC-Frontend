@@ -109,6 +109,11 @@ $backdrop-filter: blur(16px);
     font-size: 0.95rem;
     cursor: pointer;
     border: none;
+
+    &:disabled {
+      background: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.5);
+    }
   }
 
   .save-btn {
@@ -117,6 +122,11 @@ $backdrop-filter: blur(16px);
 
     &:hover {
       background: darken($accent-color, 10%);
+    }
+
+    &:disabled {
+      background: rgba($accent-color, 0.3);
+      color: rgba(255, 255, 255, 0.5);
     }
   }
 
@@ -127,8 +137,14 @@ $backdrop-filter: blur(16px);
     &:hover {
       background: darken($error-color, 10%);
     }
+
+    &:disabled {
+      background: rgba($error-color, 0.3);
+      color: rgba(255, 255, 255, 0.5);
+    }
   }
 }
+
 
 .error {
   color: $error-color;

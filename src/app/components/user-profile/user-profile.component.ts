@@ -23,9 +23,9 @@ export class UserProfileComponent implements OnChanges {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contactNumber: ['', [Validators.required, Validators.pattern('^\d{10}$')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      contactNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]], // 10-digit validation
+      password: [''],
+      confirmPassword: [''],
     });
   }
 
@@ -35,29 +35,60 @@ export class UserProfileComponent implements OnChanges {
     }
   }
 
+  updatePasswordValidators() {
+    const passwordControl = this.profileForm.get('password');
+    const confirmPasswordControl = this.profileForm.get('confirmPassword');
+
+    if (this.isChangePasswordVisible) {
+      passwordControl?.setValidators([Validators.required, Validators.minLength(6)]);
+      confirmPasswordControl?.setValidators([Validators.required, Validators.minLength(6)]);
+    } else {
+      passwordControl?.clearValidators();
+      confirmPasswordControl?.clearValidators();
+    }
+
+    passwordControl?.updateValueAndValidity();
+    confirmPasswordControl?.updateValueAndValidity();
+  }
+
   closeModal() {
+    this.profileForm.reset();
+    this.confirmPasswordMismatch = false;
+    this.isChangePasswordVisible = false;
     this.close.emit();
   }
 
   updateUserDetails() {
-    console.log(this.profileForm.value);
-    this.closeModal();
+    if (this.profileForm.valid && !this.confirmPasswordMismatch) {
+      console.log(this.profileForm.value);
+      // Proceed with updating user details
+      this.closeModal();
+    } else {
+      console.log('Form is invalid or passwords do not match.');
+    }
   }
 
   toggleChangePassword() {
     this.isChangePasswordVisible = !this.isChangePasswordVisible;
+    this.updatePasswordValidators();
   }
 
   validateConfirmPassword() {
     if (!this.isChangePasswordVisible) return;
+
     const password = this.profileForm.get('password')?.value;
     const confirmPassword = this.profileForm.get('confirmPassword')?.value;
+
     this.confirmPasswordMismatch = confirmPassword !== password;
+
+    const confirmPasswordControl = this.profileForm.get('confirmPassword');
     if (this.confirmPasswordMismatch) {
-      this.profileForm.get('confirmPassword')?.setErrors({ mismatch: true });
+      confirmPasswordControl?.setErrors({ mismatch: true });
     } else {
-      this.profileForm.get('confirmPassword')?.setErrors(null);
+      confirmPasswordControl?.setErrors(null);
     }
+
+    confirmPasswordControl?.updateValueAndValidity();
   }
 
   async getLoggedInUserDetails() {

@@ -5,7 +5,7 @@
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
 
-    <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateUserDetails()" autocomplete="off">
+    <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateUserDetails()">
       <!-- First Name Field -->
       <div class="form-group">
         <label for="firstName">First Name</label>
@@ -64,10 +64,11 @@
           autocomplete="off"
         />
         <div *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)" class="error">
-          <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Phone Number is required.</div>
-          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Phone number must be 10 digits.</div>
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Contact Number is required.</div>
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Contact number must be exactly 10 digits.</div>
         </div>
       </div>
+
 
       <!-- Username Field (disabled) -->
       <div class="form-group">
@@ -127,7 +128,7 @@
 
       <!-- Modal Footer -->
       <div class="modal-footer">
-        <button type="submit" class="save-btn" [disabled]="profileForm.invalid || confirmPasswordMismatch">Save Changes</button>
+        <button type="submit" class="save-btn">Save Changes</button>
         <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
       </div>
     </form>
