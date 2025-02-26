@@ -59,6 +59,7 @@ export class UserProfileComponent implements OnChanges {
   }
 
   updateUserDetails() {
+    this.profileForm.markAllAsTouched();
     if (this.profileForm.valid && !this.confirmPasswordMismatch) {
       console.log(this.profileForm.value);
       // Proceed with updating user details
