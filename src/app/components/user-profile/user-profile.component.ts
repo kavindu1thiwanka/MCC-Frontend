@@ -1,28 +1,32 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {UserService} from '../../shared/services/user.service';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { UserService } from '../../shared/services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
   standalone: false,
-
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.scss'
+  styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
   @Output() close = new EventEmitter<void>();
 
-  user = {
-    id: 0,
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    contactNumber: '',
-    password: ''
-  };
+  confirmPasswordMismatch: boolean = false;
+  isChangePasswordVisible: boolean = false;
+  profileForm: FormGroup;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private fb: FormBuilder) {
+    this.profileForm = this.fb.group({
+      id: [null],
+      username: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      contactNumber: ['', [Validators.required, Validators.pattern('^\d{10}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,18 +39,32 @@ export class UserProfileComponent implements OnChanges {
     this.close.emit();
   }
 
-  saveChanges() {
-    console.log('User profile updated:', this.user);
+  updateUserDetails() {
+    console.log(this.profileForm.value);
     this.closeModal();
+  }
+
+  toggleChangePassword() {
+    this.isChangePasswordVisible = !this.isChangePasswordVisible;
+  }
+
+  validateConfirmPassword() {
+    if (!this.isChangePasswordVisible) return;
+    const password = this.profileForm.get('password')?.value;
+    const confirmPassword = this.profileForm.get('confirmPassword')?.value;
+    this.confirmPasswordMismatch = confirmPassword !== password;
+    if (this.confirmPasswordMismatch) {
+      this.profileForm.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else {
+      this.profileForm.get('confirmPassword')?.setErrors(null);
+    }
   }
 
   async getLoggedInUserDetails() {
     await this.userService.getLoggedInUserDetails().then(res => {
       if (res?.status === 200 && res.body) {
-        this.user = res.body as any;
+        this.profileForm.patchValue(res.body);
       }
-    }).catch(e => {
-
-    });
+    }).catch(e => {});
   }
 }

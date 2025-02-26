@@ -5,78 +5,129 @@
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
 
-    <form class="profile-form" (ngSubmit)="saveChanges()" #profileForm="ngForm">
+    <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateUserDetails()" autocomplete="off">
+      <!-- First Name Field -->
       <div class="form-group">
         <label for="firstName">First Name</label>
         <input
           id="firstName"
           type="text"
-          [(ngModel)]="user.firstName"
-          name="firstName"
+          formControlName="firstName"
+          autocomplete="off"
           required
-          #firstName="ngModel"
         />
-        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+        <div *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)" class="error">
           First Name is required.
         </div>
       </div>
+
+      <!-- Last Name Field -->
       <div class="form-group">
         <label for="lastName">Last Name</label>
         <input
           id="lastName"
           type="text"
-          [(ngModel)]="user.lastName"
-          name="lastName"
+          formControlName="lastName"
+          autocomplete="off"
           required
-          #lastName="ngModel"
         />
-        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+        <div *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)" class="error">
           Last Name is required.
         </div>
       </div>
+
+      <!-- Email Field -->
       <div class="form-group">
         <label for="email">Email</label>
         <input
           id="email"
           type="email"
-          [(ngModel)]="user.email"
-          name="email"
+          formControlName="email"
+          autocomplete="off"
           required
           email
-          #email="ngModel"
         />
-        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
-          <div *ngIf="email.errors?.['required']">Email is required.</div>
-          <div *ngIf="email.errors?.['email']">Invalid email address.</div>
+        <div *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)" class="error">
+          <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="profileForm.get('email')?.errors?.['email']">Invalid email address.</div>
         </div>
       </div>
+
+      <!-- Contact Number Field -->
       <div class="form-group">
         <label for="contactNumber">Contact Number</label>
         <input
           id="contactNumber"
           type="text"
-          [(ngModel)]="user.contactNumber"
-          name="phone"
+          formControlName="contactNumber"
           pattern="^\d{10}$"
-          #phone="ngModel"
+          autocomplete="off"
         />
-        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
-          <div *ngIf="phone.errors?.['required']">Phone Number is required.</div>
-          <div *ngIf="phone.errors?.['pattern']">Phone number must be 10 digits.</div>
+        <div *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)" class="error">
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Phone Number is required.</div>
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Phone number must be 10 digits.</div>
         </div>
       </div>
+
+      <!-- Username Field (disabled) -->
       <div class="form-group">
         <label for="username">Username</label>
         <input
           id="username"
           type="text"
-          value="{{ user.username }}"
+          [value]="profileForm.get('username')?.value"
+          autocomplete="off"
           disabled
         />
       </div>
 
+      <!-- Change Password Link -->
+      <div class="form-group">
+        <a href="#" (click)="toggleChangePassword()">Change Password</a>
+      </div>
+
+      <!-- Conditionally Show Password Fields -->
+      <div *ngIf="isChangePasswordVisible">
+        <!-- New Password Field -->
+        <div class="form-group">
+          <label for="password">New Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            required
+            minlength="6"
+            autocomplete="new-password"
+          />
+          <div *ngIf="profileForm.get('password')?.invalid && (profileForm.get('password')?.dirty || profileForm.get('password')?.touched)" class="error">
+            <div *ngIf="profileForm.get('password')?.errors?.['required']">Password is required.</div>
+            <div *ngIf="profileForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            required
+            minlength="6"
+            autocomplete="off"
+            (ngModelChange)="validateConfirmPassword()"
+          />
+          <div *ngIf="profileForm.get('confirmPassword')?.invalid && (profileForm.get('confirmPassword')?.dirty || profileForm.get('confirmPassword')?.touched)" class="error">
+            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
+            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['minlength']">Confirm Password must be at least 6 characters long.</div>
+            <div *ngIf="confirmPasswordMismatch">Passwords do not match.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
       <div class="modal-footer">
-        <button type="submit" class="save-btn" [disabled]="profileForm.invalid">Save Changes</button>
+        <button type="submit" class="save-btn" [disabled]="profileForm.invalid || confirmPasswordMismatch">Save Changes</button>
         <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
       </div>
     </form>
