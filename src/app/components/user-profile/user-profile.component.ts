@@ -18,7 +18,8 @@ export class UserProfileComponent implements OnChanges {
     firstName: '',
     lastName: '',
     email: '',
-    contactNumber: ''
+    contactNumber: '',
+    password: ''
   };
 
   constructor(private userService: UserService) {
