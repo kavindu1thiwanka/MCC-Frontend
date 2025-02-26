@@ -83,6 +83,16 @@ $backdrop-filter: blur(16px);
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
       }
+
+      &:disabled {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.3);
+        }
+      }
     }
   }
 }
@@ -118,6 +128,20 @@ $backdrop-filter: blur(16px);
       background: darken($error-color, 10%);
     }
   }
+}
+
+.error {
+  color: $error-color;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: $error-color;
+}
+
+input.ng-valid.ng-touched {
+  border-color: #2ecc71;
 }
 
 @keyframes fadeIn {

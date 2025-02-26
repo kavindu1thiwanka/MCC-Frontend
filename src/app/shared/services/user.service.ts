@@ -18,4 +18,9 @@ export class UserService {
     return this.httpClient.put(ApiEndPoint.USER_V1 + '/update_user_address', addressDetails,
       {observe: 'response', withCredentials: true}).toPromise();
   }
+
+  getLoggedInUserDetails() {
+    return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_logged_in_user_details',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
 }

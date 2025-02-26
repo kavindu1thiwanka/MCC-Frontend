@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,16 +8,26 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
   @Output() close = new EventEmitter<void>();
 
   user = {
+    username: '',
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: ''
+    contactNumber: ''
   };
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['display'] && this.display) {
+      this.getLoggedInUserDetails();
+    }
+  }
 
   closeModal() {
     this.close.emit();
@@ -27,7 +38,13 @@ export class UserProfileComponent {
     this.closeModal();
   }
 
-  changeProfilePicture() {
-    console.log('Change profile picture clicked');
+  async getLoggedInUserDetails() {
+    await this.userService.getLoggedInUserDetails().then(res => {
+      if (res?.status === 200 && res.body) {
+        this.user = res.body as any;
+      }
+    }).catch(e => {
+
+    });
   }
 }
