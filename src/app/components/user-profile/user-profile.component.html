@@ -1,0 +1,32 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>User Profile</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form class="profile-form" (ngSubmit)="saveChanges()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" [(ngModel)]="user.firstName" name="firstName" required />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" [(ngModel)]="user.lastName" name="lastName" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="user.email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="text" [(ngModel)]="user.phoneNumber" name="phone" />
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="save-btn">Save Changes</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

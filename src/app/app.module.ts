@@ -41,6 +41,7 @@ import { AddressModalComponent } from './components/address-modal/address-modal.
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
 import { ManageBookingsComponent } from './components/manage-bookings/manage-bookings.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     AddressModalComponent,
     AuthModalComponent,
     ManageBookingsComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

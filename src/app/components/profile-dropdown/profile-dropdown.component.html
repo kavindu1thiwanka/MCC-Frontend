@@ -6,7 +6,7 @@
 <!--    <i class="fa fa-angle-down" style="font-size: 0.7rem" aria-hidden="true"></i>-->
   </a>
   <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileDropdown">
-    <li><a class="dropdown-item" href="#">
+    <li (click)="openUserProfile()"><a class="dropdown-item" href="#">
       <i class="fa fa-user" aria-hidden="true"></i>
       Profile
     </a></li>
@@ -17,3 +17,5 @@
     </a></li>
   </ul>
 </div>
+
+<app-user-profile [display]="showUserProfile" (close)="closeUserProfileModal()"></app-user-profile>

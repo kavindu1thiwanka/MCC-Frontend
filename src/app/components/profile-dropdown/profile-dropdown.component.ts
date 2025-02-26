@@ -12,6 +12,7 @@ import {CommonService} from '../../shared/services/common.service';
 export class ProfileDropdownComponent implements OnInit {
 
   userFullName: string = '';
+  showUserProfile: boolean = false;
 
   constructor(private commonService: CommonService) {
   }
@@ -21,6 +22,14 @@ export class ProfileDropdownComponent implements OnInit {
   }
 
   logout() {
-   this.commonService.logout();
+    this.commonService.logout();
+  }
+
+  openUserProfile() {
+    this.showUserProfile = true;
+  }
+
+  closeUserProfileModal() {
+    this.showUserProfile = false;
   }
 }
