@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnChanges {
   @Output() close = new EventEmitter<void>();
 
   user = {
+    id: 0,
     username: '',
     firstName: '',
     lastName: '',
