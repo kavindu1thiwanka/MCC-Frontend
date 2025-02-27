@@ -35,10 +35,15 @@ $card-bg: rgba(255, 255, 255, 0.2);
         padding: 12px;
         border-radius: 8px;
         transition: all 0.3s ease-in-out;
+        cursor: pointer;
 
         &:hover {
-          background: $accent-color;
+          background: lighten($primary-color, 10%);
           color: #fff;
+        }
+
+        &:active {
+          background: darken($accent-color, 10%);
         }
 
         mat-icon {
@@ -100,9 +105,20 @@ $card-bg: rgba(255, 255, 255, 0.2);
       display: flex;
       flex-direction: column;
       gap: 20px;
-      max-height: 100vh;
+      max-height: calc(100vh - 100px);
       overflow-y: auto;
       overflow-x: hidden;
+      padding-right: 5px;
+
+      /* Custom Scrollbar */
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
 
       .stats-grid {
         display: grid;
@@ -116,6 +132,12 @@ $card-bg: rgba(255, 255, 255, 0.2);
           box-shadow: $shadow;
           backdrop-filter: $backdrop-filter;
           text-align: center;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
+          }
 
           h3 {
             font-size: 16px;
@@ -149,6 +171,8 @@ $card-bg: rgba(255, 255, 255, 0.2);
           width: 100%;
           background: transparent;
           border-collapse: collapse;
+          border-radius: $input-radius;
+          overflow: hidden;
 
           th {
             background: $accent-color;
