@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../shared/services/common.service';
-import { AppConstant } from '../../shared/utils/app-constant';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CommonService} from '../../shared/services/common.service';
+import {AppConstant} from '../../shared/utils/app-constant';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.authForm.value.identifier = this.identifier;
+    this.authForm.value.identifier = this.identifier && this.identifier !== '' ? this.identifier : AppConstant.IDENTIFIER_ROLE_CUSTOMER;
 
     if (this.isRegistering) {
       await this.commonService.registerUser(this.authForm.value).then((res: any) => {

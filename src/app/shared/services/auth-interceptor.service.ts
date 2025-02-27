@@ -75,6 +75,6 @@ export class AuthInterceptor implements HttpInterceptor {
   private logout(): void {
     localStorage.removeItem(AppConstant.ACCESS_TOKEN);
     localStorage.removeItem(AppConstant.REFRESH_TOKEN);
-    this.router.navigate(['/login']);
+    this.router.navigate(['#']);
   }
 }
