@@ -13,6 +13,7 @@ $card-bg: rgba(255, 255, 255, 0.2);
   height: 100vh;
   background: linear-gradient(135deg, #1e2a38, #34495e);
   color: $text-color;
+  overflow: hidden;
 
   .sidenav {
     width: 250px;
@@ -24,6 +25,7 @@ $card-bg: rgba(255, 255, 255, 0.2);
 
     mat-list {
       width: 100%;
+
       mat-list-item {
         color: $text-color;
         font-size: 16px;
@@ -48,10 +50,11 @@ $card-bg: rgba(255, 255, 255, 0.2);
 
   .dashboard-wrapper {
     flex: 1;
-    padding: 5rem 2rem;
+    padding: 5.3rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100vh;
 
     .header {
       display: flex;
@@ -93,64 +96,75 @@ $card-bg: rgba(255, 255, 255, 0.2);
       }
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .detail-section {
+      display: flex;
+      flex-direction: column;
       gap: 20px;
+      max-height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
 
-      .stat-card {
-        background: $card-bg;
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+
+        .stat-card {
+          background: $card-bg;
+          padding: 20px;
+          border-radius: $input-radius;
+          box-shadow: $shadow;
+          backdrop-filter: $backdrop-filter;
+          text-align: center;
+
+          h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+
+          p {
+            font-size: 24px;
+            font-weight: bold;
+            color: $accent-color;
+          }
+        }
+      }
+
+      .section {
+        background: $background-color;
         padding: 20px;
         border-radius: $input-radius;
         box-shadow: $shadow;
         backdrop-filter: $backdrop-filter;
-        text-align: center;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         h3 {
-          font-size: 16px;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
+          font-size: 18px;
+          font-weight: 600;
         }
 
-        p {
-          font-size: 24px;
-          font-weight: bold;
-          color: $accent-color;
-        }
-      }
-    }
+        table {
+          width: 100%;
+          background: transparent;
+          border-collapse: collapse;
 
-    .section {
-      background: $background-color;
-      padding: 20px;
-      border-radius: $input-radius;
-      box-shadow: $shadow;
-      backdrop-filter: $backdrop-filter;
+          th {
+            background: $accent-color;
+            color: #fff;
+            padding: 12px;
+            text-align: left;
+          }
 
-      h3 {
-        margin-bottom: 15px;
-        font-size: 18px;
-        font-weight: 600;
-      }
+          td {
+            padding: 12px;
+            border-bottom: 1px solid $input-border;
+          }
 
-      table {
-        width: 100%;
-        background: transparent;
-        border-collapse: collapse;
-
-        th {
-          background: $accent-color;
-          color: #fff;
-          padding: 12px;
-          text-align: left;
-        }
-
-        td {
-          padding: 12px;
-          border-bottom: 1px solid $input-border;
-        }
-
-        tr:hover {
-          background: rgba(255, 255, 255, 0.1);
+          tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
         }
       }
     }
