@@ -85,11 +85,7 @@ export class LoginComponent implements OnInit {
       await this.commonService.login(this.authForm.value).then((res: any) => {
         if (res.status === 200) {
           this.commonService.setUserDetails(res.body);
-          if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_CUSTOMER) {
-            this.router.navigate(['/#']);
-          } else if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_DRIVER) {
-            this.router.navigate(['/driver']);
-          }
+          this.router.navigate(['/#']);
         }
         this.isLoading = false;
       }).catch((e) => {

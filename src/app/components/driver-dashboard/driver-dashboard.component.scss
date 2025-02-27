@@ -1,0 +1,101 @@
+/* Full-screen wrapper */
+.dashboard-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  padding-top: 5rem;
+}
+
+/* Dashboard container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Header with driver status */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  background: #1abc9c;
+  color: white;
+
+  .mat-icon {
+    margin-right: 5px;
+  }
+
+  &.online {
+    background-color: #2ecc71;
+  }
+}
+
+/* Earnings section - making it responsive */
+.earnings-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .earnings-card {
+    flex: 1 1 calc(33.33% - 20px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    mat-card-header {
+      background: #1abc9c;
+      color: white;
+    }
+  }
+}
+
+/* Rides section */
+.rides-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .rides-list {
+    flex: 1 1 calc(48% - 20px);
+    margin-bottom: 20px;
+
+    mat-card-header {
+      background: #e74c3c;
+      color: white;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  }
+}

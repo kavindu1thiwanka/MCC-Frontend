@@ -23,7 +23,7 @@ import {CarSelectionComponent} from './components/car-selection/car-selection.co
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginComponent} from './components/login/login.component';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {Button, ButtonDirective} from "primeng/button";
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
@@ -42,6 +42,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
 import { ManageBookingsComponent } from './components/manage-bookings/manage-bookings.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -61,33 +62,35 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     AuthModalComponent,
     ManageBookingsComponent,
     ResetPasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DriverDashboardComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatIconModule,
-    MatButtonModule,
-    NgOptimizedImage,
-    MatCard,
-    MatCardTitle,
-    MatCardContent,
-    FormsModule,
-    ButtonDirective,
-    HttpClientModule,
-    Button,
-    Dialog,
-    DialogModule,
-    CardModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatIconModule,
+        MatButtonModule,
+        NgOptimizedImage,
+        MatCard,
+        MatCardTitle,
+        MatCardContent,
+        FormsModule,
+        ButtonDirective,
+        HttpClientModule,
+        Button,
+        Dialog,
+        DialogModule,
+        CardModule,
+        MatCardHeader,
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

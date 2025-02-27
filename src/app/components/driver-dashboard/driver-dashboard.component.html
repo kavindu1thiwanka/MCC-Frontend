@@ -1,0 +1,55 @@
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <!-- Driver Info & Status -->
+    <mat-card class="header">
+      <mat-card-content>
+        <h2>Welcome, {{ driver.name }}</h2>
+        <button mat-raised-button color="primary" (click)="toggleStatus()" [class.online]="isOnline">
+          <mat-icon>{{ isOnline ? 'check_circle' : 'cancel' }}</mat-icon>
+          {{ isOnline ? 'Online' : 'Offline' }}
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Earnings Summary -->
+    <div class="earnings-section">
+      <mat-card class="earnings-card" *ngFor="let period of ['daily', 'weekly', 'monthly']">
+        <mat-card-header>
+          <mat-card-title>{{ period | titlecase }} Earnings</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h3>${{ earnings[period] }}</h3>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Ride Lists -->
+    <div class="rides-section">
+      <mat-card class="rides-list">
+        <mat-card-header>
+          <mat-card-title>Upcoming Rides</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul>
+            <li *ngFor="let ride of upcomingRides">
+              <span>{{ ride.pickup }} → {{ ride.dropoff }} ({{ ride.time }})</span>
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="rides-list">
+        <mat-card-header>
+          <mat-card-title>Ride History</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul>
+            <li *ngFor="let ride of rideHistory">
+              <span>{{ ride.pickup }} → {{ ride.dropoff }} (Completed)</span>
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
