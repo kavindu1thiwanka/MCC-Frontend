@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
           if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_CUSTOMER) {
             this.router.navigate(['/#']);
           } else if (res.body.identifier === AppConstant.IDENTIFIER_ROLE_DRIVER) {
-            this.router.navigate(['/#/driver']);
+            this.router.navigate(['/driver']);
           }
         }
         this.isLoading = false;
