@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import {AppConstant} from '../utils/app-constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
   getDriverDetails(): Promise<any> {
-    return Promise.resolve({ name: 'John Doe' });
+    return Promise.resolve({ name: localStorage.getItem(AppConstant.NAME) });
   }
 
   getUpcomingRides(): Promise<any[]> {
