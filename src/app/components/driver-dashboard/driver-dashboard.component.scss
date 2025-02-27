@@ -54,6 +54,7 @@ $card-bg: rgba(255, 255, 255, 0.2);
 
         &:active {
           background: darken($accent-color, 10%);
+          color: white;
         }
 
         mat-icon {

@@ -2,16 +2,16 @@
   <!-- Sidebar -->
   <div class="sidenav">
     <mat-list>
-      <mat-list-item>
+      <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
         <mat-icon>dashboard</mat-icon> Dashboard
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
         <mat-icon>directions_car</mat-icon> My Rides
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="setActiveSection('earnings')" [ngClass]="{ active: activeSection === 'earnings' }">
         <mat-icon>attach_money</mat-icon> Earnings
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="setActiveSection('profile')" [ngClass]="{ active: activeSection === 'profile' }">
         <mat-icon>account_circle</mat-icon> Profile
       </mat-list-item>
     </mat-list>
@@ -28,24 +28,26 @@
     </div>
 
     <section class="detail-section">
-      <!-- Stats Section -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h3>Daily Earnings</h3>
-          <p>${{ earnings.daily | number }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Weekly Earnings</h3>
-          <p>${{ earnings.weekly | number }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Monthly Earnings</h3>
-          <p>${{ earnings.monthly | number }}</p>
+      <!-- Dashboard Content -->
+      <div *ngIf="activeSection === 'dashboard'">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Daily Earnings</h3>
+            <p>${{ earnings.daily | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Weekly Earnings</h3>
+            <p>${{ earnings.weekly | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Monthly Earnings</h3>
+            <p>${{ earnings.monthly | number }}</p>
+          </div>
         </div>
       </div>
 
-      <!-- Upcoming Rides -->
-      <div class="section">
+      <!-- My Rides -->
+      <div *ngIf="activeSection === 'rides'">
         <h3>Upcoming Rides</h3>
         <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8">
           <ng-container matColumnDef="pickup">
@@ -68,28 +70,20 @@
         </table>
       </div>
 
-      <!-- Ride History -->
-      <div class="section">
-        <h3>Ride History</h3>
-        <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8">
-          <ng-container matColumnDef="pickup">
-            <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
-            <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
-          </ng-container>
+      <!-- Earnings -->
+      <div *ngIf="activeSection === 'earnings'">
+        <h3>Earnings Breakdown</h3>
+        <p>Daily: ${{ earnings.daily | number }}</p>
+        <p>Weekly: ${{ earnings.weekly | number }}</p>
+        <p>Monthly: ${{ earnings.monthly | number }}</p>
+      </div>
 
-          <ng-container matColumnDef="dropoff">
-            <th mat-header-cell *matHeaderCellDef> Dropoff Location </th>
-            <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let ride"> {{ ride.status }} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
-        </table>
+      <!-- Profile -->
+      <div *ngIf="activeSection === 'profile'">
+        <h3>Profile Information</h3>
+        <p>Name: {{ driver.name }}</p>
+        <p>Email: {{ driver.email }}</p>
+        <p>Phone: {{ driver.phone }}</p>
       </div>
     </section>
   </div>

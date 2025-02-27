@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DriverService } from '../../shared/services/driver.service';
 
 @Component({
@@ -10,34 +9,41 @@ import { DriverService } from '../../shared/services/driver.service';
 })
 export class DriverDashboardComponent implements OnInit {
   driver: any = {};
-  upcomingRides: any[] = [];
-  rideHistory: any[] = [];
-  earnings = { daily: 0, weekly: 0, monthly: 0 };
-  isOnline = false;
+  isOnline: boolean = false;
+  activeSection: string = 'dashboard';
 
-  displayedColumns = ['pickup', 'dropoff', 'time'];
-  displayedColumnsHistory = ['pickup', 'dropoff', 'status'];
+  earnings = {
+    daily: 0,
+    weekly: 0,
+    monthly: 0,
+  };
 
-  constructor(private driverService: DriverService, public dialog: MatDialog) {}
+  upcomingRides = [];
+  rideHistory = [];
+
+  displayedColumns: string[] = ['pickup', 'dropoff', 'time'];
+  displayedColumnsHistory: string[] = ['pickup', 'dropoff', 'status'];
+
+  constructor(private driverService: DriverService) {}
 
   ngOnInit(): void {
-    this.loadDriverData();
+    this.loadDriverDetails();
   }
 
-  loadDriverData(): void {
-    Promise.all([
-      this.driverService.getDriverDetails().then((data) => (this.driver = data)),
-      this.driverService.getUpcomingRides().then((data) => (this.upcomingRides = data)),
-      this.driverService.getRideHistory().then((data) => (this.rideHistory = data)),
-      this.driverService.getEarnings().then((data) => (this.earnings = data)),
-    ]);
+  loadDriverDetails() {
+    this.driverService.getDriverInfo().then((data) => {
+      // this.driver = data;
+      // this.earnings = data.earnings;
+      // this.upcomingRides = data.upcomingRides;
+      // this.rideHistory = data.rideHistory;
+    });
   }
 
-  toggleStatus(): void {
+  toggleStatus() {
     this.isOnline = !this.isOnline;
   }
 
-  trackById(index: number, item: any): number {
-    return item.id || index;
+  setActiveSection(section: string) {
+    this.activeSection = section;
   }
 }
