@@ -2,9 +2,9 @@
   <div class="dashboard-container">
     <!-- Driver Info & Status -->
     <mat-card class="header">
-      <mat-card-content>
+      <mat-card-content class="d-flex align-items-center justify-content-between flex-row w-100">
         <h2>Welcome, {{ driver.name }}</h2>
-        <button mat-raised-button color="primary" (click)="toggleStatus()" [class.online]="isOnline">
+        <button mat-raised-button (click)="toggleStatus()" class="btn {{isOnline ? 'online' : 'offline'}}" hidden="hidden">
           <mat-icon>{{ isOnline ? 'check_circle' : 'cancel' }}</mat-icon>
           {{ isOnline ? 'Online' : 'Offline' }}
         </button>

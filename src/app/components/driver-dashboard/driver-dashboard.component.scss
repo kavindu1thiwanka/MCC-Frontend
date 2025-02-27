@@ -48,6 +48,11 @@ button {
   &.online {
     background-color: #2ecc71;
   }
+
+  &.offline {
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #9b9b9b;
+  }
 }
 
 /* Earnings section - making it responsive */
