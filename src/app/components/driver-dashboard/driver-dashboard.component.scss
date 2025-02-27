@@ -1,71 +1,158 @@
 $primary-color: #2c3e50;
 $accent-color: #1abc9c;
-$error-color: #e74c3c;
 $background-color: rgba(255, 255, 255, 0.15);
 $input-border: rgba(255, 255, 255, 0.3);
 $input-radius: 10px;
 $shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 $backdrop-filter: blur(16px);
+$text-color: #ecf0f1;
+$card-bg: rgba(255, 255, 255, 0.2);
 
 .dashboard-container {
+  display: flex;
   height: 100vh;
-  display: flex;
-}
+  background: linear-gradient(135deg, #1e2a38, #34495e);
+  color: $text-color;
 
-.sidenav {
-  width: 250px;
-  background: $primary-color;
-  color: white;
-  padding-top: 5rem;
+  .sidenav {
+    width: 250px;
+    background: $primary-color;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 1rem;
+    box-shadow: $shadow;
 
-  mat-list-item {
-    color: white;
-    padding: 15px;
-    transition: background 0.3s ease-in-out;
-    cursor: pointer;
+    mat-list {
+      width: 100%;
+      mat-list-item {
+        color: $text-color;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+        &:hover {
+          background: $accent-color;
+          color: #fff;
+        }
 
-    .mat-icon {
-      margin-right: 10px;
+        mat-icon {
+          font-size: 20px;
+        }
+      }
     }
   }
-}
 
-.dashboard-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 5rem 2rem;
-}
+  .dashboard-wrapper {
+    flex: 1;
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: $background-color;
+      padding: 15px;
+      border-radius: $input-radius;
+      box-shadow: $shadow;
+      backdrop-filter: $backdrop-filter;
 
-  h2 {
-    color: $primary-color;
-  }
+      h2 {
+        font-size: 22px;
+        font-weight: 600;
+      }
 
-  button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    background: $accent-color;
-    color: white;
+      button {
+        padding: 10px 16px;
+        border: none;
+        border-radius: $input-radius;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        background: $accent-color;
+        color: #fff;
 
-    &.online {
-      background-color: #2ecc71;
+        &.online {
+          background: #27ae60;
+        }
+
+        &.offline {
+          background: #e74c3c;
+        }
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
     }
 
-    &.offline {
-      background-color: $error-color;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+
+      .stat-card {
+        background: $card-bg;
+        padding: 20px;
+        border-radius: $input-radius;
+        box-shadow: $shadow;
+        backdrop-filter: $backdrop-filter;
+        text-align: center;
+
+        h3 {
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 24px;
+          font-weight: bold;
+          color: $accent-color;
+        }
+      }
+    }
+
+    .section {
+      background: $background-color;
+      padding: 20px;
+      border-radius: $input-radius;
+      box-shadow: $shadow;
+      backdrop-filter: $backdrop-filter;
+
+      h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      table {
+        width: 100%;
+        background: transparent;
+        border-collapse: collapse;
+
+        th {
+          background: $accent-color;
+          color: #fff;
+          padding: 12px;
+          text-align: left;
+        }
+
+        td {
+          padding: 12px;
+          border-bottom: 1px solid $input-border;
+        }
+
+        tr:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
     }
   }
 }
