@@ -1,96 +1,94 @@
-<mat-sidenav-container class="dashboard-container">
-  <!-- Sidebar Navigation -->
-  <mat-sidenav #sidenav mode="side" opened class="sidenav">
-    <mat-nav-list>
-      <mat-list-item routerLink="/dashboard" routerLinkActive="active">
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidenav">
+    <mat-list>
+      <mat-list-item>
         <mat-icon>dashboard</mat-icon> Dashboard
       </mat-list-item>
-      <mat-list-item routerLink="/report" routerLinkActive="active">
-        <mat-icon>bar_chart</mat-icon> Report
+      <mat-list-item>
+        <mat-icon>directions_car</mat-icon> My Rides
       </mat-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
+      <mat-list-item>
+        <mat-icon>attach_money</mat-icon> Earnings
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon>account_circle</mat-icon> Profile
+      </mat-list-item>
+    </mat-list>
+  </div>
 
   <!-- Main Content -->
-  <mat-sidenav-content>
-    <div class="dashboard-wrapper">
-      <div class="dashboard-content">
-        <!-- Driver Info & Status -->
-        <mat-card class="header">
-          <mat-card-content class="d-flex align-items-center justify-content-between flex-row w-100">
-            <h2>Welcome, {{ driver.name }}</h2>
-            <button mat-raised-button (click)="toggleStatus()" class="btn {{isOnline ? 'online' : 'offline'}}">
-              <mat-icon>{{ isOnline ? 'check_circle' : 'cancel' }}</mat-icon>
-              {{ isOnline ? 'Online' : 'Offline' }}
-            </button>
-          </mat-card-content>
-        </mat-card>
+  <div class="dashboard-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <h2>Welcome, {{ driver.name }}</h2>
+      <button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="toggleStatus()">
+        {{ isOnline ? 'Go Offline' : 'Go Online' }}
+      </button>
+    </div>
 
-        <!-- Earnings Summary -->
-        <div class="earnings-section">
-          <mat-card class="earnings-card" *ngFor="let period of ['daily', 'weekly', 'monthly']">
-            <mat-card-header>
-              <mat-card-title>{{ period | titlecase }} Earnings</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <h3>${{ earnings[period] }}</h3>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <!-- Ride Lists -->
-        <div class="rides-section">
-          <mat-card class="rides-list">
-            <mat-card-header>
-              <mat-card-title>Upcoming Rides</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8">
-                <ng-container matColumnDef="pickup">
-                  <th mat-header-cell *matHeaderCellDef> Pickup </th>
-                  <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
-                </ng-container>
-                <ng-container matColumnDef="dropoff">
-                  <th mat-header-cell *matHeaderCellDef> Drop off </th>
-                  <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
-                </ng-container>
-                <ng-container matColumnDef="time">
-                  <th mat-header-cell *matHeaderCellDef> Time </th>
-                  <td mat-cell *matCellDef="let ride"> {{ ride.time }} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </mat-card-content>
-          </mat-card>
-
-          <mat-card class="rides-list">
-            <mat-card-header>
-              <mat-card-title>Ride History</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8">
-                <ng-container matColumnDef="pickup">
-                  <th mat-header-cell *matHeaderCellDef> Pickup </th>
-                  <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
-                </ng-container>
-                <ng-container matColumnDef="dropoff">
-                  <th mat-header-cell *matHeaderCellDef> Dropoff </th>
-                  <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
-                </ng-container>
-                <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> Status </th>
-                  <td mat-cell *matCellDef="let ride"> Completed </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
-              </table>
-            </mat-card-content>
-          </mat-card>
-        </div>
+    <!-- Stats Section -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Daily Earnings</h3>
+        <p>${{ earnings.daily | number }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Weekly Earnings</h3>
+        <p>${{ earnings.weekly | number }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Monthly Earnings</h3>
+        <p>${{ earnings.monthly | number }}</p>
       </div>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+
+    <!-- Upcoming Rides -->
+    <div class="section">
+      <h3>Upcoming Rides</h3>
+      <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8">
+        <ng-container matColumnDef="pickup">
+          <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dropoff">
+          <th mat-header-cell *matHeaderCellDef> Dropoff Location </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef> Time </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.time }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <!-- Ride History -->
+    <div class="section">
+      <h3>Ride History</h3>
+      <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8">
+        <ng-container matColumnDef="pickup">
+          <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dropoff">
+          <th mat-header-cell *matHeaderCellDef> Dropoff Location </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let ride"> {{ ride.status }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
