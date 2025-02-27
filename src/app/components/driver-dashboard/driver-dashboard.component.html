@@ -1,56 +1,96 @@
-<div class="dashboard-wrapper">
-  <div class="dashboard-container">
-    <!-- Driver Info & Status -->
-    <mat-card class="header">
-      <mat-card-content class="d-flex align-items-center justify-content-between flex-row w-100">
-        <h2>Welcome, {{ driver.name }}</h2>
-        <button mat-raised-button (click)="toggleStatus()" class="btn {{isOnline ? 'online' : 'offline'}}" hidden="hidden">
-          <mat-icon>{{ isOnline ? 'check_circle' : 'cancel' }}</mat-icon>
-          {{ isOnline ? 'Online' : 'Offline' }}
-        </button>
-      </mat-card-content>
-    </mat-card>
+<mat-sidenav-container class="dashboard-container">
+  <!-- Sidebar Navigation -->
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <mat-list-item routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </mat-list-item>
+      <mat-list-item routerLink="/report" routerLinkActive="active">
+        <mat-icon>bar_chart</mat-icon> Report
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
 
-    <!-- Earnings Summary -->
-    <div class="earnings-section">
-      <mat-card class="earnings-card" *ngFor="let period of ['daily', 'weekly', 'monthly']">
-        <mat-card-header>
-          <mat-card-title>{{ period | titlecase }} Earnings</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <h3>${{ earnings[period] }}</h3>
-        </mat-card-content>
-      </mat-card>
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <div class="dashboard-wrapper">
+      <div class="dashboard-content">
+        <!-- Driver Info & Status -->
+        <mat-card class="header">
+          <mat-card-content class="d-flex align-items-center justify-content-between flex-row w-100">
+            <h2>Welcome, {{ driver.name }}</h2>
+            <button mat-raised-button (click)="toggleStatus()" class="btn {{isOnline ? 'online' : 'offline'}}">
+              <mat-icon>{{ isOnline ? 'check_circle' : 'cancel' }}</mat-icon>
+              {{ isOnline ? 'Online' : 'Offline' }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Earnings Summary -->
+        <div class="earnings-section">
+          <mat-card class="earnings-card" *ngFor="let period of ['daily', 'weekly', 'monthly']">
+            <mat-card-header>
+              <mat-card-title>{{ period | titlecase }} Earnings</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>${{ earnings[period] }}</h3>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Ride Lists -->
+        <div class="rides-section">
+          <mat-card class="rides-list">
+            <mat-card-header>
+              <mat-card-title>Upcoming Rides</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8">
+                <ng-container matColumnDef="pickup">
+                  <th mat-header-cell *matHeaderCellDef> Pickup </th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+                </ng-container>
+                <ng-container matColumnDef="dropoff">
+                  <th mat-header-cell *matHeaderCellDef> Drop off </th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                  <th mat-header-cell *matHeaderCellDef> Time </th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.time }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="rides-list">
+            <mat-card-header>
+              <mat-card-title>Ride History</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8">
+                <ng-container matColumnDef="pickup">
+                  <th mat-header-cell *matHeaderCellDef> Pickup </th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+                </ng-container>
+                <ng-container matColumnDef="dropoff">
+                  <th mat-header-cell *matHeaderCellDef> Dropoff </th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let ride"> Completed </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
     </div>
-
-    <!-- Ride Lists -->
-    <div class="rides-section">
-      <mat-card class="rides-list">
-        <mat-card-header>
-          <mat-card-title>Upcoming Rides</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <ul>
-            <li *ngFor="let ride of upcomingRides">
-              <span>{{ ride.pickup }} → {{ ride.dropoff }} ({{ ride.time }})</span>
-            </li>
-          </ul>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="rides-list">
-        <mat-card-header>
-          <mat-card-title>Ride History</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <ul>
-            <li *ngFor="let ride of rideHistory">
-              <span>{{ ride.pickup }} → {{ ride.dropoff }} (Completed)</span>
-            </li>
-          </ul>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

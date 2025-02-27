@@ -23,7 +23,7 @@ import {CarSelectionComponent} from './components/car-selection/car-selection.co
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginComponent} from './components/login/login.component';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {MatCard, MatCardContent, MatCardHeader, MatCardModule, MatCardTitle} from '@angular/material/card';
 import {Button, ButtonDirective} from "primeng/button";
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
@@ -43,6 +43,17 @@ import { ManageBookingsComponent } from './components/manage-bookings/manage-boo
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
+import {MatSidenavContainer, MatSidenavModule} from "@angular/material/sidenav";
+import {MatListItem, MatListModule, MatNavList} from '@angular/material/list';
+import {
+  MatCellDef,
+  MatHeaderCellDef,
+  MatHeaderRowDef,
+  MatRowDef,
+  MatTable,
+  MatTableModule
+} from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -65,32 +76,39 @@ import { DriverDashboardComponent } from './components/driver-dashboard/driver-d
     UserProfileComponent,
     DriverDashboardComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        RouterModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatIconModule,
-        MatButtonModule,
-        NgOptimizedImage,
-        MatCard,
-        MatCardTitle,
-        MatCardContent,
-        FormsModule,
-        ButtonDirective,
-        HttpClientModule,
-        Button,
-        Dialog,
-        DialogModule,
-        CardModule,
-        MatCardHeader,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    NgOptimizedImage,
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    FormsModule,
+    ButtonDirective,
+    HttpClientModule,
+    Button,
+    Dialog,
+    DialogModule,
+    CardModule,
+    MatCardHeader,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTableModule,
+    MatToolbarModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
