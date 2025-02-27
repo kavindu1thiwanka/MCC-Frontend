@@ -37,6 +37,16 @@ $card-bg: rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
 
+        ::ng-deep span {
+          span {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            gap: 5px;
+          }
+        }
+
         &:hover {
           background: lighten($primary-color, 10%);
           color: #fff;
