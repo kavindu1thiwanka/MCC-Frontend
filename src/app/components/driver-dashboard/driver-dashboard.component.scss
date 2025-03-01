@@ -158,41 +158,44 @@ $card-bg: rgba(255, 255, 255, 0.2);
         }
       }
 
-      .section {
-        background: $background-color;
-        padding: 20px;
-        border-radius: $input-radius;
+      /* Table Styling */
+      .table-container {
+        overflow-x: auto;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 10px;
         box-shadow: $shadow;
-        backdrop-filter: $backdrop-filter;
-        overflow-y: auto;
-        overflow-x: hidden;
+      }
 
-        h3 {
-          margin-bottom: 15px;
-          font-size: 18px;
+      table.modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: $shadow;
+        background: rgba(255, 255, 255, 0.05);
+
+        th {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 12px;
+          text-align: left;
           font-weight: 600;
+          color: $text-color;
         }
 
-        table {
-          width: 100%;
-          background: transparent;
-          border-collapse: collapse;
-          border-radius: $input-radius;
-          overflow: hidden;
+        td {
+          padding: 12px;
+          color: $text-color;
+        }
 
-          th {
-            background: $accent-color;
-            color: #fff;
-            padding: 12px;
-            text-align: left;
+        tr {
+          transition: background 0.3s;
+
+          &:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
           }
 
-          td {
-            padding: 12px;
-            border-bottom: 1px solid $input-border;
-          }
-
-          tr:hover {
+          &:hover {
             background: rgba(255, 255, 255, 0.1);
           }
         }
