@@ -11,6 +11,6 @@ export class LandingPageComponent implements OnInit {
   userLoggedIn = false;
 
   ngOnInit(): void {
-    this.userLoggedIn = localStorage.getItem(AppConstant.IDENTIFIER) === AppConstant.IDENTIFIER_ROLE_CUSTOMER;
+    this.userLoggedIn = localStorage.getItem(AppConstant.IDENTIFIER) ? localStorage.getItem(AppConstant.IDENTIFIER) === AppConstant.IDENTIFIER_ROLE_CUSTOMER : true;
   }
 }
