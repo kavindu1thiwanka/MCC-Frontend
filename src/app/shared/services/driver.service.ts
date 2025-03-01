@@ -39,7 +39,7 @@ export class DriverService {
   }
 
   updateOnlineStatus(isOnline: boolean) {
-    return this.httpClient.put(ApiEndPoint.DRIVER_V1 + '/update_online_status', {isOnline: isOnline},
+    return this.httpClient.put(ApiEndPoint.DRIVER_V1 + '/update_online_status', isOnline,
       {observe: 'response', withCredentials: true}).toPromise();
   }
 
