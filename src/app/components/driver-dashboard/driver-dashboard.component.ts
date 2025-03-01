@@ -40,6 +40,12 @@ export class DriverDashboardComponent implements OnInit {
     });
   }
 
+  async getRidesHistory() {
+    await this.driverService.getRidesHistory().then((res) => {
+      this.rideHistory = (res?.body as any).rideHistory;
+    });
+  }
+
   toggleStatus() {
     this.isOnline = !this.isOnline;
     this.driverService.updateOnlineStatus(this.isOnline).then(res => {
@@ -53,7 +59,7 @@ export class DriverDashboardComponent implements OnInit {
     this.activeSection = section;
 
     if (section === 'dashboard') this.loadDriverDetails();
-    // if (section === 'rides') this.loadDriverDetails();
+    if (section === 'rides') this.getRidesHistory();
     // if (section === 'earnings') this.loadDriverDetails();
     // if (section === 'profile') this.loadDriverDetails();
   }

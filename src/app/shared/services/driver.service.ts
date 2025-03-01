@@ -47,4 +47,9 @@ export class DriverService {
     return this.httpClient.get(ApiEndPoint.DRIVER_V1 + '/get_dashboard_details',
       {observe: 'response', withCredentials: true}).toPromise();
   }
+
+  getRidesHistory() {
+    return this.httpClient.get(ApiEndPoint.DRIVER_V1 + '/get_rides_history',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
 }
