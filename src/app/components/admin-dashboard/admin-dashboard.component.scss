@@ -19,59 +19,37 @@ $card-bg: rgba(255, 255, 255, 0.1);
   .sidenav {
     width: 250px;
     background: $primary-color;
-    display: flex;
-    flex-direction: column;
     padding: 5rem 1rem;
     box-shadow: $shadow;
 
-    mat-list {
-      width: 100%;
+    mat-list-item {
+      color: $text-color;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      cursor: pointer;
 
-      mat-list-item {
-        color: $text-color;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px;
-        border-radius: 8px;
-        transition: all 0.3s ease-in-out;
-        cursor: pointer;
+      &:hover {
+        background: lighten($primary-color, 10%);
+      }
 
-        ::ng-deep span {
-          span {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-            gap: 5px;
-          }
-        }
+      &:active {
+        background: darken($accent-color, 10%);
+      }
 
-        &:hover {
-          background: lighten($primary-color, 10%);
-          color: #fff;
-        }
-
-        &:active {
-          background: darken($accent-color, 10%);
-          color: white;
-        }
-
-        mat-icon {
-          font-size: 20px;
-        }
+      mat-icon {
+        font-size: 20px;
       }
     }
   }
 
   .dashboard-wrapper {
     flex: 1;
-    padding: 5.3rem 2rem 2rem 2rem;
+    padding: 5.3rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 100vh;
 
     .header {
       display: flex;
@@ -82,11 +60,6 @@ $card-bg: rgba(255, 255, 255, 0.1);
       border-radius: $input-radius;
       box-shadow: $shadow;
       backdrop-filter: $backdrop-filter;
-
-      h2 {
-        font-size: 22px;
-        font-weight: 600;
-      }
     }
 
     .detail-section {
@@ -108,7 +81,7 @@ $card-bg: rgba(255, 255, 255, 0.1);
 
       .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
 
         .stat-card {
@@ -118,17 +91,67 @@ $card-bg: rgba(255, 255, 255, 0.1);
           box-shadow: $shadow;
           backdrop-filter: $backdrop-filter;
           text-align: center;
+          transition: transform 0.3s ease, background 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+          }
 
           h3 {
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 10px;
+            color: lighten($text-color, 10%);
           }
 
           p {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: $accent-color;
           }
+        }
+      }
+    }
+
+    .table-container {
+      overflow-x: auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: $shadow;
+    }
+
+    table.modern-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: $shadow;
+      background: rgba(255, 255, 255, 0.05);
+
+      th {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: $text-color;
+      }
+
+      td {
+        padding: 12px;
+        color: $text-color;
+      }
+
+      tr {
+        transition: background 0.3s;
+
+        &:nth-child(even) {
+          background: rgba(255, 255, 255, 0.03);
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
         }
       }
     }
