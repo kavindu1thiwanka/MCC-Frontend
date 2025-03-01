@@ -31,8 +31,8 @@ export class DriverDashboardComponent implements OnInit {
     this.loadDriverDetails();
   }
 
-  loadDriverDetails() {
-    this.driverService.getDashboardDetails().then((res) => {
+  async loadDriverDetails() {
+    await this.driverService.getDashboardDetails().then((res) => {
       this.driverName = localStorage.getItem(AppConstant.NAME) || 'Driver';
       this.earnings = (res?.body as any).earnings;
       this.upcomingRides = (res?.body as any).upcomingRides;
@@ -51,5 +51,10 @@ export class DriverDashboardComponent implements OnInit {
 
   setActiveSection(section: string) {
     this.activeSection = section;
+
+    if (section === 'dashboard') this.loadDriverDetails();
+    // if (section === 'rides') this.loadDriverDetails();
+    // if (section === 'earnings') this.loadDriverDetails();
+    // if (section === 'profile') this.loadDriverDetails();
   }
 }
