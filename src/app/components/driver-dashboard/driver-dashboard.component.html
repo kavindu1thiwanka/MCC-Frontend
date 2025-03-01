@@ -27,7 +27,7 @@
       </button>
     </div>
 
-    <section class="detail-section">
+    <section class="detail-section d-flex flex-column gap-3">
       <!-- Dashboard Content -->
       <div *ngIf="activeSection === 'dashboard'">
         <div class="stats-grid">
@@ -42,6 +42,33 @@
           <div class="stat-card">
             <h3>Monthly Earnings</h3>
             <p>${{ earnings.monthly | number }}</p>
+          </div>
+        </div>
+      </div>
+        <!-- Upcoming Rides Table in Dashboard -->
+      <div *ngIf="activeSection === 'dashboard'">
+        <div>
+          <h3>Upcoming Rides</h3>
+          <div class="table-container">
+            <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8 modern-table">
+              <ng-container matColumnDef="pickup">
+                <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="dropoff">
+                <th mat-header-cell *matHeaderCellDef> Dropoff Location </th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.time }} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
           </div>
         </div>
       </div>

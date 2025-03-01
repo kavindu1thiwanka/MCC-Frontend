@@ -113,13 +113,10 @@ $card-bg: rgba(255, 255, 255, 0.2);
     }
 
     .detail-section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-height: calc(100vh - 100px);
+      height: calc(100vh - 5rem);
+      max-height: calc(100vh - 5rem);
       overflow-y: auto;
       overflow-x: hidden;
-      padding-right: 5px;
 
       /* Custom Scrollbar */
       &::-webkit-scrollbar {
