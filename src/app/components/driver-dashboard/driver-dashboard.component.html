@@ -20,7 +20,7 @@
   <!-- Main Content -->
   <div class="dashboard-wrapper">
     <!-- Header -->
-    <div class="header">
+    <div *ngIf="activeSection === 'dashboard'" class="header">
       <h2>Welcome, {{ driver.name }}</h2>
       <button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="toggleStatus()">
         {{ isOnline ? 'Go Offline' : 'Go Online' }}
