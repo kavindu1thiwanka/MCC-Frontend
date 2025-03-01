@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AppConstant} from '../utils/app-constant';
 import {HttpClient} from '@angular/common/http';
+import {ApiEndPoint} from '../utils/api-end-point';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,17 @@ export class DriverService {
   }
 
   getDriverInfo() {
-    return this.httpClient.get('/get_logged_in_user_details',
+    return this.httpClient.get(ApiEndPoint.DRIVER_V1 + '/get_logged_in_user_details',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
+
+  updateOnlineStatus(isOnline: boolean) {
+    return this.httpClient.put(ApiEndPoint.DRIVER_V1 + '/update_online_status', {isOnline: isOnline},
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
+
+  getDashboardDetails() {
+    return this.httpClient.get(ApiEndPoint.DRIVER_V1 + '/get_dashboard_details',
       {observe: 'response', withCredentials: true}).toPromise();
   }
 }
