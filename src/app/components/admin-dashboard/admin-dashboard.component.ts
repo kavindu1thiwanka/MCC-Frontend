@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminService} from '../../shared/services/admin.service';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: false,
 
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.scss'
+  styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
@@ -18,7 +18,12 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   users = [];
+  drivers = [];
+  admins = [];
+
   userColumns: string[] = ['name', 'email', 'role'];
+  driverColumns: string[] = ['name', 'email', 'role'];
+  adminColumns: string[] = ['name', 'email', 'role'];
 
   constructor(private adminService: AdminService) {}
 
@@ -27,9 +32,12 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadDashboardData() {
+    // Example API call (uncomment when integrating)
     // this.adminService.getDashboardStats().then((data) => {
     //   this.stats = data.stats;
     //   this.users = data.users;
+    //   this.drivers = data.drivers;
+    //   this.admins = data.admins;
     // });
   }
 
