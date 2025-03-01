@@ -1,6 +1,6 @@
 <div class="container-fluid vh-100 p-0 m-0 position-relative overflow-y-auto overflow-x-hidden">
   <app-header class="position-absolute top-0 z-3 {{!userLoggedIn ? 'bg-dark' : ''}}"></app-header>
-  <app-search-box *ngIf="userLoggedIn" class="sticky-top z-2}"></app-search-box>
+  <app-search-box *ngIf="userLoggedIn" class="sticky-top z-2"></app-search-box>
   <div *ngIf="userLoggedIn" class="d-flex flex-column m-0 position-absolute top-0 z-1 overflow-hidden">
     <!-- Hero Section -->
     <div class="hero-section text-center text-white w-100 row align-content-end m-0 min-vh-100">
@@ -159,9 +159,6 @@
       </div>
     </footer>
   </div>
-<!--  <div *ngIf="!userLoggedIn" class="d-flex flex-column m-0 position-absolute top-0 z-1 overflow-hidden min-vw-100 min-vh-100">-->
-<!--    Hello-->
-<!--  </div>-->
   <app-driver-dashboard *ngIf="!userLoggedIn"></app-driver-dashboard>
 </div>
 
