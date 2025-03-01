@@ -1,0 +1,101 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidenav">
+    <mat-list>
+      <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('users')" [ngClass]="{ active: activeSection === 'users' }">
+        <mat-icon>people</mat-icon> Users
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('drivers')" [ngClass]="{ active: activeSection === 'drivers' }">
+        <mat-icon>local_taxi</mat-icon> Drivers
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('admins')" [ngClass]="{ active: activeSection === 'admins' }">
+        <mat-icon>admin_panel_settings</mat-icon> Admins
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('reports')" [ngClass]="{ active: activeSection === 'reports' }">
+        <mat-icon>assessment</mat-icon> Reports
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('settings')" [ngClass]="{ active: activeSection === 'settings' }">
+        <mat-icon>settings</mat-icon> Settings
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <!-- Main Content -->
+  <div class="dashboard-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <h2>Welcome, Admin</h2>
+    </div>
+
+    <section class="detail-section">
+      <!-- Dashboard Content -->
+      <div *ngIf="activeSection === 'dashboard'">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Total Users</h3>
+            <p>{{ stats.totalUsers }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Total Drivers</h3>
+            <p>{{ stats.totalDrivers }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Active Rides</h3>
+            <p>{{ stats.activeRides }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Management -->
+      <div *ngIf="activeSection === 'users'">
+        <h3>Manage Users</h3>
+        <table mat-table [dataSource]="users" class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let user"> {{ user.name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+        </table>
+      </div>
+
+      <!-- Drivers Management -->
+      <div *ngIf="activeSection === 'drivers'">
+        <h3>Manage Drivers</h3>
+        <p>List of all drivers...</p>
+      </div>
+
+      <!-- Admins Management -->
+      <div *ngIf="activeSection === 'admins'">
+        <h3>Manage Admins</h3>
+        <p>List of all admins...</p>
+      </div>
+
+      <!-- Reports -->
+      <div *ngIf="activeSection === 'reports'">
+        <h3>Reports</h3>
+        <p>View system reports...</p>
+      </div>
+
+      <!-- Settings -->
+      <div *ngIf="activeSection === 'settings'">
+        <h3>Settings</h3>
+        <p>Update system configurations...</p>
+      </div>
+    </section>
+  </div>
+</div>

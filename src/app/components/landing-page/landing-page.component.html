@@ -159,6 +159,7 @@
       </div>
     </footer>
   </div>
-  <app-driver-dashboard *ngIf="!userLoggedIn"></app-driver-dashboard>
+  <app-driver-dashboard *ngIf="!userLoggedIn && !adminLoggedIn"></app-driver-dashboard>
+  <app-admin-dashboard *ngIf="adminLoggedIn && !userLoggedIn"></app-admin-dashboard>
 </div>
 

@@ -54,6 +54,7 @@ import {
   MatTableModule
 } from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ManageBookingsComponent,
     ResetPasswordComponent,
     UserProfileComponent,
-    DriverDashboardComponent
+    DriverDashboardComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

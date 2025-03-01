@@ -14,13 +14,13 @@ export class HeaderComponent implements OnInit {
   @Input() public isLandingPage = true;
   userLoggedIn = false;
   showBookingsDetails: boolean = false;
-  inDriverDashboard: boolean = false;
+  notCustomer: boolean = false;
 
   constructor(private location: Location) {}
 
   ngOnInit(): void {
     this.userLoggedIn = localStorage.getItem(AppConstant.REFRESH_TOKEN) != null && localStorage.getItem(AppConstant.ACCESS_TOKEN) != null;
-    this.inDriverDashboard = localStorage.getItem(AppConstant.IDENTIFIER) === AppConstant.IDENTIFIER_ROLE_DRIVER;
+    this.notCustomer = localStorage.getItem(AppConstant.IDENTIFIER) === AppConstant.IDENTIFIER_ROLE_DRIVER || localStorage.getItem(AppConstant.IDENTIFIER) === AppConstant.IDENTIFIER_ROLE_ADMIN;
   }
 
   goBack(): void {

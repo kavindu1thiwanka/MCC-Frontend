@@ -1,4 +1,4 @@
-<header class="header navbar navbar-expand-lg navbar-dark vw-100 {{!isLandingPage || inDriverDashboard ? 'px-3' : ''}}">
+<header class="header navbar navbar-expand-lg navbar-dark vw-100 {{!isLandingPage || notCustomer ? 'px-3' : ''}}">
   <div
     class="container-fluid d-flex align-items-center {{isLandingPage ? 'justify-content-between' : 'justify-content-start gap-2'}}">
     <button *ngIf="!isLandingPage"
@@ -15,7 +15,7 @@
         <i class="fa-solid fa-user-tie"></i>
         Driver
       </a>
-      <a *ngIf="userLoggedIn && !inDriverDashboard"
+      <a *ngIf="userLoggedIn && !notCustomer"
          class="text-white text-decoration-none d-flex gap-3 justify-content-center align-items-center hover-underline"
          role="button" (click)="showBookingsDetails = true">
         <i class="fa-solid fa-car"></i>
