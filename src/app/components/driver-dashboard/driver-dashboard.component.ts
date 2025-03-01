@@ -33,9 +33,10 @@ export class DriverDashboardComponent implements OnInit {
 
   loadDriverDetails() {
     this.driverService.getDashboardDetails().then((res) => {
-      this.driverName = localStorage.getItem(AppConstant.NAME) || 'Driver Name';
+      this.driverName = localStorage.getItem(AppConstant.NAME) || 'Driver';
       this.earnings = (res?.body as any).earnings;
       this.upcomingRides = (res?.body as any).upcomingRides;
+      this.isOnline = (res?.body as any).isOnline;
     });
   }
 

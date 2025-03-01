@@ -3,16 +3,20 @@
   <div class="sidenav">
     <mat-list>
       <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
-        <mat-icon>dashboard</mat-icon> Dashboard
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
-        <mat-icon>directions_car</mat-icon> Ride History
+        <mat-icon>directions_car</mat-icon>
+        Ride History
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('earnings')" [ngClass]="{ active: activeSection === 'earnings' }">
-        <mat-icon>attach_money</mat-icon> Earnings
+        <mat-icon>attach_money</mat-icon>
+        Earnings
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('profile')" [ngClass]="{ active: activeSection === 'profile' }">
-        <mat-icon>account_circle</mat-icon> Profile
+        <mat-icon>account_circle</mat-icon>
+        Profile
       </mat-list-item>
     </mat-list>
   </div>
@@ -45,7 +49,7 @@
           </div>
         </div>
       </div>
-        <!-- Upcoming Rides Table in Dashboard -->
+      <!-- Upcoming Rides Table in Dashboard -->
       <div *ngIf="activeSection === 'dashboard'">
         <div>
           <h3>Upcoming Rides</h3>
@@ -53,23 +57,23 @@
             <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8 modern-table">
 
               <ng-container matColumnDef="reservationId">
-                <th mat-header-cell *matHeaderCellDef> Reservation ID </th>
-                <td mat-cell *matCellDef="let ride"> {{ ride.reservationId }} </td>
+                <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.id }}</td>
               </ng-container>
 
               <ng-container matColumnDef="pickup">
-                <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
-                <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+                <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpLocation }}</td>
               </ng-container>
 
               <ng-container matColumnDef="dropoff">
-                <th mat-header-cell *matHeaderCellDef> Drop off Location </th>
-                <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+                <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.returnLocation }}</td>
               </ng-container>
 
               <ng-container matColumnDef="dateTime">
-                <th mat-header-cell *matHeaderCellDef> Date & Time </th>
-                <td mat-cell *matCellDef="let ride"> {{ ride.dateTime }} </td>
+                <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate + ' ⇾ ' + ride.returnDate }}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -86,28 +90,28 @@
           <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8 modern-table">
 
             <ng-container matColumnDef="reservationId">
-              <th mat-header-cell *matHeaderCellDef> Reservation ID </th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.reservationId }} </td>
+              <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.reservationId }}</td>
             </ng-container>
 
             <ng-container matColumnDef="pickup">
-              <th mat-header-cell *matHeaderCellDef> Pickup Location </th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.pickup }} </td>
+              <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.pickup }}</td>
             </ng-container>
 
             <ng-container matColumnDef="dropoff">
-              <th mat-header-cell *matHeaderCellDef> Drop off Location </th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }} </td>
+              <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.dropoff }}</td>
             </ng-container>
 
             <ng-container matColumnDef="dateTime">
-              <th mat-header-cell *matHeaderCellDef> Date & Time </th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.dateTime }} </td>
+              <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.dateTime }}</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.status }} </td>
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.status }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
