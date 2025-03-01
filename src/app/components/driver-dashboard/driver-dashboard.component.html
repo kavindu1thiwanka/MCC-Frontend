@@ -6,7 +6,7 @@
         <mat-icon>dashboard</mat-icon> Dashboard
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
-        <mat-icon>directions_car</mat-icon> My Rides
+        <mat-icon>directions_car</mat-icon> Ride History
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('earnings')" [ngClass]="{ active: activeSection === 'earnings' }">
         <mat-icon>attach_money</mat-icon> Earnings
@@ -75,7 +75,7 @@
 
       <!-- My Rides Table -->
       <div *ngIf="activeSection === 'rides'">
-        <h3>Upcoming Rides</h3>
+        <h3>Ride History</h3>
         <div class="table-container">
           <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8 modern-table">
             <ng-container matColumnDef="pickup">
