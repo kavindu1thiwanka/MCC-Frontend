@@ -52,16 +52,16 @@ $card-bg: rgba(255, 255, 255, 0.2);
           color: #fff;
         }
 
-        &:active {
-          background: darken($accent-color, 10%);
-          color: white;
-        }
-
         mat-icon {
           font-size: 20px;
         }
       }
     }
+  }
+
+  .active {
+    background: lighten($primary-color, 10%);
+    color: #fff;
   }
 
   .dashboard-wrapper {

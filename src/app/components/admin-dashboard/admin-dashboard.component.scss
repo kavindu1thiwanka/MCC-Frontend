@@ -42,16 +42,18 @@ $card-bg: rgba(255, 255, 255, 0.1);
 
       &:hover {
         background: lighten($primary-color, 10%);
-      }
-
-      &:active {
-        background: darken($accent-color, 10%);
+        color: #fff;
       }
 
       mat-icon {
         font-size: 20px;
       }
     }
+  }
+
+  .active {
+    background: lighten($primary-color, 10%);
+    color: #fff;
   }
 
   .dashboard-wrapper {
