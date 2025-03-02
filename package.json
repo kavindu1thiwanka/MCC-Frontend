@@ -23,8 +23,9 @@
     "@primeng/themes": "^19.0.6",
     "@stripe/stripe-js": "^5.6.0",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.8",
     "primeicons": "^7.0.0",
-    "primeng": "^19.0.6",
+    "primeng": "^19.0.9",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
