@@ -3,22 +3,28 @@
   <div class="sidenav">
     <mat-list>
       <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
-        <mat-icon>dashboard</mat-icon> Dashboard
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('users')" [ngClass]="{ active: activeSection === 'users' }">
-        <mat-icon>people</mat-icon> Users
+        <mat-icon>people</mat-icon>
+        Users
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('drivers')" [ngClass]="{ active: activeSection === 'drivers' }">
-        <mat-icon>local_taxi</mat-icon> Drivers
+        <mat-icon>local_taxi</mat-icon>
+        Drivers
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('admins')" [ngClass]="{ active: activeSection === 'admins' }">
-        <mat-icon>admin_panel_settings</mat-icon> Admins
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admins
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('reports')" [ngClass]="{ active: activeSection === 'reports' }">
-        <mat-icon>assessment</mat-icon> Reports
+        <mat-icon>assessment</mat-icon>
+        Reports
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('settings')" [ngClass]="{ active: activeSection === 'settings' }">
-        <mat-icon>settings</mat-icon> Settings
+        <mat-icon>settings</mat-icon>
+        Settings
       </mat-list-item>
     </mat-list>
   </div>
@@ -47,22 +53,43 @@
         </div>
       </div>
 
+      <div *ngIf="activeSection === 'dashboard'" class="chart-container">
+        <!-- Line Chart (Full Width and Height) -->
+        <div class="chart line-chart d-flex justify-center flex-column gap-2">
+          <div class="d-flex w-100 justify-content-start">
+            <h4>Rides Statistics</h4>
+          </div>
+          <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
+        </div>
+
+        <!-- Pie && Doughnut Chart (Right) -->
+        <!--        <div class="chart pie-chart">-->
+        <!--          <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>-->
+        <!--        </div>-->
+
+        <div class="chart pie-chart d-flex justify-center flex-column gap-1">
+          <h4>Drivers Availability</h4>
+          <p-chart type="doughnut" [data]="pieChartData" [options]="pieChartOptions" class="w-full md:w-[30rem]"/>
+        </div>
+      </div>
+
+
       <!-- Users Table -->
       <div *ngIf="activeSection === 'users'">
         <h3>Manage Users</h3>
         <div class="table-container">
           <table mat-table [dataSource]="users" class="mat-elevation-z8 modern-table">
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let user"> {{ user.name }} </td>
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let user"> {{ user.name }}</td>
             </ng-container>
             <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef> Email </th>
-              <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
             </ng-container>
             <ng-container matColumnDef="role">
-              <th mat-header-cell *matHeaderCellDef> Role </th>
-              <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+              <th mat-header-cell *matHeaderCellDef> Role</th>
+              <td mat-cell *matCellDef="let user"> {{ user.role }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
@@ -77,16 +104,16 @@
         <div class="table-container">
           <table mat-table [dataSource]="drivers" class="mat-elevation-z8 modern-table">
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let driver"> {{ driver.name }} </td>
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let driver"> {{ driver.name }}</td>
             </ng-container>
             <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef> Email </th>
-              <td mat-cell *matCellDef="let driver"> {{ driver.email }} </td>
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let driver"> {{ driver.email }}</td>
             </ng-container>
             <ng-container matColumnDef="role">
-              <th mat-header-cell *matHeaderCellDef> Role </th>
-              <td mat-cell *matCellDef="let driver"> {{ driver.role }} </td>
+              <th mat-header-cell *matHeaderCellDef> Role</th>
+              <td mat-cell *matCellDef="let driver"> {{ driver.role }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="driverColumns"></tr>
@@ -101,16 +128,16 @@
         <div class="table-container">
           <table mat-table [dataSource]="admins" class="mat-elevation-z8 modern-table">
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let admin"> {{ admin.name }} </td>
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let admin"> {{ admin.name }}</td>
             </ng-container>
             <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef> Email </th>
-              <td mat-cell *matCellDef="let admin"> {{ admin.email }} </td>
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let admin"> {{ admin.email }}</td>
             </ng-container>
             <ng-container matColumnDef="role">
-              <th mat-header-cell *matHeaderCellDef> Role </th>
-              <td mat-cell *matCellDef="let admin"> {{ admin.role }} </td>
+              <th mat-header-cell *matHeaderCellDef> Role</th>
+              <td mat-cell *matCellDef="let admin"> {{ admin.role }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="adminColumns"></tr>

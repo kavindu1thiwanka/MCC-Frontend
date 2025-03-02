@@ -55,6 +55,7 @@ import {
 } from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     MatButtonModule,
     MatTableModule,
     MatToolbarModule,
+    ChartModule,
   ],
   providers: [
     {
