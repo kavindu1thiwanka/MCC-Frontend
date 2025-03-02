@@ -56,6 +56,7 @@ import {
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import {ChartModule} from 'primeng/chart';
+import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {ChartModule} from 'primeng/chart';
     ResetPasswordComponent,
     UserProfileComponent,
     DriverDashboardComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    StatusIndicatorComponent
   ],
   imports: [
     BrowserModule,
