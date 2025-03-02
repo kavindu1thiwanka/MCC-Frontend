@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../shared/services/admin.service';
 import {isPlatformBrowser} from '@angular/common';
 import {ChangeDetectorRef, inject, effect} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -27,28 +28,39 @@ export class AdminDashboardComponent implements OnInit {
   adminColumns: string[] = ['name', 'email', 'role'];
 
   // PrimeNG Chart Data
-  lineChartData: any;
+
+  isPieChartDataAvailable = false;
+
+  lineChartConfigData: any;
   lineChartOptions: any;
 
-  pieChartData: any;
+  pieChartConfigData: any;
   pieChartOptions: any;
+
+  lineChartData = {
+    labels: [],
+    datasets: []
+  };
+  pieChartData = [];
 
   constructor(private adminService: AdminService, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.loadDashboardData();
-    this.setupCharts();
+    this.loadDashboardData().then(() =>
+      this.setupCharts()
+    );
   }
 
-  loadDashboardData() {
-    // Example API call (uncomment when integrating)
-    // this.adminService.getDashboardStats().then((data) => {
-    //   this.stats = data.stats;
-    //   this.users = data.users;
-    //   this.drivers = data.drivers;
-    //   this.admins = data.admins;
-    // });
+  async loadDashboardData() {
+    await this.adminService.getDashboardStats().then(res => {
+      if (res?.status === 200 && res.body) {
+        this.stats = (res.body as any).stats;
+        this.lineChartData = (res.body as any).lineChartData;
+        this.pieChartData = (res.body as any).pieChartData;
+      }
+    }).catch(e => {
+    });
   }
 
   setActiveSection(section: string) {
@@ -56,27 +68,29 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   setupCharts() {
+
+    this.isPieChartDataAvailable = this.pieChartData && this.pieChartData.length !== 0;
+
     // Line Chart Data
-    this.lineChartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    this.lineChartConfigData = {
+      labels: !this.lineChartData.labels || this.lineChartData.labels.length === 0 ? [] : this.lineChartData.labels,
       datasets: [
         {
           label: 'Completed Rides',
-          data: [15, 25, 40, 30, 45, 60],
+          data: this.lineChartData.datasets[0],
           borderColor: '#42A5F5',
           backgroundColor: 'rgba(66, 165, 245, 0.2)',
           fill: true
         },
         {
           label: 'Cancelled Rides',
-          data: [5, 10, 8, 12, 7, 9],
+          data: this.lineChartData.datasets[1],
           borderColor: '#FF6384',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           fill: true
         }
       ]
     };
-
     this.lineChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -108,36 +122,38 @@ export class AdminDashboardComponent implements OnInit {
       }
     };
 
-    // Pie Chart Data
-    this.pieChartData = {
-      labels: ['Online', 'Offline', 'On Trip'],
-      datasets: [
-        {
-          data: [50, 30, 20],
-          borderColor: 'rgba(79,79,79,0.7)',
-          backgroundColor: [
-            'rgb(0, 230, 118)',
-            'rgb(255, 82, 82)',
-            'rgb(255, 214, 0)'
-          ]
-        }
-      ]
-    };
 
-    this.pieChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: {
-            color: '#fff',
-            usePointStyle: true,
-            padding: 20,
-          },
+    // Pie Chart Data
+    if (this.isPieChartDataAvailable) {
+      this.pieChartConfigData = {
+        labels: ['Online', 'Offline', 'On Trip'],
+        datasets: [
+          {
+            data: this.pieChartData,
+            borderColor: 'rgba(79,79,79,0.7)',
+            backgroundColor: [
+              'rgb(0, 230, 118)',
+              'rgb(255, 82, 82)',
+              'rgb(255, 214, 0)'
+            ]
+          }
+        ]
+      };
+      this.pieChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#fff',
+              usePointStyle: true,
+              padding: 20,
+            },
+          }
         }
-      }
-    };
+      };
+    }
 
     // Trigger change detection
     this.cd.markForCheck();

@@ -55,11 +55,11 @@
 
       <div *ngIf="activeSection === 'dashboard'" class="chart-container">
         <!-- Line Chart (Full Width and Height) -->
-        <div class="chart line-chart d-flex justify-center flex-column gap-2">
+        <div class="chart line-chart d-flex justify-content-start align-items-center flex-column gap-2 container">
           <div class="d-flex w-100 justify-content-start">
             <h4>Rides Statistics</h4>
           </div>
-          <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
+          <p-chart type="line" [data]="lineChartConfigData" [options]="lineChartOptions"></p-chart>
         </div>
 
         <!-- Pie && Doughnut Chart (Right) -->
@@ -67,9 +67,10 @@
         <!--          <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>-->
         <!--        </div>-->
 
-        <div class="chart pie-chart d-flex justify-center flex-column gap-1">
+        <div class="chart pie-chart d-flex justify-content-start align-items-center flex-column gap-1 container">
           <h4>Drivers Availability</h4>
-          <p-chart type="doughnut" [data]="pieChartData" [options]="pieChartOptions" class="w-full md:w-[30rem]"/>
+          <p-chart *ngIf="isPieChartDataAvailable" type="doughnut" [data]="pieChartConfigData" [options]="pieChartOptions" class="w-full md:w-[30rem]"/>
+          <section *ngIf="!isPieChartDataAvailable" class="container">Data Not Available</section>
         </div>
       </div>
 
