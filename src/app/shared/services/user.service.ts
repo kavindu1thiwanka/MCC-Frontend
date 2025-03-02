@@ -34,4 +34,14 @@ export class UserService {
     return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_all_users',
       {observe: 'response', withCredentials: true}).toPromise();
   }
+
+  getAllAdmins() {
+    return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_all_admins',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
+
+  getAllDrivers() {
+    return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_all_drivers',
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
 }

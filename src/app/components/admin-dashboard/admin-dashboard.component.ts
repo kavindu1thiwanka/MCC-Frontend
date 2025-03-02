@@ -25,8 +25,8 @@ export class AdminDashboardComponent implements OnInit {
   admins = [];
 
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-  driverColumns: string[] = ['name', 'email', 'role'];
-  adminColumns: string[] = ['name', 'email', 'role'];
+  driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
+  adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
 
   // PrimeNG Chart Data
 
@@ -58,11 +58,25 @@ export class AdminDashboardComponent implements OnInit {
 
     if (section === 'dashboard') this.loadDashboardData().then(() => this.setupCharts());
     if (section === 'users') this.loadUserTableData();
+    if (section === 'drivers') this.loadDriverTableData();
+    if (section === 'admins') this.loadAdminsTableData();
   }
 
   async loadUserTableData() {
     await this.userService.getAllUsers().then(res => {
       if (res?.status === 200 && res.body) this.users = res.body as any;
+    }).catch(e => {});
+  }
+
+  async loadDriverTableData() {
+    await this.userService.getAllDrivers().then(res => {
+      if (res?.status === 200 && res.body) this.drivers = res.body as any;
+    }).catch(e => {});
+  }
+
+  async loadAdminsTableData() {
+    await this.userService.getAllAdmins().then(res => {
+      if (res?.status === 200 && res.body) this.admins = res.body as any;
     }).catch(e => {});
   }
 
