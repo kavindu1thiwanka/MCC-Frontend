@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppConstant} from '../../shared/utils/app-constant';
-import {PaymentService} from '../../shared/services/payment.service';
 import {Location} from '@angular/common';
+import {ReservationService} from '../../shared/services/reservation.service';
 
 @Component({
   selector: 'app-payment-cancel',
@@ -15,7 +15,7 @@ export class PaymentCancelComponent implements OnInit {
 
   trxId: number | null = null;
 
-  constructor(private route: ActivatedRoute, private paymentService: PaymentService, private location: Location) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private location: Location) {
   }
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class PaymentCancelComponent implements OnInit {
 
   updateReservationDetails() {
     if (!this.trxId) return;
-    this.paymentService.updateReservationDetails(this.trxId, AppConstant.STATUS_FAILED).then(() => {}).catch(() => {});
+    this.reservationService.updateReservationDetails(this.trxId, AppConstant.STATUS_FAILED).then(() => {}).catch(() => {});
   }
 
   redirectToCarSelection() {

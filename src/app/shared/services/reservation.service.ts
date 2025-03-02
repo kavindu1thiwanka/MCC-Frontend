@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiEndPoint} from '../utils/api-end-point';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService {
+export class ReservationService {
 
   constructor(private httpClient: HttpClient) {
   }

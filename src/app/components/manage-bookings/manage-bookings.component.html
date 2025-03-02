@@ -19,9 +19,8 @@
           </div>
 
           <div class="reservation-actions">
-            <button class="edit-btn" *ngIf="reservation.status === 'P'" (click)="editReservation(reservation)">Edit</button>
-            <button class="cancel-btn" *ngIf="reservation.status === 'P'" (click)="cancelReservation(reservation.id)">Cancel</button>
-            <button class="edit-btn" *ngIf="reservation.status === 'A'" (click)="cancelReservation(reservation.id)">Return Vehicle</button>
+            <button class="edit-btn" *ngIf="reservation.status === 'A'" (click)="editReservation(reservation)">Edit</button>
+            <button class="cancel-btn" *ngIf="reservation.status === 'A'" (click)="cancelReservation(reservation.id)">Cancel</button>
           </div>
         </div>
       </div>

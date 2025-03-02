@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {PaymentService} from '../../shared/services/payment.service';
 import {AppConstant} from '../../shared/utils/app-constant';
+import {ReservationService} from '../../shared/services/reservation.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -14,7 +14,7 @@ export class PaymentSuccessComponent implements OnInit {
 
   trxId: number | null = null;
 
-  constructor(private route: ActivatedRoute, private paymentService: PaymentService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +24,6 @@ export class PaymentSuccessComponent implements OnInit {
 
   updateReservationDetails() {
     if (!this.trxId) return;
-    this.paymentService.updateReservationDetails(this.trxId, AppConstant.STATUS_TRANSACTION_COMPLETE).then(() => {}).catch(() => {});
+    this.reservationService.updateReservationDetails(this.trxId, AppConstant.STATUS_TRANSACTION_COMPLETE).then(() => {}).catch(() => {});
   }
 }

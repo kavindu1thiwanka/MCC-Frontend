@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {PaymentService} from '../../shared/services/payment.service';
 import {UserService} from '../../shared/services/user.service';
 import {VehicleService} from '../../shared/services/vehicle.service';
 import {AppConstant} from '../../shared/utils/app-constant';
+import {ReservationService} from '../../shared/services/reservation.service';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -26,7 +26,7 @@ export class VehicleDetailsComponent implements OnChanges{
   totalAmount: number = 0;
   reservationDetails: any = {};
 
-  constructor(private paymentService: PaymentService, private userService: UserService, private vehicleService: VehicleService) {}
+  constructor(private reservationService: ReservationService, private userService: UserService, private vehicleService: VehicleService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visible'] && this.visible) {
@@ -51,7 +51,7 @@ export class VehicleDetailsComponent implements OnChanges{
 
     this.setReservationDetails();
 
-    this.paymentService.createCheckoutSessionAndMakeReservation(this.reservationDetails).then(res => {
+    this.reservationDetails.createCheckoutSessionAndMakeReservation(this.reservationDetails).then(res => {
       console.log(res?.body)
       window.location.href = (res?.body as any)?.checkoutUrl;
     });
