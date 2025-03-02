@@ -26,6 +26,18 @@ body {
   margin: 20px;
 }
 
+
+$primary-color: #2c3e50;
+$accent-color: #1abc9c;
+$error-color: #e74c3c;
+$background-color: rgba(255, 255, 255, 0.15);
+$input-border: rgba(255, 255, 255, 0.3);
+$input-radius: 10px;
+$shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+$backdrop-filter: blur(16px);
+$text-color: #ecf0f1;
+$card-bg: rgba(255, 255, 255, 0.1);
+
 // Effects
 .hover-underline {
   position: relative;
@@ -45,4 +57,47 @@ body {
 
 .hover-underline:hover::after {
   transform: scaleX(1);
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: $shadow;
+}
+
+table.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: $shadow;
+  background: rgba(255, 255, 255, 0.05);
+
+  th {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    text-align: left;
+    font-weight: 500;
+    color: $text-color;
+  }
+
+  td {
+    padding: 12px;
+    color: $text-color;
+  }
+
+  tr {
+    transition: background 0.3s;
+
+    &:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
 }

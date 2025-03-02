@@ -3,6 +3,7 @@ import {AdminService} from '../../shared/services/admin.service';
 import {isPlatformBrowser} from '@angular/common';
 import {ChangeDetectorRef, inject, effect} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,7 +24,7 @@ export class AdminDashboardComponent implements OnInit {
   drivers = [];
   admins = [];
 
-  userColumns: string[] = ['name', 'email', 'role'];
+  userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['name', 'email', 'role'];
   adminColumns: string[] = ['name', 'email', 'role'];
 
@@ -43,13 +44,26 @@ export class AdminDashboardComponent implements OnInit {
   };
   pieChartData = [];
 
-  constructor(private adminService: AdminService, private cd: ChangeDetectorRef) {
+  constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.loadDashboardData().then(() =>
       this.setupCharts()
     );
+  }
+
+  setActiveSection(section: string) {
+    this.activeSection = section;
+
+    if (section === 'dashboard') this.loadDashboardData().then(() => this.setupCharts());
+    if (section === 'users') this.loadUserTableData();
+  }
+
+  async loadUserTableData() {
+    await this.userService.getAllUsers().then(res => {
+      if (res?.status === 200 && res.body) this.users = res.body as any;
+    }).catch(e => {});
   }
 
   async loadDashboardData() {
@@ -61,10 +75,6 @@ export class AdminDashboardComponent implements OnInit {
       }
     }).catch(e => {
     });
-  }
-
-  setActiveSection(section: string) {
-    this.activeSection = section;
   }
 
   setupCharts() {
