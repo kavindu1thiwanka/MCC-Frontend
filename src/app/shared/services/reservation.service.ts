@@ -21,4 +21,10 @@ export class ReservationService {
       {observe: 'response', withCredentials: true, params: {trxId: trxId, paymentStatus: status}}
     ).toPromise();
   }
+
+  updateReservationStatus(reservationId: number, status: any) {
+    return this.httpClient.put(ApiEndPoint.RESERVATION_V1 + '/update_reservation_status',{},
+      {observe: 'response', withCredentials: true, params: {reservationId: reservationId, status: status}}
+    ).toPromise();
+  }
 }

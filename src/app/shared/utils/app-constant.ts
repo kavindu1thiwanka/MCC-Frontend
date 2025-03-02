@@ -13,5 +13,6 @@ export class AppConstant {
   public static STATUS_TRANSACTION_PENDING = 'P';
   public static STATUS_TRANSACTION_COMPLETE = 'C';
   public static STATUS_FAILED = 'F';
+  public static STATUS_RESERVATION_CANCELLED = 'D';
 
 }

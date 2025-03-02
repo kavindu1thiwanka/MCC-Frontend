@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
+import {ReservationService} from '../../shared/services/reservation.service';
+import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-manage-bookings',
@@ -13,7 +15,7 @@ export class ManageBookingsComponent implements OnChanges {
   @Output() close = new EventEmitter<void>();
   reservations: any = [];
 
-  constructor(private commonService: CommonService) {}
+  constructor(private commonService: CommonService, private reservationService: ReservationService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['display'] && this.display) {
@@ -39,9 +41,9 @@ export class ManageBookingsComponent implements OnChanges {
     alert(`Edit functionality for reservation ID: ${reservation.id}`);
   }
 
-  cancelReservation(reservationId: string) {
+  cancelReservation(reservationId: number) {
     if (confirm('Are you sure you want to cancel this reservation?')) {
-      alert(`Reservation with ID ${reservationId} canceled.`);
+      this.reservationService.updateReservationStatus(reservationId, AppConstant.STATUS_RESERVATION_CANCELLED).then(() => {}).catch(() => {});
     }
   }
 }

@@ -3,6 +3,7 @@ import {UserService} from '../../shared/services/user.service';
 import {VehicleService} from '../../shared/services/vehicle.service';
 import {AppConstant} from '../../shared/utils/app-constant';
 import {ReservationService} from '../../shared/services/reservation.service';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -51,9 +52,8 @@ export class VehicleDetailsComponent implements OnChanges{
 
     this.setReservationDetails();
 
-    this.reservationDetails.createCheckoutSessionAndMakeReservation(this.reservationDetails).then(res => {
-      console.log(res?.body)
-      window.location.href = (res?.body as any)?.checkoutUrl;
+    this.reservationDetails.createCheckoutSessionAndMakeReservation(this.reservationDetails).then((res: HttpResponse<any>) => {
+      window.location.href = res.body.checkoutUrl;
     });
   }
 
