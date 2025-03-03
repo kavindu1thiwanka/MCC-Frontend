@@ -18,6 +18,7 @@ export class UserProfileComponent implements OnChanges {
   isChangePasswordVisible: boolean = false;
   profileForm: FormGroup;
   disablePasswordChange: boolean = false;
+  showPassword: boolean = false;
 
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
@@ -41,6 +42,7 @@ export class UserProfileComponent implements OnChanges {
         this.profileForm.patchValue(this.user);
         this.disablePasswordChange = true;
       }
+      this.profileForm.get('password')?.setValue('');
     }
   }
 
@@ -112,5 +114,9 @@ export class UserProfileComponent implements OnChanges {
       }
     }).catch(e => {
     });
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

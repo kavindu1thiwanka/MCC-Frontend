@@ -67,6 +67,7 @@ $backdrop-filter: blur(16px);
   .form-group {
     display: flex;
     flex-direction: column;
+    position: relative; // Ensure positioning for input elements
 
     label {
       font-size: 1rem;
@@ -81,6 +82,7 @@ $backdrop-filter: blur(16px);
       color: #fff;
       font-size: 0.95rem;
       outline: none;
+      width: 100%;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
@@ -99,6 +101,58 @@ $backdrop-filter: blur(16px);
   }
 }
 
+/* Styling for password input fields */
+.password-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-container input {
+  flex: 1;
+  padding-right: 40px; // Space for toggle button
+}
+
+/* Toggle Password Button */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+/* Error messages */
+.error {
+  color: $error-color;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: $error-color;
+}
+
+input.ng-valid.ng-touched {
+  border-color: #2ecc71;
+}
+
+/* Modal Footer */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -147,21 +201,7 @@ $backdrop-filter: blur(16px);
   }
 }
 
-
-.error {
-  color: $error-color;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-input.ng-invalid.ng-touched {
-  border-color: $error-color;
-}
-
-input.ng-valid.ng-touched {
-  border-color: #2ecc71;
-}
-
+/* Fade-in Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -173,6 +213,7 @@ input.ng-valid.ng-touched {
   }
 }
 
+/* Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 6px;
 }
