@@ -83,7 +83,7 @@
       </div>
 
       <!-- Change Password Link -->
-      <div class="form-group">
+      <div *ngIf="!disablePasswordChange" class="form-group">
         <a href="#" (click)="toggleChangePassword()">Change Password</a>
       </div>
 

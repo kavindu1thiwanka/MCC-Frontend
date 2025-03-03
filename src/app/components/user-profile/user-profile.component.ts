@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {UserService} from '../../shared/services/user.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
@@ -11,11 +11,13 @@ import {AppConstant} from '../../shared/utils/app-constant';
 })
 export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
+  @Input() user: any = {};
   @Output() close = new EventEmitter<void>();
 
   confirmPasswordMismatch: boolean = false;
   isChangePasswordVisible: boolean = false;
   profileForm: FormGroup;
+  disablePasswordChange: boolean = false;
 
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
@@ -32,7 +34,13 @@ export class UserProfileComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['display'] && this.display) {
-      this.getLoggedInUserDetails();
+      console.log(this.user);
+      if (!this.user) {
+        this.getLoggedInUserDetails();
+      } else {
+        this.profileForm.patchValue(this.user);
+        this.disablePasswordChange = true;
+      }
     }
   }
 
@@ -56,6 +64,7 @@ export class UserProfileComponent implements OnChanges {
     this.profileForm.reset();
     this.confirmPasswordMismatch = false;
     this.isChangePasswordVisible = false;
+    this.disablePasswordChange = false;
     this.close.emit();
   }
 
@@ -88,7 +97,7 @@ export class UserProfileComponent implements OnChanges {
 
     const confirmPasswordControl = this.profileForm.get('confirmPassword');
     if (this.confirmPasswordMismatch) {
-      confirmPasswordControl?.setErrors({ mismatch: true });
+      confirmPasswordControl?.setErrors({mismatch: true});
     } else {
       confirmPasswordControl?.setErrors(null);
     }
@@ -101,6 +110,7 @@ export class UserProfileComponent implements OnChanges {
       if (res?.status === 200 && res.body) {
         this.profileForm.patchValue(res.body);
       }
-    }).catch(e => {});
+    }).catch(e => {
+    });
   }
 }
