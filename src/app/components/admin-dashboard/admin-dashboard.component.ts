@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../shared/services/admin.service';
-import {isPlatformBrowser} from '@angular/common';
 import {ChangeDetectorRef, inject, effect} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
 import {UserService} from '../../shared/services/user.service';
 
 @Component({
@@ -13,6 +11,8 @@ import {UserService} from '../../shared/services/user.service';
 })
 export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
+  showUserProfile: boolean = false;
+  selectedUser: any = {};
 
   stats = {
     totalUsers: 0,
@@ -65,19 +65,22 @@ export class AdminDashboardComponent implements OnInit {
   async loadUserTableData() {
     await this.userService.getAllUsers().then(res => {
       if (res?.status === 200 && res.body) this.users = res.body as any;
-    }).catch(e => {});
+    }).catch(e => {
+    });
   }
 
   async loadDriverTableData() {
     await this.userService.getAllDrivers().then(res => {
       if (res?.status === 200 && res.body) this.drivers = res.body as any;
-    }).catch(e => {});
+    }).catch(e => {
+    });
   }
 
   async loadAdminsTableData() {
     await this.userService.getAllAdmins().then(res => {
       if (res?.status === 200 && res.body) this.admins = res.body as any;
-    }).catch(e => {});
+    }).catch(e => {
+    });
   }
 
   async loadDashboardData() {
@@ -181,5 +184,26 @@ export class AdminDashboardComponent implements OnInit {
 
     // Trigger change detection
     this.cd.markForCheck();
+  }
+
+  closeUserProfileModal() {
+    this.showUserProfile = false;
+  }
+
+  toggleUserUpdateModal(user: any) {
+    this.showUserProfile = true;
+    this.selectedUser = user;
+  }
+
+  changeUserStatus(id: number, status: string) {
+    if (status === 'A') status = 'I';
+    else if (status === 'I') status = 'A';
+    this.userService.updateUserStatus(id, status).then(res => {
+      if (res?.status === 200) {
+        if (this.activeSection === 'users') this.loadUserTableData();
+        if (this.activeSection === 'drivers') this.loadDriverTableData();
+      }
+    }).catch(e => {
+    });
   }
 }

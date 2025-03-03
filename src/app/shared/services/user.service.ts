@@ -44,4 +44,9 @@ export class UserService {
     return this.httpClient.get(ApiEndPoint.USER_V1 + '/get_all_drivers',
       {observe: 'response', withCredentials: true}).toPromise();
   }
+
+  updateUserStatus(id: number, status: string) {
+    return this.httpClient.put(ApiEndPoint.USER_V1 + '/change_user_status', {},
+      {observe: 'response', withCredentials: true, params: {userId: id, status: status}}).toPromise();
+  }
 }
