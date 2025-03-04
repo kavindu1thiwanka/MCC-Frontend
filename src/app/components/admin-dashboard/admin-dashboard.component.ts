@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../shared/services/admin.service';
 import {ChangeDetectorRef, inject, effect} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
+import {VehicleService} from '../../shared/services/vehicle.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,10 +24,12 @@ export class AdminDashboardComponent implements OnInit {
   users = [];
   drivers = [];
   admins = [];
+  vehicles= [];
 
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
+  vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'actions'];
 
   // PrimeNG Chart Data
 
@@ -44,8 +47,8 @@ export class AdminDashboardComponent implements OnInit {
   };
   pieChartData = [];
 
-  constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService) {
-  }
+  constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService,
+              private vehicleService: VehicleService) {}
 
   ngOnInit(): void {
     this.loadDashboardData().then(() =>
@@ -60,6 +63,7 @@ export class AdminDashboardComponent implements OnInit {
     if (section === 'users') this.loadUserTableData();
     if (section === 'drivers') this.loadDriverTableData();
     if (section === 'admins') this.loadAdminsTableData();
+    if (section === 'vehicles') this.loadVehicleTableData();
   }
 
   async loadUserTableData() {
@@ -90,6 +94,13 @@ export class AdminDashboardComponent implements OnInit {
         this.lineChartData = (res.body as any).lineChartData;
         this.pieChartData = (res.body as any).pieChartData;
       }
+    }).catch(e => {
+    });
+  }
+
+  async loadVehicleTableData() {
+    await this.vehicleService.getAllVehicles().then(res => {
+      if (res?.status === 200 && res.body) this.vehicles = res.body as any;
     }).catch(e => {
     });
   }

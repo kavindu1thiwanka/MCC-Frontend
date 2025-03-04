@@ -20,4 +20,10 @@ export class VehicleService {
       {observe: 'response', withCredentials: false}
     ).toPromise();
   }
+
+  getAllVehicles() {
+    return this.httpClient.get(ApiEndPoint.VEHICLE_V1 + '/get_all_vehicle_list',
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
 }
