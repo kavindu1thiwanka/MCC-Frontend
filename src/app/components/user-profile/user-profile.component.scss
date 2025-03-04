@@ -213,6 +213,21 @@ input.ng-valid.ng-touched {
   }
 }
 
+.file-info {
+  font-size: 0.9rem;
+  color: #1abc9c;
+  margin-top: 0.5rem;
+}
+
+.license-preview {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 /* Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 6px;

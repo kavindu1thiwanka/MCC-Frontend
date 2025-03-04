@@ -16,7 +16,9 @@
           autocomplete="off"
           required
         />
-        <div *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)" class="error">
+        <div
+          *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)"
+          class="error">
           First Name is required.
         </div>
       </div>
@@ -31,7 +33,9 @@
           autocomplete="off"
           required
         />
-        <div *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)" class="error">
+        <div
+          *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)"
+          class="error">
           Last Name is required.
         </div>
       </div>
@@ -47,7 +51,9 @@
           required
           email
         />
-        <div *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)" class="error">
+        <div
+          *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)"
+          class="error">
           <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</div>
           <div *ngIf="profileForm.get('email')?.errors?.['email']">Invalid email address.</div>
         </div>
@@ -63,9 +69,12 @@
           pattern="^\d{10}$"
           autocomplete="off"
         />
-        <div *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)" class="error">
+        <div
+          *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)"
+          class="error">
           <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Contact Number is required.</div>
-          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Contact number must be exactly 10 digits.</div>
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Contact number must be exactly 10 digits.
+          </div>
         </div>
       </div>
 
@@ -80,6 +89,32 @@
           autocomplete="off"
           disabled
         />
+      </div>
+
+      <div class="form-group" *ngIf="isDriver">
+        <label for="drivingLicense">Upload Driving License</label>
+        <input
+          id="drivingLicense"
+          type="file"
+          formControlName="drivingLicense"
+          (change)="onFileChange($event)"
+          accept="image/*, .pdf"
+        />
+        <div
+          *ngIf="profileForm.get('drivingLicense')?.invalid && (profileForm.get('drivingLicense')?.dirty || profileForm.get('drivingLicense')?.touched)"
+          class="error">
+          Please upload a valid driving license.
+        </div>
+      </div>
+
+      <!-- Driving License Details -->
+      <div *ngIf="isDriver" class="form-group">
+        <label for="driverLicenseNo">License Number</label>
+        <input
+          id="driverLicenseNo"
+          formControlName="driverLicenseNo"
+          placeholder="Enter license details here"
+        >
       </div>
 
       <!-- Change Password Link -->
@@ -106,9 +141,13 @@
               <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
             </button>
           </div>
-          <div *ngIf="profileForm.get('password')?.invalid && (profileForm.get('password')?.dirty || profileForm.get('password')?.touched)" class="error">
+          <div
+            *ngIf="profileForm.get('password')?.invalid && (profileForm.get('password')?.dirty || profileForm.get('password')?.touched)"
+            class="error">
             <div *ngIf="profileForm.get('password')?.errors?.['required']">Password is required.</div>
-            <div *ngIf="profileForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            <div *ngIf="profileForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters
+              long.
+            </div>
           </div>
         </div>
 
@@ -125,9 +164,13 @@
             autocomplete="off"
             (ngModelChange)="validateConfirmPassword()"
           />
-          <div *ngIf="profileForm.get('confirmPassword')?.invalid && (profileForm.get('confirmPassword')?.dirty || profileForm.get('confirmPassword')?.touched)" class="error">
+          <div
+            *ngIf="profileForm.get('confirmPassword')?.invalid && (profileForm.get('confirmPassword')?.dirty || profileForm.get('confirmPassword')?.touched)"
+            class="error">
             <div *ngIf="profileForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
-            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['minlength']">Confirm Password must be at least 6 characters long.</div>
+            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['minlength']">Confirm Password must be at least 6
+              characters long.
+            </div>
             <div *ngIf="confirmPasswordMismatch">Passwords do not match.</div>
           </div>
         </div>

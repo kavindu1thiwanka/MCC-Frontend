@@ -11,7 +11,8 @@ import {AppConstant} from '../../shared/utils/app-constant';
 })
 export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
-  @Input() user: any = {};
+  @Input() isDriver: boolean = false;
+  @Input() user: any = undefined;
   @Output() close = new EventEmitter<void>();
 
   confirmPasswordMismatch: boolean = false;
@@ -20,6 +21,9 @@ export class UserProfileComponent implements OnChanges {
   disablePasswordChange: boolean = false;
   showPassword: boolean = false;
 
+  licensePreview: any = null;
+  drivingLicenseName: string = '';
+
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       id: [null],
@@ -27,15 +31,16 @@ export class UserProfileComponent implements OnChanges {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contactNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]], // 10-digit validation
+      contactNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
       password: [''],
       confirmPassword: [''],
+      drivingLicense: [null],
+      driverLicenseNo: [''],
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['display'] && this.display) {
-      console.log(this.user);
       if (!this.user) {
         this.getLoggedInUserDetails();
       } else {
@@ -67,20 +72,37 @@ export class UserProfileComponent implements OnChanges {
     this.confirmPasswordMismatch = false;
     this.isChangePasswordVisible = false;
     this.disablePasswordChange = false;
+    this.user = undefined;
+    this.isDriver = false;
     this.close.emit();
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.profileForm.patchValue({
+        drivingLicense: file,
+      });
+    }
   }
 
   updateUserDetails() {
     this.profileForm.markAllAsTouched();
     if (this.profileForm.valid && !this.confirmPasswordMismatch) {
-      this.userService.updateUserProfile(this.profileForm.value).then(res => {
+      const formData = new FormData();
+      Object.keys(this.profileForm.value).forEach((key) => {
+        const value = this.profileForm.get(key)?.value;
+        formData.append(key, value);
+      });
+
+      this.userService.updateUserProfile(formData).then((res) => {
         if (res?.status === 200 && res.body) {
           localStorage.setItem(AppConstant.NAME, (res.body as any).firstName + ' ' + (res.body as any).lastName);
           this.closeModal();
           this.profileForm.reset();
           window.location.reload();
         }
-      })
+      });
     }
   }
 

@@ -46,6 +46,7 @@ export class AdminDashboardComponent implements OnInit {
     datasets: []
   };
   pieChartData = [];
+  isDriver: boolean = false;
 
   constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService,
               private vehicleService: VehicleService) {}
@@ -201,8 +202,9 @@ export class AdminDashboardComponent implements OnInit {
     this.showUserProfile = false;
   }
 
-  toggleUserUpdateModal(user: any) {
+  toggleUserUpdateModal(user: any, isDriver: boolean) {
     this.showUserProfile = true;
+    this.isDriver = isDriver;
     this.selectedUser = user;
   }
 
