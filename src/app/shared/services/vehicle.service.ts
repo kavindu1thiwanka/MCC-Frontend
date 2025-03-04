@@ -26,4 +26,10 @@ export class VehicleService {
       {observe: 'response', withCredentials: true}
     ).toPromise();
   }
+
+  updateVehicleStatus(vehicleNo: string, status: string) {
+    return this.httpClient.get(ApiEndPoint.VEHICLE_V1 + '/update_vehicle_status',
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
 }

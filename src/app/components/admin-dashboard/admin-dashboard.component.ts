@@ -217,4 +217,15 @@ export class AdminDashboardComponent implements OnInit {
     }).catch(e => {
     });
   }
+
+  changeVehicleStatus(vehicleNo: string, status: string) {
+    if (status === 'A') status = 'I';
+    else if (status === 'I') status = 'A';
+    this.vehicleService.updateVehicleStatus(vehicleNo, status).then(res => {
+      if (res?.status === 200) {
+        if (this.activeSection === 'vehicles') this.loadVehicleTableData();
+      }
+    }).catch(e => {
+    });
+  }
 }
