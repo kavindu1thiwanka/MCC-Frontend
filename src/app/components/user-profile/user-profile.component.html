@@ -13,6 +13,7 @@
           id="firstName"
           type="text"
           formControlName="firstName"
+          placeholder="First Name"
           autocomplete="off"
           required
         />
@@ -30,6 +31,7 @@
           id="lastName"
           type="text"
           formControlName="lastName"
+          placeholder="Last Name"
           autocomplete="off"
           required
         />
@@ -47,6 +49,7 @@
           id="email"
           type="email"
           formControlName="email"
+          placeholder="email"
           autocomplete="off"
           required
           email
@@ -66,6 +69,7 @@
           id="contactNumber"
           type="text"
           formControlName="contactNumber"
+          placeholder="Contact Number"
           pattern="^\d{10}$"
           autocomplete="off"
         />
@@ -80,13 +84,14 @@
 
 
       <!-- Username Field (disabled) -->
-      <div class="form-group">
+      <div *ngIf="!createNewUser" class="form-group">
         <label for="username">Username</label>
         <input
           id="username"
           type="text"
           [value]="profileForm.get('username')?.value"
           autocomplete="off"
+          placeholder="Username"
           disabled
         />
       </div>
@@ -113,17 +118,17 @@
         <input
           id="driverLicenseNo"
           formControlName="driverLicenseNo"
-          placeholder="Enter license details here"
+          placeholder="Driving License Number"
         >
       </div>
 
       <!-- Change Password Link -->
-      <div *ngIf="!disablePasswordChange" class="form-group">
+      <div *ngIf="!disablePasswordChange && !createNewUser" class="form-group">
         <a href="#" (click)="toggleChangePassword()">Change Password</a>
       </div>
 
       <!-- Conditionally Show Password Fields -->
-      <div *ngIf="isChangePasswordVisible">
+      <div *ngIf="isChangePasswordVisible || createNewUser" class="d-flex flex-column gap-3">
         <!-- New Password Field -->
         <div class="form-group password-group">
           <label for="password">New Password</label>
@@ -152,6 +157,7 @@
             id="confirmPassword"
             [type]="showPassword ? 'text' : 'password'"
             formControlName="confirmPassword"
+            placeholder="Confirm Password"
             required
             minlength="6"
             autocomplete="off"

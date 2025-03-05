@@ -12,6 +12,7 @@ import {AppConstant} from '../../shared/utils/app-constant';
 export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
   @Input() isDriver: boolean = false;
+  @Input() createNewUser: boolean = false;
   @Input() user: any = undefined;
   @Output() close = new EventEmitter<void>();
 
@@ -40,7 +41,13 @@ export class UserProfileComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes['display'] && this.display) {
+
+      if (this.createNewUser) {
+        return;
+      }
+
       if (!this.user) {
         this.getLoggedInUserDetails();
       } else {

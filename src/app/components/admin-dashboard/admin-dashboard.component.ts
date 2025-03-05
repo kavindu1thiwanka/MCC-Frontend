@@ -13,6 +13,8 @@ import {VehicleService} from '../../shared/services/vehicle.service';
 export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
   showUserProfile: boolean = false;
+  createNewUser: boolean = false;
+
   selectedUser: any = {};
 
   stats = {
@@ -20,33 +22,31 @@ export class AdminDashboardComponent implements OnInit {
     totalDrivers: 0,
     activeRides: 0,
   };
-
   users = [];
   drivers = [];
   admins = [];
-  vehicles= [];
 
+  vehicles= [];
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
+
   vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'actions'];
 
   // PrimeNG Chart Data
 
   isPieChartDataAvailable = false;
-
   lineChartConfigData: any;
+
   lineChartOptions: any;
-
   pieChartConfigData: any;
-  pieChartOptions: any;
 
+  pieChartOptions: any;
   lineChartData = {
     labels: [],
     datasets: []
   };
   pieChartData = [];
-  isDriver: boolean = false;
 
   constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService,
               private vehicleService: VehicleService) {}
@@ -202,9 +202,9 @@ export class AdminDashboardComponent implements OnInit {
     this.showUserProfile = false;
   }
 
-  toggleUserUpdateModal(user: any, isDriver: boolean) {
+  toggleUserUpdateModal(user: any, createNewUser: boolean) {
     this.showUserProfile = true;
-    this.isDriver = isDriver;
+    this.createNewUser = createNewUser;
     this.selectedUser = user;
   }
 
