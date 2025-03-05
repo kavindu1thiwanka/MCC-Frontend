@@ -73,7 +73,7 @@ export class UserProfileComponent implements OnChanges {
     this.isChangePasswordVisible = false;
     this.disablePasswordChange = false;
     this.user = undefined;
-    this.isDriver = false;
+    this.display = false;
     this.close.emit();
   }
 
