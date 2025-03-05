@@ -92,15 +92,20 @@ export class UserProfileComponent implements OnChanges {
       const formData = new FormData();
       Object.keys(this.profileForm.value).forEach((key) => {
         const value = this.profileForm.get(key)?.value;
+        if (key === 'drivingLicense' && !value) {
+          return;
+        }
         formData.append(key, value);
       });
 
       this.userService.updateUserProfile(formData).then((res) => {
         if (res?.status === 200 && res.body) {
-          localStorage.setItem(AppConstant.NAME, (res.body as any).firstName + ' ' + (res.body as any).lastName);
           this.closeModal();
           this.profileForm.reset();
-          window.location.reload();
+          if ((res.body as any).isLoggedInProfileUpdated) {
+            localStorage.setItem(AppConstant.NAME, (res.body as any).firstName + ' ' + (res.body as any).lastName);
+            window.location.reload();
+          }
         }
       });
     }

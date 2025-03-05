@@ -128,15 +128,8 @@
         <div class="form-group password-group">
           <label for="password">New Password</label>
           <div class="input-container">
-            <input
-              id="password"
-              [type]="showPassword ? 'text' : 'password'"
-              placeholder="Password"
-              formControlName="password"
-              autocomplete="new-password"
-              required
-              minlength="6"
-            />
+            <input id="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password"
+              autocomplete="new-password" required minlength="6"/>
             <button type="button" class="toggle-password" (click)="togglePassword()">
               <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
             </button>
