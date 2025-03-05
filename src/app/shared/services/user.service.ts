@@ -49,4 +49,9 @@ export class UserService {
     return this.httpClient.put(ApiEndPoint.USER_V1 + '/change_user_status', {},
       {observe: 'response', withCredentials: true, params: {userId: id, status: status}}).toPromise();
   }
+
+  createUser(value: any) {
+    return this.httpClient.post(ApiEndPoint.USER_V1 + '/create', value,
+      {observe: 'response', withCredentials: true}).toPromise();
+  }
 }

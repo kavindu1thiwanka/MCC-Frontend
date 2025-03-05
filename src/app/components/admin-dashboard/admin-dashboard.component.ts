@@ -3,6 +3,7 @@ import {AdminService} from '../../shared/services/admin.service';
 import {ChangeDetectorRef, inject, effect} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {VehicleService} from '../../shared/services/vehicle.service';
+import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,6 +15,7 @@ export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
   showUserProfile: boolean = false;
   createNewUser: boolean = false;
+  identifier: string = '';
 
   selectedUser: any = {};
 
@@ -59,6 +61,18 @@ export class AdminDashboardComponent implements OnInit {
 
   setActiveSection(section: string) {
     this.activeSection = section;
+
+    switch (section) {
+      case 'users':
+        this.identifier = AppConstant.IDENTIFIER_ROLE_CUSTOMER;
+        break;
+      case 'drivers':
+        this.identifier = AppConstant.IDENTIFIER_ROLE_DRIVER;
+        break;
+      case 'admins':
+        this.identifier = AppConstant.IDENTIFIER_ROLE_ADMIN;
+        break;
+    }
 
     if (section === 'dashboard') this.loadDashboardData().then(() => this.setupCharts());
     if (section === 'users') this.loadUserTableData();
@@ -200,6 +214,11 @@ export class AdminDashboardComponent implements OnInit {
 
   closeUserProfileModal() {
     this.showUserProfile = false;
+    this.createNewUser = false;
+    this.selectedUser = {};
+    if (this.activeSection === 'users') this.loadUserTableData();
+    if (this.activeSection === 'drivers') this.loadDriverTableData();
+    if (this.activeSection === 'admins') this.loadAdminsTableData();
   }
 
   toggleUserUpdateModal(user: any, createNewUser: boolean) {

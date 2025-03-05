@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnChanges {
   @Input() display: boolean = false;
   @Input() isDriver: boolean = false;
   @Input() createNewUser: boolean = false;
+  @Input() identifier: string = '';
   @Input() user: any = undefined;
   @Output() close = new EventEmitter<void>();
 
@@ -37,6 +38,7 @@ export class UserProfileComponent implements OnChanges {
       confirmPassword: [''],
       drivingLicense: [null],
       driverLicenseNo: [''],
+      identifier: [null]
     });
   }
 
@@ -96,16 +98,7 @@ export class UserProfileComponent implements OnChanges {
   updateUserDetails() {
     this.profileForm.markAllAsTouched();
     if (this.profileForm.valid && !this.confirmPasswordMismatch) {
-      const formData = new FormData();
-      Object.keys(this.profileForm.value).forEach((key) => {
-        const value = this.profileForm.get(key)?.value;
-        if (key === 'drivingLicense' && !value) {
-          return;
-        }
-        formData.append(key, value);
-      });
-
-      this.userService.updateUserProfile(formData).then((res) => {
+      this.userService.updateUserProfile(this.getProfileFormDataAsFormData()).then((res) => {
         if (res?.status === 200 && res.body) {
           this.closeModal();
           this.profileForm.reset();
@@ -116,6 +109,21 @@ export class UserProfileComponent implements OnChanges {
         }
       });
     }
+  }
+
+  private getProfileFormDataAsFormData() {
+    const formData = new FormData();
+    Object.keys(this.profileForm.value).forEach((key) => {
+      const value = this.profileForm.get(key)?.value;
+      if (key === 'drivingLicense' && !value) {
+        return;
+      }
+      if (this.createNewUser && (key === 'username' || key === 'id')) {
+        return;
+      }
+      formData.append(key, value);
+    });
+    return formData;
   }
 
   toggleChangePassword() {
@@ -152,5 +160,18 @@ export class UserProfileComponent implements OnChanges {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  createUser() {
+    this.profileForm.markAllAsTouched();
+    if (this.profileForm.valid && !this.confirmPasswordMismatch) {
+      this.profileForm.get('identifier')?.setValue(this.identifier && this.identifier !== '' ? this.identifier : null);
+      this.userService.createUser(this.getProfileFormDataAsFormData()).then((res) => {
+        if (res?.status === 201) {
+          this.closeModal();
+          this.profileForm.reset();
+        }
+      });
+    }
   }
 }
