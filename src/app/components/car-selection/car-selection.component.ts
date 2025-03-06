@@ -187,7 +187,6 @@ export class CarSelectionComponent implements OnInit {
   async getCarList() {
     await this.vehicleService.getVehicleList(this.filterDto).then(res => {
       if (res?.status === 200 && res.body) {
-        console.log(res)
         this.carList = res.body;
       }
     }).catch(e => {

@@ -32,4 +32,16 @@ export class VehicleService {
       {observe: 'response', withCredentials: true}
     ).toPromise();
   }
+
+  addVehicle(formData: FormData) {
+    return this.httpClient.post(ApiEndPoint.VEHICLE_V1 + '/add_vehicle', formData,
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
+
+  getVehicleDetails(vehicleNumber: string) {
+    return this.httpClient.get(ApiEndPoint.VEHICLE_V1 + '/get_vehicle_details',
+      {observe: 'response', withCredentials: true, params: {vehicleNumber: vehicleNumber}}
+    ).toPromise();
+  }
 }

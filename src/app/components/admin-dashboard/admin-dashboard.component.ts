@@ -15,34 +15,33 @@ export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
   showUserProfile: boolean = false;
   createNewUser: boolean = false;
+  selectedVehicleNumber: string = '';
+
+  isVehicleEdit: boolean = false;
+
   showVehicleModal: boolean = false;
-
   identifier: string = '';
-
   selectedUser: any = {};
   stats = {
     totalUsers: 0,
     totalDrivers: 0,
     activeRides: 0,
   };
+
   users = [];
   drivers = [];
-
   admins = [];
   vehicles= [];
+
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-
   vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'actions'];
 
   // PrimeNG Chart Data
   isPieChartDataAvailable = false;
-
   lineChartConfigData: any;
   lineChartOptions: any;
-
   pieChartConfigData: any;
   pieChartOptions: any;
   lineChartData = {
@@ -251,7 +250,14 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  toggleVehicleModal() {
+  toggleVehicleModal(isEdit: boolean, vehicleNumber?: string) {
     this.showVehicleModal = !this.showVehicleModal;
+    this.isVehicleEdit = isEdit;
+    this.selectedVehicleNumber = vehicleNumber ? vehicleNumber : '';
+  }
+
+  closeVehicleModal() {
+    this.showVehicleModal = false;
+    this.loadVehicleTableData();
   }
 }

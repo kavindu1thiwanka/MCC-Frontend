@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {VehicleService} from '../../shared/services/vehicle.service';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -8,7 +8,9 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './add-vehicle.component.html',
   styleUrl: './add-vehicle.component.scss'
 })
-export class AddVehicleComponent {
+export class AddVehicleComponent implements OnChanges {
+  @Input() isEdit: boolean = false;
+  @Input() vehicleNumber: string = '';
   @Output() close = new EventEmitter<void>();
 
   vehicleTypeOptions: string[] = [''];
@@ -17,7 +19,7 @@ export class AddVehicleComponent {
 
   vehicle = {
     vehicleNo: '',
-    model: '',
+    vehicleModel: '',
     vehicleType: '',
     seats: 0,
     gearType: '',
@@ -25,7 +27,16 @@ export class AddVehicleComponent {
     pricePerDay: 0
   };
 
-  constructor() {
+  constructor(private vehicleService: VehicleService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isEdit'] && this.isEdit) {
+      if (!this.vehicleNumber || this.vehicleNumber === '') {
+        throw new Error('vehicleId is required');
+      }
+      this.getVehicleDetails();
+    }
   }
 
   closeModal() {
@@ -36,8 +47,6 @@ export class AddVehicleComponent {
     const file = event.target.files[0];
     if (file) {
       this.vehicleImage = file;
-
-      // Preview the image
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
@@ -51,15 +60,13 @@ export class AddVehicleComponent {
     formData.append('vehicleImage', this.vehicleImage as Blob);
     formData.append('vehicleMstDto', new Blob([JSON.stringify(this.vehicle)], {type: 'application/json'}));
 
-    // this.http.post(this.apiUrl, formData).subscribe(
-    //   (response) => {
-    //     console.log('Vehicle added successfully:', response);
-    //     this.closeModal();
-    //   },
-    //   (error) => {
-    //     console.error('Error adding vehicle:', error);
-    //   }
-    // );
+    this.vehicleService.addVehicle(formData).then(res => {
+      if (res?.status === 201) {
+        this.closeModal();
+      }
+    }).catch(e => {
+
+    });
   }
 
   loadVehicleTypeOptions() {
@@ -80,5 +87,16 @@ export class AddVehicleComponent {
         break;
       default:
     }
+  }
+
+  async getVehicleDetails() {
+    await this.vehicleService.getVehicleDetails(this.vehicleNumber).then(res => {
+      if (res?.status === 200 && res.body) {
+        this.vehicle.category = (res.body as any).category;
+        this.loadVehicleTypeOptions();
+        this.vehicle = res.body as any;
+        this.imagePreview = (res.body as any).vehicleImage;
+      }
+    }).catch(e => { });
   }
 }

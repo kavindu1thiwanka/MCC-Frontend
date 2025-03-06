@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <label>Model</label>
-      <input type="text" [(ngModel)]="vehicle.model" name="model" required />
+      <input type="text" [(ngModel)]="vehicle.vehicleModel" name="model" required />
     </div>
 
     <div class="form-group">
@@ -48,8 +48,8 @@
     <div class="form-group">
       <label>Gear Type</label>
       <select [(ngModel)]="vehicle.gearType" name="gearType" required>
-        <option value="Manual">Manual</option>
-        <option value="Automatic">Automatic</option>
+        <option value="M">Manual</option>
+        <option value="A">Automatic</option>
       </select>
     </div>
 
@@ -59,7 +59,7 @@
     </div>
 
     <div class="button-group">
-      <button type="submit" class="submit-btn">Add Vehicle</button>
+      <button type="submit" class="submit-btn">{{ isEdit ? 'Update Vehicle' : 'Add Vehicle' }}</button>
       <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
     </div>
   </form>
