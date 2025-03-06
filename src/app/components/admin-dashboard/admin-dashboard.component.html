@@ -6,6 +6,10 @@
         <mat-icon>dashboard</mat-icon>
         Dashboard
       </mat-list-item>
+      <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
+        <mat-icon>commute</mat-icon>
+        Rides
+      </mat-list-item>
       <mat-list-item (click)="setActiveSection('users')" [ngClass]="{ active: activeSection === 'users' }">
         <mat-icon>people</mat-icon>
         Users
@@ -77,6 +81,16 @@
                    [options]="pieChartOptions" class="w-full md:w-[30rem]"/>
           <section *ngIf="!isPieChartDataAvailable" class="container">Data Not Available</section>
         </div>
+      </div>
+
+      <!-- Rides Section -->
+      <div *ngIf="activeSection === 'rides'">
+        <p-tabView>
+          <p-tabPanel header="Active Rides"> Content 1 </p-tabPanel>
+          <p-tabPanel header="Ride History">
+            <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
+          </p-tabPanel>
+        </p-tabView>
       </div>
 
       <!-- Users Table -->
