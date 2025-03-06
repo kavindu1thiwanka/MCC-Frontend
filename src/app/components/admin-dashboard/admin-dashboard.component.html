@@ -251,7 +251,14 @@
 
       <!-- Vehicle Table -->
       <div *ngIf="activeSection === 'vehicles'">
-        <h3>Manage Vehicles</h3>
+        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+          <h3>Manage Vehicles</h3>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
+                  color="warn" (click)="toggleVehicleModal()">
+            <mat-icon>add</mat-icon> Add Vehicle
+          </button>
+        </div>
+
         <div class="table-container">
           <table mat-table [dataSource]="vehicles" class="mat-elevation-z8 modern-table">
             <ng-container matColumnDef="vehicleNo">
@@ -322,3 +329,4 @@
 
 <app-user-profile [display]="showUserProfile" [user]="selectedUser" [isDriver]="activeSection === 'drivers'"
                   [createNewUser]="createNewUser" [identifier]="identifier" (close)="closeUserProfileModal()"></app-user-profile>
+<app-add-vehicle *ngIf="showVehicleModal" (close)="showVehicleModal = false"></app-add-vehicle>

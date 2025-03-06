@@ -15,10 +15,11 @@ export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
   showUserProfile: boolean = false;
   createNewUser: boolean = false;
+  showVehicleModal: boolean = false;
+
   identifier: string = '';
 
   selectedUser: any = {};
-
   stats = {
     totalUsers: 0,
     totalDrivers: 0,
@@ -26,23 +27,23 @@ export class AdminDashboardComponent implements OnInit {
   };
   users = [];
   drivers = [];
-  admins = [];
 
+  admins = [];
   vehicles= [];
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
+
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
 
   vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'actions'];
 
   // PrimeNG Chart Data
-
   isPieChartDataAvailable = false;
+
   lineChartConfigData: any;
-
   lineChartOptions: any;
-  pieChartConfigData: any;
 
+  pieChartConfigData: any;
   pieChartOptions: any;
   lineChartData = {
     labels: [],
@@ -248,5 +249,9 @@ export class AdminDashboardComponent implements OnInit {
       }
     }).catch(e => {
     });
+  }
+
+  toggleVehicleModal() {
+    this.showVehicleModal = !this.showVehicleModal;
   }
 }

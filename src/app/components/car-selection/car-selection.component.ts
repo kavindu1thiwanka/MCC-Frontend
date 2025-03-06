@@ -76,6 +76,25 @@ export class CarSelectionComponent implements OnInit {
       ]
     },
     {
+      name: 'Vehicle Type',
+      category: ['van'],
+      dropdownItems: [
+        {name: 'Passenger Van', value: 'car.vehicleType = "Passenger Van"'},
+        {name: 'Mini Van', value: 'car.vehicleType = "Mini Van"'},
+      ]
+    },
+    {
+      name: 'Vehicle Type',
+      category: ['truck'],
+      dropdownItems: [
+        {name: 'Pickup Truck', value: 'car.vehicleType = "Pickup Truck"'},
+        {name: 'Heavy Duty Truck', value: 'car.vehicleType = "Heavy Duty Truck"'},
+        {name: 'Box Truck', value: 'car.vehicleType = "Box Truck"'},
+        {name: 'Flatbed Truck', value: 'car.vehicleType = "Flatbed Truck"'},
+        {name: 'Tow Truck', value: 'car.vehicleType = "Tow Truck"'}
+      ]
+    },
+    {
       name: 'Passengers',
       category: ['car'],
       dropdownItems: [

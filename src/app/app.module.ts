@@ -57,6 +57,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import {ChartModule} from 'primeng/chart';
 import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
+import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { StatusIndicatorComponent } from './components/status-indicator/status-i
     UserProfileComponent,
     DriverDashboardComponent,
     AdminDashboardComponent,
-    StatusIndicatorComponent
+    StatusIndicatorComponent,
+    AddVehicleComponent
   ],
   imports: [
     BrowserModule,

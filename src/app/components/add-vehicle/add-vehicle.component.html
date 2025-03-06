@@ -1,0 +1,66 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-container">
+  <h2>Add Vehicle</h2>
+
+  <!-- Vehicle Image Upload -->
+  <div class="image-upload">
+    <label for="vehicleImage" class="upload-label">
+      <img *ngIf="imagePreview" [src]="imagePreview" class="preview-image" />
+      <span *ngIf="!imagePreview">Click to Upload Image</span>
+    </label>
+    <input type="file" id="vehicleImage" (change)="onFileSelected($event)" accept="image/*" />
+  </div>
+
+  <!-- Vehicle Details Form -->
+  <form (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label>Vehicle No</label>
+      <input type="text" [(ngModel)]="vehicle.vehicleNo" name="vehicleNo" required />
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select [(ngModel)]="vehicle.category" name="category" (change)="loadVehicleTypeOptions()" required>
+        <option value="Motorcycle">Motorcycle</option>
+        <option value="Car">Car</option>
+        <option value="Van">Van</option>
+        <option value="Truck">Truck</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Model</label>
+      <input type="text" [(ngModel)]="vehicle.model" name="model" required />
+    </div>
+
+    <div class="form-group">
+      <label>Vehicle Type</label>
+      <select [(ngModel)]="vehicle.vehicleType" name="vehicleType" required>
+        <option *ngFor="let vehicleType of vehicleTypeOptions" value="{{ vehicleType }}">{{ vehicleType }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Seats</label>
+      <input type="number" [(ngModel)]="vehicle.seats" name="seats" required />
+    </div>
+
+    <div class="form-group">
+      <label>Gear Type</label>
+      <select [(ngModel)]="vehicle.gearType" name="gearType" required>
+        <option value="Manual">Manual</option>
+        <option value="Automatic">Automatic</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Price Per Day</label>
+      <input type="number" [(ngModel)]="vehicle.pricePerDay" name="pricePerDay" required />
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="submit-btn">Add Vehicle</button>
+      <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+    </div>
+  </form>
+</div>
