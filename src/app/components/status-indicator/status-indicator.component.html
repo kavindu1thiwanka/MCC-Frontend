@@ -1,4 +1,4 @@
-<div class="indicator" [class.active]="status === 'A'" [class.inactive]="status === 'I'">
+<div class="indicator" [class.active]="status === 'A' || status === 'Y'" [class.inactive]="status === 'I' || status === 'N'">
   <span class="dot"></span>
-  <span class="text-white fw-normal">{{ status === 'A' ? 'Active' : 'Inactive' | titlecase }}</span>
+  <span class="text-white fw-normal">{{ label | titlecase }}</span>
 </div>

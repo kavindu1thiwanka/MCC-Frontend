@@ -165,6 +165,12 @@
               <th mat-header-cell *matHeaderCellDef> Email</th>
               <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
             </ng-container>
+            <ng-container matColumnDef="isOnline">
+              <th mat-header-cell *matHeaderCellDef> Online</th>
+              <td mat-cell *matCellDef="let user">
+                <app-status-indicator [status]="user.isOnline"></app-status-indicator>
+              </td>
+            </ng-container>
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status</th>
               <td mat-cell *matCellDef="let user">
@@ -271,7 +277,7 @@
             </ng-container>
             <ng-container matColumnDef="modelName">
               <th mat-header-cell *matHeaderCellDef> Model Name</th>
-              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.name }}</td>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.vehicleModel }}</td>
             </ng-container>
             <ng-container matColumnDef="vehicleType">
               <th mat-header-cell *matHeaderCellDef> Vehicle Type</th>
@@ -292,6 +298,12 @@
             <ng-container matColumnDef="pricePerDay">
               <th mat-header-cell *matHeaderCellDef> Price Per Day</th>
               <td mat-cell *matCellDef="let vehicle"> {{ vehicle.pricePerDay }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let vehicle">
+                <app-status-indicator [status]="vehicle.status"></app-status-indicator>
+              </td>
             </ng-container>
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef> Actions</th>

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-status-indicator',
@@ -7,6 +7,27 @@ import {Component, Input} from '@angular/core';
   templateUrl: './status-indicator.component.html',
   styleUrl: './status-indicator.component.scss'
 })
-export class StatusIndicatorComponent {
-  @Input() status: 'A' | 'I' = 'I';
+export class StatusIndicatorComponent implements OnChanges {
+  @Input() status: 'A' | 'I' | 'Y' | 'N' = 'I';
+
+  label = 'Inactive';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['status'] && this.status) {
+      switch (this.status) {
+        case 'A':
+          this.label = 'Active';
+          break;
+        case 'I':
+          this.label = 'Inactive';
+          break;
+        case 'Y':
+          this.label = 'Yes';
+          break;
+        case 'N':
+          this.label = 'No';
+          break;
+      }
+    }
+  }
 }

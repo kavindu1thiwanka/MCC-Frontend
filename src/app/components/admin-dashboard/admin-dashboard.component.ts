@@ -34,9 +34,9 @@ export class AdminDashboardComponent implements OnInit {
   vehicles= [];
 
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-  driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
+  driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'isOnline', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-  vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'actions'];
+  vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'status', 'actions'];
 
   // PrimeNG Chart Data
   isPieChartDataAvailable = false;
@@ -234,6 +234,7 @@ export class AdminDashboardComponent implements OnInit {
       if (res?.status === 200) {
         if (this.activeSection === 'users') this.loadUserTableData();
         if (this.activeSection === 'drivers') this.loadDriverTableData();
+        if (this.activeSection === 'admins') this.loadAdminsTableData();
       }
     }).catch(e => {
     });
@@ -244,7 +245,7 @@ export class AdminDashboardComponent implements OnInit {
     else if (status === 'I') status = 'A';
     this.vehicleService.updateVehicleStatus(vehicleNo, status).then(res => {
       if (res?.status === 200) {
-        if (this.activeSection === 'vehicles') this.loadVehicleTableData();
+        this.loadVehicleTableData();
       }
     }).catch(e => {
     });
