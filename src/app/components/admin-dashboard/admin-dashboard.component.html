@@ -101,7 +101,7 @@
             </li>
           </div>
           <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1 mb-1"
-                  color="warn">
+                  color="warn" (click)="showManageBookingModal = true">
             <mat-icon class="d-flex justify-content-center align-items-center fs-5">edit</mat-icon>
             Manage Rides
           </button>
@@ -443,3 +443,4 @@
                   [createNewUser]="createNewUser" [identifier]="identifier"
                   (close)="closeUserProfileModal()"></app-user-profile>
 <app-add-vehicle *ngIf="showVehicleModal" [vehicleNumber]="selectedVehicleNumber" [isEdit]="isVehicleEdit" (close)="closeVehicleModal()"></app-add-vehicle>
+<app-manage-booking-modal [display]="showManageBookingModal" (close)="closeManageBookingModal()"></app-manage-booking-modal>

@@ -16,33 +16,32 @@ export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
   showUserProfile: boolean = false;
   createNewUser: boolean = false;
+  showManageBookingModal: boolean = false;
   selectedVehicleNumber: string = '';
-
   isVehicleEdit: boolean = false;
-
   showVehicleModal: boolean = false;
   identifier: string = '';
   selectedUser: any = {};
+
   stats = {
     totalUsers: 0,
     totalDrivers: 0,
     activeRides: 0,
   };
-
   users = [];
   drivers = [];
   admins = [];
   vehicles= [];
   activeRides = [];
-  rideHistory = [];
 
+  rideHistory = [];
   displayedColumnsActiveRides: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime'];
   displayedColumnsRidesHistory: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime', 'status'];
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'isOnline', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
-  vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'status', 'actions'];
 
+  vehicleColumns: string[] = ['vehicleNo', 'modelName', 'vehicleType', 'gearType', 'category', 'seats', 'pricePerDay', 'status', 'actions'];
   // PrimeNG Chart Data
   isPieChartDataAvailable = false;
   lineChartConfigData: any;
@@ -280,5 +279,12 @@ export class AdminDashboardComponent implements OnInit {
   closeVehicleModal() {
     this.showVehicleModal = false;
     this.loadVehicleTableData();
+  }
+
+  closeManageBookingModal() {
+    this.showManageBookingModal = false;
+    console.log(document.getElementById('active-tab')?.getAttributeNames())
+    this.loadRidesHistoryTableData();
+    this.loadActiveRidesTableData();
   }
 }

@@ -1,0 +1,59 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h2>Manage Booking</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Enter Reservation ID"
+        [(ngModel)]="reservationId"
+      />
+      <button class="search-btn" (click)="searchReservation()">Search</button>
+    </div>
+
+    <!-- Booking Form -->
+    <form class="booking-form" [formGroup]="bookingForm">
+      <div class="form-header">
+        <h3>Booking Details</h3>
+        <button type="button" class="edit-btn" (click)="toggleEditMode()">
+          <i class="fa" [ngClass]="isEditable ? 'fa-check' : 'fa-pencil'"></i>
+        </button>
+      </div>
+
+      <!-- Customer Name -->
+      <div class="form-group">
+        <label for="customerName">Customer Name</label>
+        <input id="customerName" type="text" formControlName="customerName" [disabled]="!isEditable" />
+      </div>
+
+      <!-- Pickup Location -->
+      <div class="form-group">
+        <label for="pickupLocation">Pickup Location</label>
+        <input id="pickupLocation" type="text" formControlName="pickupLocation" [disabled]="!isEditable" />
+      </div>
+
+      <!-- Drop-off Location -->
+      <div class="form-group">
+        <label for="dropOffLocation">Drop-off Location</label>
+        <input id="dropOffLocation" type="text" formControlName="dropOffLocation" [disabled]="!isEditable" />
+      </div>
+
+      <!-- Date & Time -->
+      <div class="form-group">
+        <label for="dateTime">Date & Time</label>
+        <input id="dateTime" type="datetime-local" formControlName="dateTime" [disabled]="!isEditable" />
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="submit" class="save-btn" [disabled]="!isEditable">Save Changes</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
