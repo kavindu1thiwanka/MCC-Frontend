@@ -85,19 +85,26 @@
 
       <!-- Rides Section -->
       <div *ngIf="activeSection === 'rides'">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="active-tab" data-bs-toggle="tab" data-bs-target="#active-ride"
-                    type="button" role="tab" aria-controls="active-ride" aria-selected="true" (click)="loadActiveRidesTableData()">
-              Active Rides
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#ride-history"
-                    type="button" role="tab" aria-controls="ride-history" aria-selected="false" (click)="loadRidesHistoryTableData()">
-              Rides History
-            </button>
-          </li>
+        <ul class="nav nav-tabs d-flex flex-row justify-content-between" id="myTab" role="tablist">
+          <div class="d-flex flex-row">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="active-tab" data-bs-toggle="tab" data-bs-target="#active-ride"
+                      type="button" role="tab" aria-controls="active-ride" aria-selected="true" (click)="loadActiveRidesTableData()">
+                Active Rides
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#ride-history"
+                      type="button" role="tab" aria-controls="ride-history" aria-selected="false" (click)="loadRidesHistoryTableData()">
+                Rides History
+              </button>
+            </li>
+          </div>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1 mb-1"
+                  color="warn">
+            <mat-icon class="d-flex justify-content-center align-items-center fs-5">edit</mat-icon>
+            Manage Rides
+          </button>
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="active-ride" role="tabpanel" aria-labelledby="active-tab">
