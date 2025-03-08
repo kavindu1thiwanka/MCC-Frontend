@@ -27,4 +27,16 @@ export class ReservationService {
       {observe: 'response', withCredentials: true, params: {reservationId: reservationId, status: status}}
     ).toPromise();
   }
+
+  getActiveRides() {
+    return this.httpClient.get(ApiEndPoint.RESERVATION_V1 + '/get_active_reservation_details',
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
+
+  getRidesHistory() {
+    return this.httpClient.get(ApiEndPoint.RESERVATION_V1 + '/get_reservation_history_details',
+      {observe: 'response', withCredentials: true}
+    ).toPromise();
+  }
 }

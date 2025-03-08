@@ -80,6 +80,11 @@ $backdrop-filter: blur(16px);
       gap: 1rem;
 
       .reservation-info {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
         flex: 2;
 
         h3 {

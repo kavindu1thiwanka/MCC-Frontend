@@ -14,8 +14,8 @@
             <p><strong>Return:</strong> {{ reservation.returnLocation }}</p>
             <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
             <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
-            <p><strong>Payment Status:</strong> {{ reservation.paymentStatus }}</p>
-            <p><strong>Status:</strong> {{ reservation.status }}</p>
+            <p><strong>Payment Status:</strong> {{ reservation.paymentStatus === 'C' ? 'Completed' : 'Pending' }}</p>
+            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : 'Cancelled' }}</p>
           </div>
 
           <div class="reservation-actions">

@@ -4,6 +4,7 @@ import {ChangeDetectorRef, inject, effect} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {VehicleService} from '../../shared/services/vehicle.service';
 import {AppConstant} from '../../shared/utils/app-constant';
+import {ReservationService} from '../../shared/services/reservation.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -32,11 +33,11 @@ export class AdminDashboardComponent implements OnInit {
   drivers = [];
   admins = [];
   vehicles= [];
-  upcomingRides = [];
+  activeRides = [];
   rideHistory = [];
 
-  displayedColumns: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime'];
-  displayedColumnsHistory: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime', 'status'];
+  displayedColumnsActiveRides: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime'];
+  displayedColumnsRidesHistory: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime', 'status'];
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'isOnline', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
@@ -55,7 +56,7 @@ export class AdminDashboardComponent implements OnInit {
   pieChartData = [];
 
   constructor(private adminService: AdminService, private cd: ChangeDetectorRef, private userService: UserService,
-              private vehicleService: VehicleService) {}
+              private vehicleService: VehicleService, private reservationService: ReservationService) {}
 
   ngOnInit(): void {
     this.loadDashboardData().then(() =>
@@ -83,6 +84,21 @@ export class AdminDashboardComponent implements OnInit {
     if (section === 'drivers') this.loadDriverTableData();
     if (section === 'admins') this.loadAdminsTableData();
     if (section === 'vehicles') this.loadVehicleTableData();
+    if (section === 'rides') this.loadActiveRidesTableData();
+  }
+
+  async loadActiveRidesTableData() {
+    await this.reservationService.getActiveRides().then(res => {
+      if (res?.status === 200 && res.body) this.activeRides = res.body as any;
+    }).catch(e => {
+    });
+  }
+
+  async loadRidesHistoryTableData() {
+    await this.reservationService.getRidesHistory().then(res => {
+      if (res?.status === 200 && res.body) this.rideHistory = res.body as any;
+    }).catch(e => {
+    });
   }
 
   async loadUserTableData() {
