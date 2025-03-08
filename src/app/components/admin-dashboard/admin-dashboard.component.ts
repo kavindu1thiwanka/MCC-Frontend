@@ -32,7 +32,11 @@ export class AdminDashboardComponent implements OnInit {
   drivers = [];
   admins = [];
   vehicles= [];
+  upcomingRides = [];
+  rideHistory = [];
 
+  displayedColumns: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime'];
+  displayedColumnsHistory: string[] = ['reservationId', 'pickup', 'dropoff', 'dateTime', 'status'];
   userColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
   driverColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'isOnline', 'status', 'actions'];
   adminColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'status', 'actions'];
