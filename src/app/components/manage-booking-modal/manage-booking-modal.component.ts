@@ -29,6 +29,7 @@ export class ManageBookingModalComponent implements OnChanges {
   customerDetails: any = {};
   driverDetails: any = {};
   bookingStatus: string = '';
+  onTrip: boolean = false;
 
   constructor(private fb: FormBuilder, private reservationService: ReservationService, private eRef: ElementRef) {
     this.bookingForm = this.fb.group({
@@ -72,6 +73,7 @@ export class ManageBookingModalComponent implements OnChanges {
     this.bookingForm.reset();
     this.bookingForm.get('id')?.setValue('');
     this.bookingStatus = '';
+    this.onTrip = false;
     this.close.emit();
   }
 
@@ -99,6 +101,7 @@ export class ManageBookingModalComponent implements OnChanges {
           driverId: res.body.driverId || 0
         });
 
+        this.onTrip = res.body.onTrip;
         this.bookingStatus = res.body.status || '';
         this.customerDetails = res.body.customerDetails || {};
         this.driverDetails = res.body.driverDetails || {};
@@ -135,8 +138,10 @@ export class ManageBookingModalComponent implements OnChanges {
   }
 
   cancelBooking() {
-    this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, 'D').then((res) => {
-
+    this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, 'D').then((res: any) => {
+      if (res.status === 200) {
+        this.closeModal();
+      }
     }).catch(e => {
 
     });
