@@ -29,7 +29,9 @@ export class ManageBookingModalComponent implements OnChanges {
   bookingForm: FormGroup;
   customerDetails: any = {};
   driverDetails: any = {};
-  bookingStatus: string = '';
+  bookingStatus: any = '';
+  errorMessage: any = undefined;
+
   onTrip: boolean = false;
 
   constructor(private fb: FormBuilder, private reservationService: ReservationService, private eRef: ElementRef) {
@@ -58,13 +60,13 @@ export class ManageBookingModalComponent implements OnChanges {
     this.showCustomerDetails = false;
   }
 
+
   toggleCustomerDetails() {
     this.showCustomerDetails = !this.showCustomerDetails;
     this.showDriverDetails = false;
   }
-
-
   // Close Modal
+
   closeModal() {
     this.display = false;
     this.isEditable = false;
@@ -75,13 +77,22 @@ export class ManageBookingModalComponent implements OnChanges {
     this.bookingForm.get('id')?.setValue('');
     this.bookingStatus = '';
     this.onTrip = false;
+    this.errorMessage = undefined;
     this.close.emit();
   }
-
   // Search Reservation by ID
+
   async searchReservation() {
     if (!this.reservationId || this.reservationId === 0) alert('Please enter a valid reservation ID.');
     await this.reservationService.getReservationById(this.reservationId).then((res: any) => {
+
+      if (res?.status === 200 && !res.body) {
+        this.bookingForm.get('id')?.setValue('');
+        this.errorMessage = 'Reservation not found.';
+        return;
+      }
+
+      this.errorMessage = undefined;
 
       const formatDateTime = (dateString: string) => {
         if (!dateString) return '';
@@ -112,7 +123,6 @@ export class ManageBookingModalComponent implements OnChanges {
 
     });
   }
-
   // Toggle Edit Mode
   toggleEditMode() {
     this.isEditable = !this.isEditable;
@@ -141,7 +151,7 @@ export class ManageBookingModalComponent implements OnChanges {
   cancelBooking() {
     this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, AppConstant.STATUS_RESERVATION_CANCELLED).then((res: any) => {
       if (res.status === 200) {
-        this.closeModal();
+        this.searchReservation();
       }
     }).catch(e => {
 
@@ -151,7 +161,7 @@ export class ManageBookingModalComponent implements OnChanges {
   completeBooking() {
     this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, AppConstant.STATUS_TRANSACTION_COMPLETE).then((res: any) => {
       if (res.status === 200) {
-        this.closeModal();
+        this.searchReservation();
       }
     }).catch(e => {
 
@@ -161,7 +171,7 @@ export class ManageBookingModalComponent implements OnChanges {
   changeOnTripStatus() {
     this.reservationService.changeOnTripStatus(this.bookingForm.get('id')?.value).then((res: any) => {
       if (res.status === 200) {
-        this.closeModal();
+        this.searchReservation();
       }
     }).catch(e => {
 

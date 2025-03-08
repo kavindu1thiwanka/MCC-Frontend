@@ -43,7 +43,9 @@ export class ManageBookingsComponent implements OnChanges {
 
   cancelReservation(reservationId: number) {
     if (confirm('Are you sure you want to cancel this reservation?')) {
-      this.reservationService.updateReservationStatus(reservationId, AppConstant.STATUS_RESERVATION_CANCELLED).then(() => {}).catch(() => {});
+      this.reservationService.updateReservationStatus(reservationId, AppConstant.STATUS_RESERVATION_CANCELLED).then((res: any) => {
+        if (res.status === 200) this.getReservations();
+      }).catch(() => {});
     }
   }
 }

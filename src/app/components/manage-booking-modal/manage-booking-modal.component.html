@@ -15,27 +15,31 @@
       />
       <button class="search-btn" (click)="searchReservation()">Search</button>
     </div>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
     <!-- Booking Form -->
     <form *ngIf="bookingForm.get('id')?.value !== ''" class="booking-form" [formGroup]="bookingForm">
       <div class="form-header">
         <h3>Booking Details</h3>
-        <section *ngIf="bookingStatus === 'A'" >
-          <button type="button" class="edit-btn" (click)="toggleEditMode()">
-            <i class="fa" [ngClass]="isEditable ? 'fa-check' : 'fa-pencil'"></i>
-          </button>
-          <button *ngIf="!onTrip" type="button" class="ban-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Cancel Booking" (click)="cancelBooking()">
-            <i class="fa fa-ban" aria-hidden="true"></i>
-          </button>
-          <button *ngIf="!onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Mark ride as On Trip" (click)="changeOnTripStatus()">
-            <i class="fa fa-road" aria-hidden="true"></i>
-          </button>
-          <button *ngIf="onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Mark ride as Completed" (click)="completeBooking()">
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
-          </button>
+        <section class="d-flex flex-row gap-3 align-items-center">
+          <app-status-indicator [status]="bookingStatus"></app-status-indicator>
+          <section *ngIf="bookingStatus === 'A'">
+            <button type="button" class="edit-btn" (click)="toggleEditMode()">
+              <i class="fa" [ngClass]="isEditable ? 'fa-check' : 'fa-pencil'"></i>
+            </button>
+            <button *ngIf="!onTrip" type="button" class="ban-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Cancel Booking" (click)="cancelBooking()">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="!onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Mark ride as On Trip" (click)="changeOnTripStatus()">
+              <i class="fa fa-road" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Mark ride as Completed" (click)="completeBooking()">
+              <i class="fa fa-check-circle" aria-hidden="true"></i>
+            </button>
+          </section>
         </section>
       </div>
 
