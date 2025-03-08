@@ -18,7 +18,7 @@
 
     <!-- Booking Form -->
     <form *ngIf="bookingForm.get('id')?.value !== ''" class="booking-form" [formGroup]="bookingForm">
-    <div class="form-header">
+      <div class="form-header">
         <h3>Booking Details</h3>
         <button type="button" class="edit-btn" (click)="toggleEditMode()">
           <i class="fa" [ngClass]="isEditable ? 'fa-check' : 'fa-pencil'"></i>
@@ -28,13 +28,41 @@
       <!-- Customer Name -->
       <div class="form-group">
         <label for="customerName">Customer Name</label>
-        <input id="customerName" type="text" [disabled]="true" value="{{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}"/>
+        <div class="input-container">
+          <input id="customerName" type="text" [disabled]="true"
+                 value="{{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}"/>
+          <i class="fa fa-info-circle input-icon" (click)="toggleCustomerDetails()" data-bs-toggle="tooltip"
+             data-bs-placement="top" title="Click to view customer details"></i>
+          <div *ngIf="showCustomerDetails" class="user-details-tooltip">
+            <section>
+              <p><strong>Name:</strong> {{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}</p>
+              <p><strong>Contact:</strong> {{ customerDetails?.contactNumber }}</p>
+              <p><strong>Email:</strong> {{ customerDetails?.email }}</p>
+              <p><strong>Username:</strong> {{ customerDetails?.username }}</p>
+            </section>
+            <button class="close-btn fs-5 p-0" style="margin-left: 1.2rem;" (click)="closeTooltips()">×</button>
+          </div>
+        </div>
       </div>
 
       <!-- Driver Name -->
       <div *ngIf="driverDetails.needDriver" class="form-group">
         <label for="driverName">Driver Name</label>
-        <input id="driverName" type="text" [disabled]="true" value="{{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}"/>
+        <div class="input-container">
+          <input id="driverName" type="text" [disabled]="true"
+                 value="{{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}"/>
+          <i class="fa fa-info-circle input-icon" (click)="toggleDriverDetails()" data-bs-toggle="tooltip"
+             data-bs-placement="top" title="Click to view driver details"></i>
+          <div *ngIf="showDriverDetails" class="user-details-tooltip">
+            <section>
+              <p><strong>Name:</strong> {{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}</p>
+              <p><strong>Contact:</strong> {{ driverDetails?.contactNumber }}</p>
+              <p><strong>Email:</strong> {{ driverDetails?.email }}</p>
+              <p><strong>Username:</strong> {{ driverDetails?.username }}</p>
+            </section>
+            <button class="close-btn fs-5 p-0" style="margin-left: 1.2rem;" (click)="closeTooltips()">×</button>
+          </div>
+        </div>
       </div>
 
       <!-- Vehicle No -->
@@ -52,18 +80,18 @@
       <!-- Drop-off Location -->
       <div class="form-group">
         <label for="returnLocation">Drop-off Location</label>
-        <input id="returnLocation" type="text" formControlName="returnLocation" />
+        <input id="returnLocation" type="text" formControlName="returnLocation"/>
       </div>
 
       <!-- Date & Time -->
       <div class="form-group">
         <label for="pickUpDate">Date & Time</label>
-        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate" />
+        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate"/>
       </div>
 
       <div class="form-group">
         <label for="returnDate">Date & Time</label>
-        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true" />
+        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true"/>
       </div>
 
       <!-- Modal Footer -->

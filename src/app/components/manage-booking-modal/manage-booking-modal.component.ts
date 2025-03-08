@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {ReservationService} from '../../shared/services/reservation.service';
 import {HttpResponse} from '@angular/common/http';
@@ -14,12 +23,14 @@ export class ManageBookingModalComponent implements OnChanges {
   @Output() close = new EventEmitter<void>();
 
   isEditable = false;
+  showDriverDetails = false;
+  showCustomerDetails = false;
   reservationId: any = '';
   bookingForm: FormGroup;
   customerDetails: any = {};
   driverDetails: any = {};
 
-  constructor(private fb: FormBuilder, private reservationService: ReservationService) {
+  constructor(private fb: FormBuilder, private reservationService: ReservationService, private eRef: ElementRef) {
     this.bookingForm = this.fb.group({
       id: [''],
       vehicleNo: [''],
@@ -39,6 +50,17 @@ export class ManageBookingModalComponent implements OnChanges {
       this.enableDisableFields();
     }
   }
+
+  toggleDriverDetails() {
+    this.showDriverDetails = !this.showDriverDetails;
+    this.showCustomerDetails = false;
+  }
+
+  toggleCustomerDetails() {
+    this.showCustomerDetails = !this.showCustomerDetails;
+    this.showDriverDetails = false;
+  }
+
 
   // Close Modal
   closeModal() {
@@ -103,5 +125,10 @@ export class ManageBookingModalComponent implements OnChanges {
       this.bookingForm.get('pickUpDate')?.disable();
       this.bookingForm.get('returnDate')?.disable();
     }
+  }
+
+  closeTooltips() {
+    this.showDriverDetails = false;
+    this.showCustomerDetails = false;
   }
 }
