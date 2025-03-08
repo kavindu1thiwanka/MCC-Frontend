@@ -131,6 +131,16 @@ $backdrop-filter: blur(16px);
             background: darken($error-color, 10%);
           }
         }
+
+        .started-btn {
+          background: #e7b73c;
+          color: #000;
+          border: none;
+
+          &:hover {
+            background: darken(#e7b73c, 10%);
+          }
+        }
       }
     }
   }

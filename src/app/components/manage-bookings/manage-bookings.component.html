@@ -15,12 +15,13 @@
             <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
             <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
             <p><strong>Payment Status:</strong> {{ reservation.paymentStatus === 'C' ? 'Completed' : 'Pending' }}</p>
-            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : reservation.status === 'C' ? 'Completed' : 'Cancelled' }}</p>
           </div>
 
           <div class="reservation-actions">
-            <button class="edit-btn" *ngIf="reservation.status === 'A'" (click)="editReservation(reservation)">Edit</button>
-            <button class="cancel-btn" *ngIf="reservation.status === 'A'" (click)="cancelReservation(reservation.id)">Cancel</button>
+            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : reservation.status === 'C' ? 'Completed' : 'Cancelled' }}</p>
+            <button class="edit-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="editReservation(reservation)">Edit</button>
+            <button class="cancel-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="cancelReservation(reservation.id)">Cancel</button>
+            <button class="started-btn" *ngIf="reservation.status === 'A' && reservation.onTrip">Trip Started</button>
           </div>
         </div>
       </div>
