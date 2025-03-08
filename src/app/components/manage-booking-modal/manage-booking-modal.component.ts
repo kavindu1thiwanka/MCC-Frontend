@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ReservationService} from '../../shared/services/reservation.service';
+import {AppConstant} from '../../shared/utils/app-constant';
 
 @Component({
   selector: 'app-manage-booking-modal',
@@ -138,7 +139,27 @@ export class ManageBookingModalComponent implements OnChanges {
   }
 
   cancelBooking() {
-    this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, 'D').then((res: any) => {
+    this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, AppConstant.STATUS_RESERVATION_CANCELLED).then((res: any) => {
+      if (res.status === 200) {
+        this.closeModal();
+      }
+    }).catch(e => {
+
+    });
+  }
+
+  completeBooking() {
+    this.reservationService.updateReservationStatus(this.bookingForm.get('id')?.value, AppConstant.STATUS_TRANSACTION_COMPLETE).then((res: any) => {
+      if (res.status === 200) {
+        this.closeModal();
+      }
+    }).catch(e => {
+
+    });
+  }
+
+  changeOnTripStatus() {
+    this.reservationService.changeOnTripStatus(this.bookingForm.get('id')?.value).then((res: any) => {
       if (res.status === 200) {
         this.closeModal();
       }

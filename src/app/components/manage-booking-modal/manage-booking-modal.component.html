@@ -29,11 +29,11 @@
             <i class="fa fa-ban" aria-hidden="true"></i>
           </button>
           <button *ngIf="!onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Mark ride as On Trip">
+                  title="Mark ride as On Trip" (click)="changeOnTripStatus()">
             <i class="fa fa-road" aria-hidden="true"></i>
           </button>
           <button *ngIf="onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Mark ride as Completed">
+                  title="Mark ride as Completed" (click)="completeBooking()">
             <i class="fa fa-check-circle" aria-hidden="true"></i>
           </button>
         </section>

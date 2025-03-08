@@ -45,4 +45,10 @@ export class ReservationService {
       {observe: 'response', withCredentials: true, params: {reservationId: reservationId}}
     ).toPromise();
   }
+
+  changeOnTripStatus(reservationId: number) {
+    return this.httpClient.put(ApiEndPoint.RESERVATION_V1 + '/change_on_trip_status',{},
+      {observe: 'response', withCredentials: true, params: {reservationId: reservationId}}
+    ).toPromise();
+  }
 }
