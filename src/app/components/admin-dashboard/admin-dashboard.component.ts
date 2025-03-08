@@ -14,6 +14,7 @@ import {ReservationService} from '../../shared/services/reservation.service';
 })
 export class AdminDashboardComponent implements OnInit {
   activeSection: string = 'dashboard';
+  activeTab: string = 'active';
   showUserProfile: boolean = false;
   createNewUser: boolean = false;
   showManageBookingModal: boolean = false;
@@ -61,6 +62,10 @@ export class AdminDashboardComponent implements OnInit {
     this.loadDashboardData().then(() =>
       this.setupCharts()
     );
+  }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
   }
 
   setActiveSection(section: string) {
@@ -283,8 +288,7 @@ export class AdminDashboardComponent implements OnInit {
 
   closeManageBookingModal() {
     this.showManageBookingModal = false;
-    console.log(document.getElementById('active-tab')?.getAttributeNames())
-    this.loadRidesHistoryTableData();
-    this.loadActiveRidesTableData();
+    if (this.activeTab === 'history') this.loadRidesHistoryTableData();
+    if (this.activeTab === 'active') this.loadActiveRidesTableData();
   }
 }

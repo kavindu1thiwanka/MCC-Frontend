@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {ReservationService} from '../../shared/services/reservation.service';
 
 @Component({
   selector: 'app-manage-booking-modal',
@@ -12,11 +13,12 @@ export class ManageBookingModalComponent {
   @Output() close = new EventEmitter<void>();
 
   isEditable = false;
-  reservationId: string = '';
+  reservationId: number = 0;
   bookingForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private reservationService: ReservationService) {
     this.bookingForm = this.fb.group({
+      id: [''],
       customerName: [''],
       pickupLocation: [''],
       dropOffLocation: [''],
@@ -33,24 +35,19 @@ export class ManageBookingModalComponent {
   closeModal() {
     this.display = false;
     this.isEditable = false;
-    this.reservationId = '';
+    this.reservationId = 0;
     this.bookingForm.reset();
     this.close.emit();
   }
 
   // Search Reservation by ID
-  searchReservation() {
-    // Mock data fetching (Replace with API call)
-    if (this.reservationId === '12345') {
-      this.bookingForm.setValue({
-        customerName: 'John Doe',
-        pickupLocation: 'Central Park',
-        dropOffLocation: 'Times Square',
-        dateTime: '2025-03-10T14:30'
-      });
-    } else {
-      alert('Reservation not found!');
-    }
+  async searchReservation() {
+    if (!this.reservationId || this.reservationId === 0) alert('Please enter a valid reservation ID.');
+    await this.reservationService.getReservationById(this.reservationId).then(res => {
+      if (res?.status === 200 && res.body) this.bookingForm.patchValue(res.body);
+    }).catch(e => {
+
+    });
   }
 
   // Toggle Edit Mode

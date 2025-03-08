@@ -39,4 +39,10 @@ export class ReservationService {
       {observe: 'response', withCredentials: true}
     ).toPromise();
   }
+
+  getReservationById(reservationId: number) {
+    return this.httpClient.get(ApiEndPoint.RESERVATION_V1 + '/get_reservation_details_by_id',
+      {observe: 'response', withCredentials: true, params: {reservationId: reservationId}}
+    ).toPromise();
+  }
 }

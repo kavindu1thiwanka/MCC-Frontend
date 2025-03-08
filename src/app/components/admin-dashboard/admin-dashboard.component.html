@@ -88,18 +88,35 @@
         <ul class="nav nav-tabs d-flex flex-row justify-content-between" id="myTab" role="tablist">
           <div class="d-flex flex-row">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="active-tab" data-bs-toggle="tab" data-bs-target="#active-ride"
-                      type="button" role="tab" aria-controls="active-ride" aria-selected="true" (click)="loadActiveRidesTableData()">
+              <button class="nav-link"
+                      [class.active]="activeTab === 'active'"
+                      id="active-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#active-ride"
+                      type="button"
+                      role="tab"
+                      aria-controls="active-ride"
+                      aria-selected="true"
+                      (click)="setActiveTab('active'); loadActiveRidesTableData()">
                 Active Rides
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#ride-history"
-                      type="button" role="tab" aria-controls="ride-history" aria-selected="false" (click)="loadRidesHistoryTableData()">
+              <button class="nav-link"
+                      [class.active]="activeTab === 'history'"
+                      id="history-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#ride-history"
+                      type="button"
+                      role="tab"
+                      aria-controls="ride-history"
+                      aria-selected="false"
+                      (click)="setActiveTab('history'); loadRidesHistoryTableData()">
                 Rides History
               </button>
             </li>
           </div>
+
           <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1 mb-1"
                   color="warn" (click)="showManageBookingModal = true">
             <mat-icon class="d-flex justify-content-center align-items-center fs-5">edit</mat-icon>
