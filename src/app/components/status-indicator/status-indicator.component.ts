@@ -8,7 +8,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
   styleUrl: './status-indicator.component.scss'
 })
 export class StatusIndicatorComponent implements OnChanges {
-  @Input() status: 'A' | 'I' | 'Y' | 'N' = 'I';
+  @Input() status: 'A' | 'I' | 'Y' | 'N' | 'D' | 'C' = 'I';
 
   label = 'Inactive';
 
@@ -26,6 +26,12 @@ export class StatusIndicatorComponent implements OnChanges {
           break;
         case 'N':
           this.label = 'No';
+          break;
+        case 'D':
+          this.label = 'Canceled';
+          break;
+        case 'C':
+          this.label = 'Completed';
           break;
       }
     }

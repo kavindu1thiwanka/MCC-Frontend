@@ -15,7 +15,7 @@
             <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
             <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
             <p><strong>Payment Status:</strong> {{ reservation.paymentStatus === 'C' ? 'Completed' : 'Pending' }}</p>
-            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : 'Cancelled' }}</p>
+            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : reservation.status === 'C' ? 'Completed' : 'Cancelled' }}</p>
           </div>
 
           <div class="reservation-actions">
