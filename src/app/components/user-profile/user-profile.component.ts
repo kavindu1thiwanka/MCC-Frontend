@@ -152,6 +152,7 @@ export class UserProfileComponent implements OnChanges {
   async getLoggedInUserDetails() {
     await this.userService.getLoggedInUserDetails().then(res => {
       if (res?.status === 200 && res.body) {
+        (res.body as any).password = '';
         this.profileForm.patchValue(res.body);
       }
     }).catch(e => {

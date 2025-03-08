@@ -69,7 +69,7 @@
 
               <ng-container matColumnDef="dateTime">
                 <th mat-header-cell *matHeaderCellDef> Date & Time</th>
-                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate + ' ⇾ ' + ride.returnDate }}</td>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -102,12 +102,14 @@
 
             <ng-container matColumnDef="dateTime">
               <th mat-header-cell *matHeaderCellDef> Date & Time</th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate + ' ⇾ ' + ride.returnDate }}</td>
+              <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status</th>
-              <td mat-cell *matCellDef="let ride"> {{ ride.status }}</td>
+              <td mat-cell *matCellDef="let ride">
+                <app-status-indicator [status]="ride.status"></app-status-indicator>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>

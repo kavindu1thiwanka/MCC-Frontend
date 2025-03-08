@@ -42,7 +42,7 @@ export class DriverDashboardComponent implements OnInit {
 
   async getRidesHistory() {
     await this.driverService.getRidesHistory().then((res) => {
-      this.rideHistory = (res?.body as any).rideHistory;
+      if (res?.status === 200 && res.body) this.rideHistory = res.body as any;
     });
   }
 
