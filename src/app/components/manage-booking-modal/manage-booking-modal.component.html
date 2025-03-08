@@ -17,7 +17,7 @@
     </div>
 
     <!-- Booking Form -->
-    <form *ngIf="bookingForm && bookingForm.value.id" class="booking-form" [formGroup]="bookingForm">
+    <form *ngIf="bookingForm.get('id')?.value !== ''" class="booking-form" [formGroup]="bookingForm">
     <div class="form-header">
         <h3>Booking Details</h3>
         <button type="button" class="edit-btn" (click)="toggleEditMode()">
@@ -28,25 +28,36 @@
       <!-- Customer Name -->
       <div class="form-group">
         <label for="customerName">Customer Name</label>
-        <input id="customerName" type="text" formControlName="customerName" [disabled]="!isEditable" />
+        <input id="customerName" type="text" [disabled]="true" value="{{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}"/>
+      </div>
+
+      <!-- Vehicle No -->
+      <div class="form-group">
+        <label for="vehicleNo">Vehicle Number</label>
+        <input id="vehicleNo" type="text" [disabled]="true" formControlName="vehicleNo"/>
       </div>
 
       <!-- Pickup Location -->
       <div class="form-group">
-        <label for="pickupLocation">Pickup Location</label>
-        <input id="pickupLocation" type="text" formControlName="pickupLocation" [disabled]="!isEditable" />
+        <label for="pickUpLocation">Pickup Location</label>
+        <input id="pickUpLocation" type="text" formControlName="pickUpLocation" [disabled]="!isEditable" />
       </div>
 
       <!-- Drop-off Location -->
       <div class="form-group">
-        <label for="dropOffLocation">Drop-off Location</label>
-        <input id="dropOffLocation" type="text" formControlName="dropOffLocation" [disabled]="!isEditable" />
+        <label for="returnLocation">Drop-off Location</label>
+        <input id="returnLocation" type="text" formControlName="returnLocation" [disabled]="!isEditable" />
       </div>
 
       <!-- Date & Time -->
       <div class="form-group">
-        <label for="dateTime">Date & Time</label>
-        <input id="dateTime" type="datetime-local" formControlName="dateTime" [disabled]="!isEditable" />
+        <label for="pickUpDate">Date & Time</label>
+        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate" [disabled]="!isEditable" />
+      </div>
+
+      <div class="form-group">
+        <label for="returnDate">Date & Time</label>
+        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true" [disabled]="!isEditable" />
       </div>
 
       <!-- Modal Footer -->
