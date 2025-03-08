@@ -31,33 +31,39 @@
         <input id="customerName" type="text" [disabled]="true" value="{{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}"/>
       </div>
 
+      <!-- Driver Name -->
+      <div *ngIf="driverDetails.needDriver" class="form-group">
+        <label for="driverName">Driver Name</label>
+        <input id="driverName" type="text" [disabled]="true" value="{{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}"/>
+      </div>
+
       <!-- Vehicle No -->
       <div class="form-group">
         <label for="vehicleNo">Vehicle Number</label>
-        <input id="vehicleNo" type="text" [disabled]="true" formControlName="vehicleNo"/>
+        <input id="vehicleNo" type="text" formControlName="vehicleNo"/>
       </div>
 
       <!-- Pickup Location -->
       <div class="form-group">
         <label for="pickUpLocation">Pickup Location</label>
-        <input id="pickUpLocation" type="text" formControlName="pickUpLocation" [disabled]="!isEditable" />
+        <input id="pickUpLocation" type="text" formControlName="pickUpLocation"/>
       </div>
 
       <!-- Drop-off Location -->
       <div class="form-group">
         <label for="returnLocation">Drop-off Location</label>
-        <input id="returnLocation" type="text" formControlName="returnLocation" [disabled]="!isEditable" />
+        <input id="returnLocation" type="text" formControlName="returnLocation" />
       </div>
 
       <!-- Date & Time -->
       <div class="form-group">
         <label for="pickUpDate">Date & Time</label>
-        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate" [disabled]="!isEditable" />
+        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate" />
       </div>
 
       <div class="form-group">
         <label for="returnDate">Date & Time</label>
-        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true" [disabled]="!isEditable" />
+        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true" />
       </div>
 
       <!-- Modal Footer -->

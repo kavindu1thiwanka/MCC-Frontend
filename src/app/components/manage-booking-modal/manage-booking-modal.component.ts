@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {ReservationService} from '../../shared/services/reservation.service';
 import {HttpResponse} from '@angular/common/http';
@@ -9,7 +9,7 @@ import {HttpResponse} from '@angular/common/http';
   templateUrl: './manage-booking-modal.component.html',
   styleUrls: ['./manage-booking-modal.component.scss']
 })
-export class ManageBookingModalComponent {
+export class ManageBookingModalComponent implements OnChanges {
   @Input() display = false;
   @Output() close = new EventEmitter<void>();
 
@@ -32,9 +32,12 @@ export class ManageBookingModalComponent {
     });
   }
 
-  // Open Modal
-  openModal() {
-    this.display = true;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['display'] && this.display) {
+      this.bookingForm.get('vehicleNo')?.disable();
+      this.isEditable = false;
+      this.enableDisableFields();
+    }
   }
 
   // Close Modal
@@ -75,6 +78,7 @@ export class ManageBookingModalComponent {
 
         this.customerDetails = res.body.customerDetails || {};
         this.driverDetails = res.body.driverDetails || {};
+        this.driverDetails.needDriver = res.body.needDriver || false;
       }
     }).catch(e => {
 
@@ -84,5 +88,20 @@ export class ManageBookingModalComponent {
   // Toggle Edit Mode
   toggleEditMode() {
     this.isEditable = !this.isEditable;
+    this.enableDisableFields();
+  }
+
+  enableDisableFields() {
+    if (this.isEditable) {
+      this.bookingForm.get('pickUpLocation')?.enable();
+      this.bookingForm.get('returnLocation')?.enable();
+      this.bookingForm.get('pickUpDate')?.enable();
+      this.bookingForm.get('returnDate')?.enable();
+    } else {
+      this.bookingForm.get('pickUpLocation')?.disable();
+      this.bookingForm.get('returnLocation')?.disable();
+      this.bookingForm.get('pickUpDate')?.disable();
+      this.bookingForm.get('returnDate')?.disable();
+    }
   }
 }
