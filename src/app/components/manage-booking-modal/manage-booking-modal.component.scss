@@ -101,6 +101,18 @@ $backdrop-filter: blur(16px);
       color: $accent-color;
     }
   }
+
+  .ban-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.2rem;
+
+    &:hover {
+      color: #bc1a1a;
+    }
+  }
 }
 
 .booking-form {
