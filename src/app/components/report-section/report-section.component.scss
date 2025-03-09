@@ -130,7 +130,7 @@ button {
 }
 
 /* Input Fields */
-input.mat-input-element {
+inputmat-input-element {
   padding: 0.7rem 1rem;
   border-radius: $input-radius;
   border: 1px solid $input-border;
@@ -174,3 +174,85 @@ input.mat-input-element {
     transform: scale(0.98);
   }
 }
+
+::ng-deep mat-option {
+  background-color: #2c3e50 !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-option:hover {
+  background-color: #16a085 !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-optionmat-selected {
+  background-color: #1abc9c !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-calendar {
+  border-radius: 8px !important;
+  background-color: #2c3e50 !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-calendar-header {
+  background-color: #34495e !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+}
+
+::ng-deep mat-calendar-header mat-button {
+  color: #1abc9c !important;
+}
+
+::ng-deep mat-calendar-header mat-button:hover {
+  background-color: rgba(26, 188, 156, 0.1) !important;
+}
+
+::ng-deep mat-calendar-week-day {
+  font-weight: bold !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cell {
+  border-radius: 50% !important;
+  background-color: transparent !important;
+  transition: background-color 0.2s ease !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cell:hover {
+  background-color: #16a085 !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cell.selected {
+  background-color: #1abc9c !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cell.selected:hover {
+  background-color: #16a085 !important;
+  color: #fff !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cellmat-calendar-body-disabled {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+::ng-deep mat-calendar-body mat-calendar-body-cell.today {
+  border: 2px solid #e74c3c !important;
+  background-color: rgba(231, 76, 60, 0.2) !important;
+  color: #e74c3c !important;
+  font-weight: bold !important;
+}
+
+::ng-deep mat-calendar-panel {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+}
+
+
