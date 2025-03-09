@@ -48,6 +48,8 @@ export class SearchBoxComponent implements OnInit {
       returnLocationControl?.setValidators(Validators.required);
     } else {
       returnLocationControl?.clearValidators();
+      returnLocationControl?.reset();
+      this.returnSuggestions = [];
     }
     returnLocationControl?.updateValueAndValidity();
   }
@@ -55,7 +57,8 @@ export class SearchBoxComponent implements OnInit {
   // Close dropdown when clicking outside
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
-    if (this.locationSuggestionsDropdown && !this.locationSuggestionsDropdown.nativeElement.contains(event.target)) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown-suggestions') && !target.closest('.input-group')) {
       this.pickupSuggestions = [];
       this.returnSuggestions = [];
     }
@@ -89,7 +92,6 @@ export class SearchBoxComponent implements OnInit {
   }
 
   onReturnLocationChange(event: any): void {
-
     const input = event.target as HTMLInputElement;
     const query = input.value;
 

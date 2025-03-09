@@ -104,15 +104,17 @@
                    placeholder="Airport, city or address"
                    formControlName="pickupLocation" (input)="onPickupLocationChange($event)">
           </div>
-          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
+          <div class="dropdown-suggestions" [class.show]="pickupSuggestions.length > 0">
             <ul>
               <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
+                <i class="fa fa-map-marker"></i>
                 {{ suggestion.description }}
               </li>
             </ul>
           </div>
         </div>
 
+        <!-- Return Location Section -->
         <div *ngIf="bookingType === 'reserve'" class="col-3">
           <label for="returnLocation" class="form-label">Return</label>
           <a *ngIf="!differentReturnLocation" (click)="toggleReturnLocation()"
@@ -120,18 +122,26 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
             Different return location
           </a>
-          <div *ngIf="differentReturnLocation" class="input-group">
-            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-            <input type="text" id="returnLocation" class="form-control form-control-lg"
-                   placeholder="Airport, city or address"
-                   formControlName="returnLocation" (input)="onReturnLocationChange($event)">
-          </div>
-          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">
-            <ul>
-              <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
-                {{ suggestion.description }}
-              </li>
-            </ul>
+          <div *ngIf="differentReturnLocation">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+              <input type="text" id="returnLocation" class="form-control form-control-lg"
+                     placeholder="Airport, city or address"
+                     formControlName="returnLocation" (input)="onReturnLocationChange($event)">
+            </div>
+            <div class="dropdown-suggestions" [class.show]="returnSuggestions.length > 0 || differentReturnLocation">
+              <ul>
+                <li class="return-same-location" (click)="toggleReturnLocation()">
+                  <i class="fa fa-rotate-left"></i>
+                  Return to same location
+                </li>
+                <li class="suggestions-divider" *ngIf="returnSuggestions.length > 0"></li>
+                <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
+                  <i class="fa fa-map-marker"></i>
+                  {{ suggestion.description }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
