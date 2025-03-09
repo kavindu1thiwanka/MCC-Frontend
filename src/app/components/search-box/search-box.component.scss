@@ -30,7 +30,7 @@
     border: none;
     color: #ffffff;
     transition: var(--transition);
-    
+
     &:hover {
       background-color: darken(#FF5F00, 5%);
       color: #ffffff;
@@ -39,6 +39,27 @@
     &:active {
       background-color: darken(#FF5F00, 10%);
       color: #ffffff;
+    }
+  }
+
+  .collapse-btn {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0.5rem 1rem;
+    transition: var(--transition);
+    border: 1px solid #e0e0e0;
+    background: transparent;
+    border-radius: 0.5rem;
+
+    i {
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    &:hover {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      background-color: rgba(44, 62, 80, 0.05);
     }
   }
 }
@@ -166,7 +187,7 @@ input.ng-invalid.ng-touched {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
     border-right: 1px solid #e0e0e0;
-    
+
     &:last-child {
       border-right: none;
     }

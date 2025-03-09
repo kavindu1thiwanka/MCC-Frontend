@@ -209,7 +209,7 @@
         </div>
       </div>
 
-      <button class="btn d-flex align-items-center gap-2" type="button"
+      <button class="collapse-btn d-flex align-items-center gap-2" type="button"
               (click)="isCollapsed = !isCollapsed">
         <i class="fa fa-edit"></i>
         Edit Search
@@ -218,7 +218,7 @@
 
     <!-- Expand/Collapse Toggle -->
     <div *ngIf="!isCollapsed" class="d-flex justify-content-end align-items-end m-0 pt-2">
-      <button class="btn d-flex flex-row justify-content-center align-items-center gap-2" type="button"
+      <button class="collapse-btn d-flex flex-row justify-content-center align-items-center gap-2" type="button"
               (click)="isCollapsed = !isCollapsed">
         <i class="fa fa-angle-double-up" aria-hidden="true"></i>
         Collapse
