@@ -22,22 +22,80 @@ export class SearchBoxComponent implements OnInit {
   pickupSuggestions: any[] = [];
   returnSuggestions: any[] = [];
   bookingType: string = 'reserve';
+  minPickupDate: string;
+  minReturnDate: string;
 
   constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService, private eRef: ElementRef) {
+    this.minPickupDate = this.getCurrentDate();
+    this.minReturnDate = this.getCurrentDate();
+
     this.searchForm = this.fb.group({
       vehicleType: ['car'],
       pickupLocation: ['', Validators.required],
       returnLocation: [''],
-      pickupDate: [this.getCurrentDate(), Validators.required],
-      returnDate: [this.getCurrentDate(), Validators.required]
+      pickupDate: [this.getCurrentDate(), [Validators.required]],
+      returnDate: [this.getCurrentDate(), [Validators.required]]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Initialize with current date/time
+    this.updateMinDates();
+    
+    // Subscribe to pickup date changes
+    this.searchForm.get('pickupDate')?.valueChanges.subscribe(value => {
+      if (value) {
+        const pickupDate = new Date(value);
+        const returnDate = new Date(this.searchForm.get('returnDate')?.value);
+        
+        if (returnDate < pickupDate) {
+          this.searchForm.patchValue({
+            returnDate: value
+          });
+        }
+      }
+    });
+  }
 
   getCurrentDate(): string {
-    const date = new Date().toISOString().split('Z')[0].split(':');
-    return date[0] + ':' + date[1];
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
+  }
+
+  updateMinDates(): void {
+    this.minPickupDate = this.getCurrentDate();
+    const pickupDate = new Date(this.searchForm.get('pickupDate')?.value);
+    this.minReturnDate = pickupDate.toISOString().slice(0, 16);
+  }
+
+  onPickupDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const newPickupDate = new Date(input.value);
+    const currentReturnDate = new Date(this.searchForm.get('returnDate')?.value);
+
+    // Update minimum return date
+    this.minReturnDate = input.value;
+
+    // If return date is before new pickup date, update it
+    if (currentReturnDate < newPickupDate) {
+      this.searchForm.patchValue({
+        returnDate: input.value
+      });
+    }
+  }
+
+  onReturnDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const newReturnDate = new Date(input.value);
+    const currentPickupDate = new Date(this.searchForm.get('pickupDate')?.value);
+
+    // Ensure return date is not before pickup date
+    if (newReturnDate < currentPickupDate) {
+      this.searchForm.patchValue({
+        returnDate: this.searchForm.get('pickupDate')?.value
+      });
+    }
   }
 
   toggleReturnLocation(): void {

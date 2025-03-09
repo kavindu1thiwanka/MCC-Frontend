@@ -149,7 +149,11 @@
         <div *ngIf="bookingType === 'reserve'" class="col-2">
           <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
           <div class="input-group" id="pickupDateTimeGroup">
-            <input type="datetime-local" id="pickupDate" class="form-control form-control-lg" formControlName="pickupDate">
+            <input type="datetime-local" id="pickupDate" 
+                   class="form-control form-control-lg" 
+                   formControlName="pickupDate"
+                   [min]="minPickupDate"
+                   (change)="onPickupDateChange($event)">
           </div>
         </div>
 
@@ -157,7 +161,11 @@
         <div *ngIf="bookingType === 'reserve'" class="col-2">
           <label for="returnDateTimeGroup" class="form-label">Return date</label>
           <div class="input-group" id="returnDateTimeGroup">
-            <input type="datetime-local" id="returnDate" class="form-control form-control-lg" formControlName="returnDate">
+            <input type="datetime-local" id="returnDate" 
+                   class="form-control form-control-lg" 
+                   formControlName="returnDate"
+                   [min]="minReturnDate"
+                   (change)="onReturnDateChange($event)">
           </div>
         </div>
 
