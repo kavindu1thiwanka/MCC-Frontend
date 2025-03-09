@@ -39,29 +39,13 @@
   </form>
 
   <!-- Display Report -->
-  <div class="report-display">
-    <div *ngIf="reportData && selectedFileFormat === 'pdf'">
-      <!-- PDF Display (using iframe) -->
-      <iframe [src]="reportUrl" width="80vw"></iframe>
-    </div>
-    <div *ngIf="reportData && selectedFileFormat === 'xlsx'">
-      <!-- Excel Display (Placeholder, requires viewer integration) -->
-      <iframe [src]="reportUrl" width="80vw"></iframe>
+  <div class="report-display w-100 h-auto">
+    <div *ngIf="reportData">
+      <iframe [src]="reportUrl" class="w-100 h-100"></iframe>
     </div>
 
     <div *ngIf="!reportData" class="no-data">
       No data to show
-    </div>
-
-    <!-- Download Button -->
-    <div *ngIf="reportData" class="modal-footer">
-      <button
-        type="button"
-        class="save-btn"
-        [disabled]="!reportData"
-        (click)="downloadReport()">
-        Download Report
-      </button>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ReportService } from '../../shared/services/report.service';
 
 @Component({
@@ -14,9 +15,9 @@ export class ReportSectionComponent {
   selectedFileFormat: string = 'pdf';
   reportData: any = null;
   reportName = '';
-  reportUrl: string = '';
+  reportUrl: SafeResourceUrl = '';
 
-  constructor(private reportService: ReportService) {}
+  constructor(private reportService: ReportService, private sanitizer: DomSanitizer) {}
 
   isFormValid(): boolean {
     return this.selectedReportType.trim() !== '' && this.selectedFileFormat.trim() !== '';
@@ -48,7 +49,8 @@ export class ReportSectionComponent {
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
 
-        this.reportUrl = URL.createObjectURL(file);
+        const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+        this.reportUrl = sanitizedUrl;
         this.reportData = file;
         this.reportName = response.body.fileName;
       }
@@ -62,9 +64,9 @@ export class ReportSectionComponent {
     if (!this.reportData) return;
 
     const a = document.createElement('a');
-    a.href = this.reportUrl;
+    a.href = this.reportUrl as string; // Cast SafeResourceUrl to string here
     a.download = this.reportName;
     a.click();
-    URL.revokeObjectURL(this.reportUrl);
+    URL.revokeObjectURL(this.reportUrl as string);
   }
 }
