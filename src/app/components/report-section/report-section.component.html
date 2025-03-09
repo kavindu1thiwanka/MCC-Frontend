@@ -28,7 +28,7 @@
       <mat-label>Select File Format</mat-label>
       <mat-select [(ngModel)]="selectedFileFormat" name="fileFormat" required>
         <mat-option value="pdf">PDF</mat-option>
-        <mat-option value="excel">Excel</mat-option>
+        <mat-option value="xlsx">Excel</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -39,14 +39,14 @@
   </form>
 
   <!-- Display Report -->
-  <div class="report-display" style="height: calc(100vh - 250px);">
+  <div class="report-display">
     <div *ngIf="reportData && selectedFileFormat === 'pdf'">
       <!-- PDF Display (using iframe) -->
-      <iframe [src]="reportUrl" width="100%" height="600px"></iframe>
+      <iframe [src]="reportUrl" width="80vw"></iframe>
     </div>
-    <div *ngIf="reportData && selectedFileFormat === 'excel'">
+    <div *ngIf="reportData && selectedFileFormat === 'xlsx'">
       <!-- Excel Display (Placeholder, requires viewer integration) -->
-      <iframe [src]="reportUrl" width="100%" height="600px"></iframe>
+      <iframe [src]="reportUrl" width="80vw"></iframe>
     </div>
 
     <div *ngIf="!reportData" class="no-data">

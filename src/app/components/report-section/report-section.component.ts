@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {ReportService} from '../../shared/services/report.service';
-import {HttpClient} from '@angular/common/http';
+import { ReportService } from '../../shared/services/report.service';
 
 @Component({
   selector: 'app-report-section',
@@ -9,19 +8,23 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./report-section.component.scss']
 })
 export class ReportSectionComponent {
-  selectedReportType: string = 'reservations'; // Default
+  selectedReportType: string = 'reservations';
   startDate: string | null = null;
   endDate: string | null = null;
   selectedFileFormat: string = 'pdf';
   reportData: any = null;
+  reportName = '';
   reportUrl: string = '';
 
+  constructor(private reportService: ReportService) {}
+
   isFormValid(): boolean {
-    return <boolean>(this.selectedReportType && this.selectedReportType !== '' && this.selectedFileFormat && this.selectedFileFormat !== '');
+    return this.selectedReportType.trim() !== '' && this.selectedFileFormat.trim() !== '';
   }
 
-  // Handle form submission and generate report
   generateReport(): void {
+    this.reportData = null;
+
     const requestData = {
       reportType: this.selectedReportType,
       startDate: this.startDate,
@@ -29,25 +32,39 @@ export class ReportSectionComponent {
       fileFormat: this.selectedFileFormat
     };
 
-    // this.http.post(`${environment.apiUrl}/generate-report`, requestData, { responseType: 'arraybuffer' })
-      // .subscribe(
-      //   (response: any) => {
-      //     // Convert response byte array to a Blob and generate a URL
-      //     const file = new Blob([response], { type: this.selectedFileFormat === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      //     this.reportUrl = URL.createObjectURL(file);
-      //     this.reportData = response; // Store the data for download
-      //   },
-      //   (error) => {
-      //     console.error('Error generating report:', error);
-      //   }
-      // );
+    this.reportService.generateReport(requestData).then((response: any) => {
+      if (response.status === 200) {
+        const fileContentBase64 = response.body.fileContent;
+        const byteCharacters = atob(fileContentBase64);
+        const byteNumbers = new Array(byteCharacters.length);
+
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        const file = new Blob([byteArray], {
+          type: this.selectedFileFormat === 'pdf' ? 'application/pdf' :
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+
+        this.reportUrl = URL.createObjectURL(file);
+        this.reportData = file;
+        this.reportName = response.body.fileName;
+      }
+    }).catch(e => {
+      console.error('Error generating report:', e);
+    });
   }
 
+  // Download report
   downloadReport(): void {
-    const file = new Blob([this.reportData], { type: this.selectedFileFormat === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    if (!this.reportData) return;
+
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(file);
-    a.download = `report.${this.selectedFileFormat}`;
+    a.href = this.reportUrl;
+    a.download = this.reportName;
     a.click();
+    URL.revokeObjectURL(this.reportUrl);
   }
 }

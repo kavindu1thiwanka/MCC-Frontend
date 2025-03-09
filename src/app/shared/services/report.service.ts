@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {ApiEndPoint} from '../utils/api-end-point';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
-  private apiUrl = '/api/reports'; // Adjust the URL as per your backend API
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  getReport(type: string, format: 'pdf' | 'excel'): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/${type}`, { responseType: 'blob' });
-  }
-
-  getReportData(type: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/data/${type}`);
+  generateReport(requestData: {}) {
+    return this.httpClient.post(ApiEndPoint.REPORT_V1 + '/generate',
+      requestData, {observe: 'response', withCredentials: true}
+    ).toPromise();
   }
 }

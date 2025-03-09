@@ -21,6 +21,7 @@ export class ApiEndPoint {
   private static RESERVATION = this.API_URL + '/res';
   private static DRIVER = this.API_URL + '/driver';
   private static ADMIN = this.API_URL + '/admin';
+  private static REPORT = this.API_URL + '/report';
 
   public static AUTH_V1 = this.AUTH + this.V1;
   public static USER_V1 = this.USER + this.V1;
@@ -31,4 +32,5 @@ export class ApiEndPoint {
   public static RESERVATION_V1 = this.RESERVATION + this.V1;
   public static DRIVER_V1 = this.DRIVER + this.V1;
   public static ADMIN_V1 = this.ADMIN + this.V1;
+  public static REPORT_V1 = this.REPORT + this.V1;
 }
