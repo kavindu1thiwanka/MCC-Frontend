@@ -37,6 +37,11 @@ export class ReportSectionComponent {
 
     this.reportService.generateReport(requestData).then((response: any) => {
       if (response.status === 200) {
+
+        if (!response.body) {
+          return;
+        }
+
         const fileContentBase64 = response.body.fileContent;
         const byteCharacters = atob(fileContentBase64);
         const byteNumbers = new Array(byteCharacters.length);
