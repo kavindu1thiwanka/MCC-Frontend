@@ -48,7 +48,7 @@
               <small>Duration</small>
             </div>
           </div>
-          <button class="edit-search-btn" routerLink="/">
+          <button class="edit-search-btn" (click)="modifySearch()">
             <i class="fa fa-edit"></i>
             Modify Search
           </button>
@@ -149,3 +149,36 @@
   [bookingDetails]="searchParams"
   (close)="handleVehicleDetailsModalClose($event)">
 </app-vehicle-details>
+
+<style>
+.edit-search-btn {
+  margin-left: auto;
+  height: 40px;
+  background: #2C3E50;
+  border: none;
+  color: white;
+  padding: 0 1.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    background: darken(#2C3E50, 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+</style>

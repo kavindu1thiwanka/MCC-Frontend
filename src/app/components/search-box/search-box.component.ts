@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../shared/services/location.service';
 
 declare var google: any;
@@ -13,8 +13,6 @@ declare var google: any;
 })
 export class SearchBoxComponent implements OnInit {
 
-  @ViewChild('locationSuggestionsDropdown') locationSuggestionsDropdown!: ElementRef;
-
   searchForm: FormGroup;
   differentReturnLocation: boolean = false;
   selectedVehicleType: string = 'motorcycle';
@@ -25,7 +23,13 @@ export class SearchBoxComponent implements OnInit {
   minPickupDate: string;
   minReturnDate: string;
 
-  constructor(private fb: FormBuilder, private router: Router, private locationService: LocationService, private eRef: ElementRef) {
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private locationService: LocationService, 
+    private route: ActivatedRoute,
+    private eRef: ElementRef
+  ) {
     this.minPickupDate = this.getCurrentDate();
     this.minReturnDate = this.getCurrentDate();
 
@@ -41,13 +45,35 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {
     // Initialize with current date/time
     this.updateMinDates();
-    
+
+    // Handle query params for search modification
+    this.route.queryParams.subscribe(params => {
+      if (params['edit']) {
+        this.isCollapsed = false;
+        if (params['return']) {
+          this.differentReturnLocation = true;
+          this.searchForm.get('returnLocation')?.setValidators(Validators.required);
+        }
+        
+        this.searchForm.patchValue({
+          vehicleType: params['category'] || 'car',
+          pickupLocation: params['pickup'] || '',
+          returnLocation: params['return'] || '',
+          pickupDate: params['pickupDate'] || this.getCurrentDate(),
+          returnDate: params['returnDate'] || this.getCurrentDate()
+        });
+
+        this.selectedVehicleType = params['category'] || 'car';
+        this.searchForm.get('returnLocation')?.updateValueAndValidity();
+      }
+    });
+
     // Subscribe to pickup date changes
     this.searchForm.get('pickupDate')?.valueChanges.subscribe(value => {
       if (value) {
         const pickupDate = new Date(value);
         const returnDate = new Date(this.searchForm.get('returnDate')?.value);
-        
+
         if (returnDate < pickupDate) {
           this.searchForm.patchValue({
             returnDate: value

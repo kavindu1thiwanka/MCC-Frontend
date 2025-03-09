@@ -134,14 +134,19 @@ export class CarSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchParams = params;
+      this.searchParams = {
+        pickup: params['pickup'],
+        return: params['return'] || '',
+        pickupDate: params['pickupDate'],
+        returnDate: params['returnDate'],
+        category: params['category'] || 'car'
+      };
+      this.filterDto.category = this.searchParams.category;
+      this.filterDto.pickUpDate = this.searchParams.pickupDate;
+      this.filterDto.returnDate = this.searchParams.returnDate;
+
+      this.getCarList();
     });
-
-    this.filterDto.category = this.searchParams.category || '';
-    this.filterDto.pickUpDate = this.searchParams.pickupDate;
-    this.filterDto.returnDate = this.searchParams.returnDate;
-
-    this.getCarList();
   }
 
   // Helper function to apply selected filter
@@ -213,5 +218,21 @@ export class CarSelectionComponent implements OnInit {
 
   handleVehicleDetailsModalClose($event: void) {
     this.showVehicleModal = false;
+  }
+
+  modifySearch(): void {
+    const queryParams = {
+      pickup: this.searchParams.pickup,
+      return: this.searchParams.return,
+      pickupDate: this.searchParams.pickupDate,
+      returnDate: this.searchParams.returnDate,
+      category: this.searchParams.category,
+      edit: true // This flag will tell the search box to expand
+    };
+    
+    this.router.navigate(['/'], { 
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 }
