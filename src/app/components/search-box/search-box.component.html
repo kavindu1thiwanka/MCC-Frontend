@@ -161,11 +161,49 @@
       </form>
     </div>
 
-    <div class="d-flex justify-content-end align-items-end m-0 pt-2">
+    <!-- Collapsed Summary -->
+    <div *ngIf="isCollapsed" class="search-summary d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <!-- Vehicle Type -->
+        <div class="summary-item">
+          <i class="fa" [ngClass]="{
+            'fa-motorcycle': selectedVehicleType === 'motorcycle',
+            'fa-car': selectedVehicleType === 'car',
+            'fa-van-shuttle': selectedVehicleType === 'van-shuttle',
+            'fa-truck': selectedVehicleType === 'truck'
+          }"></i>
+          <span class="ms-2">{{selectedVehicleType | titlecase}}</span>
+        </div>
+
+        <!-- Location -->
+        <div class="summary-item" *ngIf="searchForm.get('pickupLocation')?.value">
+          <i class="fa fa-map-marker"></i>
+          <span class="ms-2">{{searchForm.get('pickupLocation')?.value}}</span>
+        </div>
+
+        <!-- Dates -->
+        <div class="summary-item" *ngIf="searchForm.get('pickupDate')?.value">
+          <i class="fa fa-calendar"></i>
+          <span class="ms-2">
+            {{searchForm.get('pickupDate')?.value | date:'MMM d'}} - 
+            {{searchForm.get('returnDate')?.value | date:'MMM d'}}
+          </span>
+        </div>
+      </div>
+
+      <button class="btn d-flex align-items-center gap-2" type="button"
+              (click)="isCollapsed = !isCollapsed">
+        <i class="fa fa-edit"></i>
+        Edit Search
+      </button>
+    </div>
+
+    <!-- Expand/Collapse Toggle -->
+    <div *ngIf="!isCollapsed" class="d-flex justify-content-end align-items-end m-0 pt-2">
       <button class="btn d-flex flex-row justify-content-center align-items-center gap-2" type="button"
               (click)="isCollapsed = !isCollapsed">
-        <i class="{{isCollapsed ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up'}}" aria-hidden="true"></i>
-        {{ isCollapsed ? 'Expand to Edit' : 'Collapse' }}
+        <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        Collapse
       </button>
     </div>
   </div>
