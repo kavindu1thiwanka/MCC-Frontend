@@ -6,7 +6,6 @@ $background-color: rgba(255, 255, 255, 0.15);
 $input-border: rgba(255, 255, 255, 0.3);
 $input-radius: 10px;
 $shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-$backdrop-filter: blur(16px);
 
 /* Main Container */
 .report-generation {
@@ -28,18 +27,24 @@ $backdrop-filter: blur(16px);
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 
   .inline-field {
     flex: 1;
-    min-width: 150px;
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 1rem;
   }
 }
 
 /* Report Display Section */
 .report-display {
   flex-grow: 1;
-  min-height: 300px;
+  min-height: 400px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 20px;
@@ -52,12 +57,12 @@ $backdrop-filter: blur(16px);
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
-    height: 600px;
+    min-height: 400px;
   }
 
   .no-data {
     font-size: 1rem;
-    color: $input-border;
+    color: rgba(255, 255, 255, 0.6);
     text-align: center;
     padding: 20px;
   }
@@ -82,6 +87,7 @@ button {
   &:disabled {
     background: rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
   }
 
   &:active {
@@ -99,7 +105,6 @@ button {
 
   &:disabled {
     background: rgba($accent-color, 0.3);
-    color: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -114,7 +119,6 @@ button {
 
   &:disabled {
     background: rgba($error-color, 0.3);
-    color: rgba(255, 255, 255, 0.5);
   }
 }
 
