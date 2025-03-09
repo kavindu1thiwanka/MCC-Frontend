@@ -205,7 +205,7 @@ export class CarSelectionComponent implements OnInit {
       sortBy: '',
       category: this.searchParams.category || '',
       filters: [],
-      pickUpDate: this.searchParams.pickUpDate,
+      pickUpDate: this.searchParams.pickupDate,
       returnDate: this.searchParams.returnDate
     };
     this.getCarList();
@@ -229,8 +229,8 @@ export class CarSelectionComponent implements OnInit {
       category: this.searchParams.category,
       edit: true // This flag will tell the search box to expand
     };
-    
-    this.router.navigate(['/'], { 
+
+    this.router.navigate(['/'], {
       queryParams,
       queryParamsHandling: 'merge'
     });
