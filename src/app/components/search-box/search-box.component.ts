@@ -73,9 +73,11 @@ export class SearchBoxComponent implements OnInit {
 
   // Location Search Input Event Handlers
   onPickupLocationChange(event: any): void {
-
     const input = event.target as HTMLInputElement;
     const query = input.value;
+
+    // Clear return suggestions when pickup dropdown is active
+    this.returnSuggestions = [];
 
     if (query) {
       this.locationService.getLocationSuggestions(query).subscribe(
@@ -94,6 +96,9 @@ export class SearchBoxComponent implements OnInit {
   onReturnLocationChange(event: any): void {
     const input = event.target as HTMLInputElement;
     const query = input.value;
+
+    // Clear pickup suggestions when return dropdown is active
+    this.pickupSuggestions = [];
 
     if (query) {
       this.locationService.getLocationSuggestions(query).subscribe(

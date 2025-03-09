@@ -2,6 +2,25 @@
   padding: 1rem 9rem;
   margin-top: 2rem;
   z-index: 1000;
+
+  .form-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .input-group {
+    .input-group-text {
+      i {
+        font-size: 1rem;
+      }
+    }
+
+    input {
+      font-size: 0.95rem;
+    }
+  }
 }
 
 .card {
@@ -13,14 +32,14 @@
   color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 
   &:hover {
     color: var(--primary-color);
   }
 
   i {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 
     &.fa-times {
       color: #ff5454;
@@ -34,14 +53,14 @@
 
 .dropdown-suggestions {
   position: absolute;
-  background-color: var(--text-light);
+  background-color: #ffffff;
   max-height: 300px;
   min-width: 25%;
   overflow-y: auto;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   margin-top: 5px;
-  z-index: 999;
+  z-index: 1011;
   box-shadow: var(--shadow-md);
   display: none;
 
@@ -53,6 +72,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    background-color: #ffffff;
   }
 
   li {
@@ -63,10 +83,12 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    background-color: #ffffff;
+    font-size: 0.9rem;
 
     i {
       color: var(--secondary-color);
-      font-size: 1rem;
+      font-size: 0.9rem;
       width: 16px;
       text-align: center;
 
@@ -87,6 +109,8 @@
       color: var(--primary-color);
       font-weight: 500;
       border-bottom: 1px solid #e0e0e0;
+      background-color: #ffffff;
+      z-index: 1010;
 
       i {
         color: var(--primary-color);
