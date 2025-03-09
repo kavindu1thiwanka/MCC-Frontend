@@ -19,7 +19,7 @@
 
           <div class="reservation-actions">
             <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : reservation.status === 'C' ? 'Completed' : 'Cancelled' }}</p>
-            <button class="edit-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="editReservation(reservation)">Edit</button>
+<!--            <button class="edit-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="editReservation(reservation)">Edit</button>-->
             <button class="cancel-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="cancelReservation(reservation.id)">Cancel</button>
             <button class="started-btn" *ngIf="reservation.status === 'A' && reservation.onTrip">Trip Started</button>
           </div>

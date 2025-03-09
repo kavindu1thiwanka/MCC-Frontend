@@ -133,3 +133,11 @@ table.modern-table {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
+
+mat-option  {
+  color: white !important; /* Text color */
+}
+
+mat-option:hover {
+  background-color: #16a085 !important; /* Hover effect */
+}
