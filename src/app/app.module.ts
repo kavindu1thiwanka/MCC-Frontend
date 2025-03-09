@@ -59,6 +59,7 @@ import {ChartModule} from 'primeng/chart';
 import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { ManageBookingModalComponent } from './components/manage-booking-modal/manage-booking-modal.component';
+import { ReportSectionComponent } from './components/report-section/report-section.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ManageBookingModalComponent } from './components/manage-booking-modal/m
     AdminDashboardComponent,
     StatusIndicatorComponent,
     AddVehicleComponent,
-    ManageBookingModalComponent
+    ManageBookingModalComponent,
+    ReportSectionComponent
   ],
   imports: [
     BrowserModule,

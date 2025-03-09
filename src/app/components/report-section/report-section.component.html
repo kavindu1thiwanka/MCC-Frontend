@@ -1,0 +1,60 @@
+<div class="report-generation">
+  <form (ngSubmit)="generateReport()" class="inline-form">
+    <!-- Report Type -->
+    <mat-form-field appearance="fill" class="inline-field">
+      <mat-label>Select Report Type</mat-label>
+      <mat-select [(ngModel)]="selectedReportType" name="reportType" required>
+        <mat-option value="reservations">Reservations Report</mat-option>
+        <mat-option value="revenue">Revenue Report</mat-option>
+        <mat-option value="customer">Customer Report</mat-option>
+        <mat-option value="vehicleUtilization">Vehicle Utilization Report</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Start Date -->
+    <mat-form-field appearance="fill" class="inline-field">
+      <mat-label>Start Date</mat-label>
+      <input matInput type="date" [(ngModel)]="startDate" name="startDate">
+    </mat-form-field>
+
+    <!-- End Date -->
+    <mat-form-field appearance="fill" class="inline-field">
+      <mat-label>End Date</mat-label>
+      <input matInput type="date" [(ngModel)]="endDate" name="endDate">
+    </mat-form-field>
+
+    <!-- File Format -->
+    <mat-form-field appearance="fill" class="inline-field">
+      <mat-label>Select File Format</mat-label>
+      <mat-select [(ngModel)]="selectedFileFormat" name="fileFormat" required>
+        <mat-option value="pdf">PDF</mat-option>
+        <mat-option value="excel">Excel</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Generate Button -->
+    <div class="button-container">
+      <button mat-raised-button color="primary" [disabled]="!isFormValid()">Generate Report</button>
+    </div>
+  </form>
+
+  <!-- Display Report -->
+  <div class="report-display">
+    <div *ngIf="!reportData">
+      <p>No data to show</p>
+    </div>
+    <div *ngIf="reportData && selectedFileFormat === 'pdf'">
+      <!-- PDF Display (using iframe) -->
+      <iframe [src]="reportUrl" width="100%" height="100%"></iframe>
+    </div>
+    <div *ngIf="reportData && selectedFileFormat === 'excel'">
+      <!-- Excel Display (Placeholder, requires viewer integration) -->
+      <iframe [src]="reportUrl" width="100%" height="100%"></iframe>
+    </div>
+
+    <!-- Download Button -->
+    <button mat-raised-button color="accent" (click)="downloadReport()" [disabled]="!reportData">
+      Download Report
+    </button>
+  </div>
+</div>
