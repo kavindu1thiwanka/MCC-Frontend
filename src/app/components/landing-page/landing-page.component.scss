@@ -7,6 +7,8 @@
   --text-color: #333;
   --light-gray: #f8f9fa;
   --transition: all 0.3s ease;
+  --text-light: #fff;
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .landing-page-wrapper {
@@ -136,14 +138,15 @@
   .step-number {
     width: 40px;
     height: 40px;
-    background: var(--primary-color);
-    color: white;
+    background: var(--secondary-color);
+    color: var(--text-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   }
 
   h4 {
@@ -202,8 +205,9 @@
 // CTA Section
 .cta-section {
   background: linear-gradient(45deg, var(--primary-color), #cc4c00);
-  color: white;
+  color: var(--text-light);
   width: 100%;
+  padding: 4rem 0;
 
   .cta-content {
     max-width: 600px;
@@ -218,17 +222,23 @@
     h2 {
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
+      color: var(--text-light);
+      font-weight: 600;
     }
 
     .btn {
-      background: white;
+      background: var(--text-light);
       color: var(--primary-color);
       border: none;
       font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 5px;
+      transition: var(--transition);
 
       &:hover {
         background: var(--light-gray);
         transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
       }
     }
   }
