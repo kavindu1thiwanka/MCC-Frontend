@@ -150,3 +150,27 @@ input.mat-input-element {
     box-shadow: 0 0 8px rgba($accent-color, 0.5);
   }
 }
+
+.xlsx-report-summary {
+  text-align: center;
+  padding: 20px;
+}
+
+.download-btn {
+  background-color: #1abc9c;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #16a085;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

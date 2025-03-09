@@ -16,6 +16,7 @@ export class ReportSectionComponent {
   reportData: any = null;
   reportName = '';
   reportUrl: SafeResourceUrl = '';
+  excelReportGenerated = false;
 
   constructor(private reportService: ReportService, private sanitizer: DomSanitizer) {}
 
@@ -25,6 +26,7 @@ export class ReportSectionComponent {
 
   generateReport(): void {
     this.reportData = null;
+    this.excelReportGenerated = false;
 
     const requestData = {
       reportType: this.selectedReportType,
@@ -49,9 +51,14 @@ export class ReportSectionComponent {
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
 
-        const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
-        this.reportUrl = sanitizedUrl;
-        this.reportData = file;
+        if (this.selectedFileFormat === 'pdf') {
+          const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+          this.reportUrl = sanitizedUrl;
+          this.reportData = file;
+        } else if (this.selectedFileFormat === 'xlsx') {
+          this.reportData = file;
+          this.excelReportGenerated = true;
+        }
         this.reportName = response.body.fileName;
       }
     }).catch(e => {
@@ -59,14 +66,14 @@ export class ReportSectionComponent {
     });
   }
 
-  // Download report
-  downloadReport(): void {
-    if (!this.reportData) return;
-
+  downloadReport(fileName: string, downloadUrl?: string ): void {
     const a = document.createElement('a');
-    a.href = this.reportUrl as string; // Cast SafeResourceUrl to string here
-    a.download = this.reportName;
+    if (!downloadUrl) {
+      downloadUrl = URL.createObjectURL(this.reportData);
+    }
+    a.href = downloadUrl;
+    a.download = fileName;
     a.click();
-    URL.revokeObjectURL(this.reportUrl as string);
+    URL.revokeObjectURL(downloadUrl);
   }
 }

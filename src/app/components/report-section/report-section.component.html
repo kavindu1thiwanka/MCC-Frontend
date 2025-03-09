@@ -26,7 +26,7 @@
     <!-- File Format -->
     <mat-form-field appearance="fill" class="inline-field">
       <mat-label>Select File Format</mat-label>
-      <mat-select [(ngModel)]="selectedFileFormat" name="fileFormat" required>
+      <mat-select [(ngModel)]="selectedFileFormat" name="fileFormat" required (ngModelChange)="reportData = null">
         <mat-option value="pdf">PDF</mat-option>
         <mat-option value="xlsx">Excel</mat-option>
       </mat-select>
@@ -39,13 +39,27 @@
   </form>
 
   <!-- Display Report -->
-  <div class="report-display w-100 h-auto">
-    <div *ngIf="reportData">
+  <div class="report-display">
+    <div *ngIf="reportData && selectedFileFormat === 'pdf' && !excelReportGenerated">
+      <!-- PDF Display (using iframe) -->
       <iframe [src]="reportUrl" class="w-100 h-100"></iframe>
+    </div>
+
+    <div *ngIf="reportData && selectedFileFormat === 'xlsx' && excelReportGenerated">
+      <!-- Display Excel specific content (e.g., confirmation, download link) -->
+      <div class="xlsx-report-summary">
+        <p>Your Excel report has been generated successfully.</p>
+        <p><strong>File Name:</strong> {{ reportName }}</p>
+        <button class="download-btn" (click)="downloadReport(reportName)">
+          Download Excel Report
+        </button>
+      </div>
     </div>
 
     <div *ngIf="!reportData" class="no-data">
       No data to show
     </div>
   </div>
+
+
 </div>
