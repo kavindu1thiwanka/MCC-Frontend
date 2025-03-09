@@ -21,6 +21,26 @@
       font-size: 0.95rem;
     }
   }
+
+  .show-vehicle-btn{
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    background-color: #FF5F00;
+    border: none;
+    color: #ffffff;
+    transition: var(--transition);
+    
+    &:hover {
+      background-color: darken(#FF5F00, 5%);
+      color: #ffffff;
+    }
+
+    &:active {
+      background-color: darken(#FF5F00, 10%);
+      color: #ffffff;
+    }
+  }
 }
 
 .card {
