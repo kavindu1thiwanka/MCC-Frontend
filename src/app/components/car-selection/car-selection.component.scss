@@ -249,12 +249,15 @@
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     .select-btn {
-      background: var(--secondary-color);
+      background: #2C3E50;
       color: white;
+
+      i {
+        transform: translateX(3px);
+      }
     }
   }
 
@@ -322,21 +325,38 @@
 
     .select-btn {
       width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--secondary-color);
+      height: 44px;
+      padding: 0 1.25rem;
+      border: 1px solid #2C3E50;
       background: transparent;
-      color: var(--secondary-color);
+      color: #2C3E50;
       border-radius: 0.5rem;
       font-weight: 500;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
 
+      i {
+        font-size: 0.9rem;
+        transition: transform 0.3s ease;
+      }
+
       &:hover {
-        background: var(--secondary-color);
+        background: #2C3E50;
         color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(44, 62, 80, 0.2);
+
+        i {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }
