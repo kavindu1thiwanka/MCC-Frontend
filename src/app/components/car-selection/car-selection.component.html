@@ -62,39 +62,38 @@
     <div class="container">
       <!-- Filter Section -->
       <div class="filter-section">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex align-items-center gap-2">
-            <h4 class="mb-0">Available Vehicles</h4>
+        <div class="container">
+          <div class="filter-header">
+            <h4>Available Vehicles</h4>
             <span class="vehicle-count">{{ carList.length }} vehicles found</span>
+            <button *ngIf="(filterDto.filters && filterDto.filters.length > 0) || (filterDto.sortBy && filterDto.sortBy != '')"
+                    class="clear-filters"
+                    type="button"
+                    (click)="clearFilter()"
+                    aria-label="Clear all filters">
+              <i class="fa fa-times-circle" aria-hidden="true"></i>
+              Clear Filters
+            </button>
           </div>
-          <button *ngIf="(filterDto.filters && filterDto.filters.length > 0) || (filterDto.sortBy && filterDto.sortBy != '')"
-                  class="clear-filters"
-                  type="button"
-                  (click)="clearFilter()"
-                  aria-label="Clear all filters">
-            <i class="fa fa-times-circle" aria-hidden="true"></i>
-            Clear Filters
-          </button>
-        </div>
 
-        <div class="filter-buttons">
-          <div *ngFor="let btn of filterButtonList">
-            <div *ngIf="btn.category?.includes(filterDto.category)"
-                 class="filter-dropdown">
-              <button class="filter-btn" type="button" data-bs-toggle="dropdown"
-                      [ngClass]="{'active': isDropdownItemSelected(btn.name)}">
-                {{ btn.name }}
-                <i class="fa fa-chevron-down ms-2"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li *ngFor="let data of btn.dropdownItems"
-                    class="dropdown-item"
-                    [ngClass]="{'active': isFilterSelected(btn.name, data)}"
-                    (click)="applyFilter(btn.name, data)">
-                  {{ data.name }}
-                </li>
-              </ul>
-            </div>
+          <div class="filter-buttons">
+            <ng-container *ngFor="let btn of filterButtonList">
+              <div class="filter-dropdown" *ngIf="btn.category?.includes(filterDto.category)">
+                <button class="filter-btn" type="button" data-bs-toggle="dropdown"
+                        [ngClass]="{'active': isDropdownItemSelected(btn.name)}">
+                  {{ btn.name }}
+                  <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let data of btn.dropdownItems"
+                      class="dropdown-item"
+                      [ngClass]="{'active': isFilterSelected(btn.name, data)}"
+                      (click)="applyFilter(btn.name, data)">
+                    {{ data.name }}
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
