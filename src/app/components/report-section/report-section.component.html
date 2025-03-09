@@ -34,27 +34,34 @@
 
     <!-- Generate Button -->
     <div class="button-container">
-      <button mat-raised-button color="primary" [disabled]="!isFormValid()">Generate Report</button>
+      <button class="save-btn" [disabled]="!isFormValid()">Generate Report</button>
     </div>
   </form>
 
   <!-- Display Report -->
-  <div class="report-display">
-    <div *ngIf="!reportData">
-      <p>No data to show</p>
-    </div>
+  <div class="report-display" style="height: calc(100vh - 250px);">
     <div *ngIf="reportData && selectedFileFormat === 'pdf'">
       <!-- PDF Display (using iframe) -->
-      <iframe [src]="reportUrl" width="100%" height="100%"></iframe>
+      <iframe [src]="reportUrl" width="100%" height="600px"></iframe>
     </div>
     <div *ngIf="reportData && selectedFileFormat === 'excel'">
       <!-- Excel Display (Placeholder, requires viewer integration) -->
-      <iframe [src]="reportUrl" width="100%" height="100%"></iframe>
+      <iframe [src]="reportUrl" width="100%" height="600px"></iframe>
+    </div>
+
+    <div *ngIf="!reportData" class="no-data">
+      No data to show
     </div>
 
     <!-- Download Button -->
-    <button mat-raised-button color="accent" (click)="downloadReport()" [disabled]="!reportData">
-      Download Report
-    </button>
+    <div *ngIf="reportData" class="modal-footer">
+      <button
+        type="button"
+        class="save-btn"
+        [disabled]="!reportData"
+        (click)="downloadReport()">
+        Download Report
+      </button>
+    </div>
   </div>
 </div>
