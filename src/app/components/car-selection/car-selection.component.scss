@@ -21,16 +21,17 @@
   padding: 2rem 0;
   flex-shrink: 0;
   width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   .search-summary-card {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 1rem;
     padding: 1.5rem;
     color: black;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 
     .d-flex {
       flex-wrap: wrap;
@@ -316,15 +317,15 @@
   background: white;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 2px solid rgba(44, 62, 80, 0.1);
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(44, 62, 80, 0.12);
+    box-shadow: 0 8px 16px rgba(44, 62, 80, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
-    border-color: rgba(44, 62, 80, 0.1);
+    border-color: rgba(44, 62, 80, 0.25);
 
     .image-container img {
       transform: scale(1.03);
