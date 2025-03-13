@@ -1,0 +1,189 @@
+$primary-color: #2c3e50;
+$accent-color: #1abc9c;
+$error-color: #e74c3c;
+$background-color: rgba(255, 255, 255, 0.15);
+$input-border: rgba(255, 255, 255, 0.3);
+$input-radius: 10px;
+$shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+$backdrop-filter: blur(16px);
+$text-color: #ecf0f1;
+$card-bg: rgba(255, 255, 255, 0.1);
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e2a38, #34495e);
+  color: $text-color;
+  overflow: hidden;
+
+  .sidenav {
+    width: 250px;
+    background: $primary-color;
+    padding: 5rem 1rem;
+    box-shadow: $shadow;
+
+    mat-list-item {
+      color: $text-color;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      cursor: pointer;
+
+      ::ng-deep span {
+        span {
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+
+      &:hover {
+        background: lighten($primary-color, 10%);
+        color: #fff;
+      }
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .active {
+    background: lighten($primary-color, 10%);
+    color: #fff;
+  }
+
+  .dashboard-wrapper {
+    flex: 1;
+    padding: 5.3rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: $background-color;
+      padding: 15px;
+      border-radius: $input-radius;
+      box-shadow: $shadow;
+      backdrop-filter: $backdrop-filter;
+    }
+
+    .detail-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding-right: 5px;
+      width: 100%;
+      height: 100%;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+
+        .stat-card {
+          background: $card-bg;
+          padding: 20px;
+          border-radius: $input-radius;
+          box-shadow: $shadow;
+          backdrop-filter: $backdrop-filter;
+          text-align: center;
+          transition: transform 0.3s ease, background 0.3s ease;
+
+          h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: lighten($text-color, 10%);
+          }
+
+          p {
+            font-size: 28px;
+            font-weight: bold;
+            color: $accent-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.chart-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-top: 20px;
+
+  .chart {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ::ng-deep canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+
+  .line-chart {
+    flex: 2;
+    height: 100%;
+  }
+
+  .pie-chart {
+    flex: 1;
+    height: 100%;
+
+    ::ng-deep .p-chart {
+      .p-chart-legend {
+        .p-legend-text {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+
+  .active {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 0.05rem;
+  padding-right: 0.5rem;
+
+  .nav-item button {
+    color: $text-color;
+    border-bottom: none;
+  }
+}

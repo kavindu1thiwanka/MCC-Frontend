@@ -1,0 +1,27 @@
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 14px;
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  &.active {
+    color: #2ecc71;
+    .dot {
+      background-color: #2ecc71;
+    }
+  }
+
+  &.inactive {
+    color: #e74c3c;
+    .dot {
+      background-color: #e74c3c;
+    }
+  }
+}

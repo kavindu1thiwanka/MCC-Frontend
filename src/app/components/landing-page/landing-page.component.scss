@@ -1,69 +1,353 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-.landing-container {
-  position: relative;
-  min-height: 100vh;
+:root {
+  --primary-color: #FF5F00;
+  --secondary-color: #2C3E50;
+  --text-color: #333;
+  --light-gray: #f8f9fa;
+  --transition: all 0.3s ease;
+  --text-light: #fff;
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.landing-page-wrapper {
   width: 100vw;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+}
 
-  .landing-page {
-    padding: 24px;
-    background-color: #f5f5f5;
-    min-height: calc(100vh - 64px); 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+// Hero Section
+.hero-section {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('/assets/images/Car c1.jpg') center/cover no-repeat fixed;
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
 
-    app-vehicle-search-form {
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 32px;
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+  }
+
+  .hero-content {
+    width: 100%;
+    padding-top: 120px;
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .btn {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px 30px;
+      transition: var(--transition);
+
+      &:hover {
+        transform: translateY(-2px);
+      }
     }
   }
 
-  .main-content {
-    flex: 1;
-    padding: 24px;
+  .floating-car-image {
+    background: url('/assets/images/car-hero.png') center/contain no-repeat;
+    width: 100%;
+    height: 400px;
+    animation: float 6s ease-in-out infinite;
+  }
+}
 
-    .hero-section {
-      height: 95vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url('/assets/images/Car c1.jpg');
-      background-size: cover;
-      background-position: center;
+// Features Section
+.features-section {
+  padding: 80px 0;
+  width: 100%;
+
+  .feature-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: var(--transition);
+
+    &:hover {
+      transform: translateY(-10px);
+    }
+
+    .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--light-gray);
+      border-radius: 50%;
       display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-      .hero-content {
-        color: #1A1A1AFF;
-        width: 100vw;
-        background: #FF5F00FF;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 1.5rem 0;
-
-        h1 {
-          font-size: 4.5rem;
-          font-weight: 900;
-          font-style: normal;
-          line-height: 1;
-        }
-
-        p {
-          font-size: 1.1rem;
-          opacity: 0.9;
-        }
+      i {
+        font-size: 2rem;
+        color: var(--primary-color);
       }
     }
+
+    h4 {
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// How It Works Section
+.step-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--secondary-color);
+    color: var(--text-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+  h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 0;
+    flex-grow: 1;
+  }
+}
+
+// Testimonials Section
+.testimonial-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+
+  .testimonial-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-color);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .testimonial-content {
+    .testimonial-text {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-name {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-rating {
+      color: #ffc107;
+    }
+  }
+}
+
+// CTA Section
+.cta-section {
+  background: linear-gradient(45deg, var(--primary-color), #cc4c00);
+  color: var(--text-light);
+  width: 100%;
+  padding: 4rem 0;
+
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .btn {
+      background: var(--text-light);
+      color: var(--primary-color);
+      border: none;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 5px;
+      transition: var(--transition);
+
+      &:hover {
+        background: var(--light-gray);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+  }
+}
+
+// Footer
+.footer {
+  background: var(--secondary-color);
+  width: 100%;
+
+  .footer-title {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .footer-text {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+
+      &:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  .footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .footer-bottom {
+    color: rgba(255,255,255,0.5);
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+// Responsive Styles
+@media (max-width: 991.98px) {
+  .hero-section {
+    .hero-content {
+      padding-top: 80px;
+      text-align: center;
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .feature-card, .step-card, .testimonial-card {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    .hero-content {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .car-specs {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

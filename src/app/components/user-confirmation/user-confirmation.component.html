@@ -1,0 +1,24 @@
+<div class="confirmation-container">
+  <div *ngIf="loading" class="status-card loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && confirmed && !alreadyVerified" class="status-card success">
+    <i class="fa fa-check-circle" aria-hidden="true"></i>
+    <h2>Registration Complete</h2>
+    <p>Your account has been successfully verified. You will receive an email with your login details shortly.</p>
+  </div>
+
+  <div *ngIf="!loading && !confirmed && !alreadyVerified" class="status-card error">
+    <i class="fa fa-times-circle" aria-hidden="true"></i>
+    <h2>Registration Failed</h2>
+    <p>Something went wrong. Please try again later.</p>
+  </div>
+
+  <div *ngIf="!loading && !confirmed && alreadyVerified" class="status-card warning">
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    <h2>Email Already Confirmed</h2>
+    <p>Your email has already been verified. You can now log in to your account.</p>
+  </div>
+</div>

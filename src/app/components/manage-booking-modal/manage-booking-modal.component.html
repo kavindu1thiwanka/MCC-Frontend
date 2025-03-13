@@ -1,0 +1,122 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h2>Manage Booking</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Enter Reservation ID"
+        [(ngModel)]="reservationId"
+      />
+      <button class="search-btn" (click)="searchReservation()">Search</button>
+    </div>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <!-- Booking Form -->
+    <form *ngIf="bookingForm.get('id')?.value !== ''" class="booking-form" [formGroup]="bookingForm">
+      <div class="form-header">
+        <h3>Booking Details</h3>
+        <section class="d-flex flex-row gap-3 align-items-center">
+          <app-status-indicator [status]="bookingStatus"></app-status-indicator>
+          <section *ngIf="bookingStatus === 'A'">
+            <button type="button" class="edit-btn" (click)="toggleEditMode()">
+              <i class="fa" [ngClass]="isEditable ? 'fa-check' : 'fa-pencil'"></i>
+            </button>
+            <button *ngIf="!onTrip" type="button" class="ban-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Cancel Booking" (click)="cancelBooking()">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="!onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Mark ride as On Trip" (click)="changeOnTripStatus()">
+              <i class="fa fa-road" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="onTrip" type="button" class="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Mark ride as Completed" (click)="completeBooking()">
+              <i class="fa fa-check-circle" aria-hidden="true"></i>
+            </button>
+          </section>
+        </section>
+      </div>
+
+      <!-- Customer Name -->
+      <div class="form-group">
+        <label for="customerName">Customer Name</label>
+        <div class="input-container">
+          <input id="customerName" type="text" [disabled]="true"
+                 value="{{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}"/>
+          <i class="fa fa-info-circle input-icon" (click)="toggleCustomerDetails()" data-bs-toggle="tooltip"
+             data-bs-placement="top" title="Click to view customer details"></i>
+          <div *ngIf="showCustomerDetails" class="user-details-tooltip">
+            <section>
+              <p><strong>Name:</strong> {{ customerDetails?.firstName + ' ' + customerDetails?.lastName }}</p>
+              <p><strong>Contact:</strong> {{ customerDetails?.contactNumber }}</p>
+              <p><strong>Email:</strong> {{ customerDetails?.email }}</p>
+              <p><strong>Username:</strong> {{ customerDetails?.username }}</p>
+            </section>
+            <button class="close-btn fs-5 p-0" style="margin-left: 1.2rem;" (click)="closeTooltips()">×</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Driver Name -->
+      <div *ngIf="driverDetails.needDriver" class="form-group">
+        <label for="driverName">Driver Name</label>
+        <div class="input-container">
+          <input id="driverName" type="text" [disabled]="true"
+                 value="{{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}"/>
+          <i class="fa fa-info-circle input-icon" (click)="toggleDriverDetails()" data-bs-toggle="tooltip"
+             data-bs-placement="top" title="Click to view driver details"></i>
+          <div *ngIf="showDriverDetails" class="user-details-tooltip">
+            <section>
+              <p><strong>Name:</strong> {{ driverDetails?.firstName + ' ' + driverDetails?.lastName }}</p>
+              <p><strong>Contact:</strong> {{ driverDetails?.contactNumber }}</p>
+              <p><strong>Email:</strong> {{ driverDetails?.email }}</p>
+              <p><strong>Username:</strong> {{ driverDetails?.username }}</p>
+            </section>
+            <button class="close-btn fs-5 p-0" style="margin-left: 1.2rem;" (click)="closeTooltips()">×</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle No -->
+      <div class="form-group">
+        <label for="vehicleNo">Vehicle Number</label>
+        <input id="vehicleNo" type="text" formControlName="vehicleNo"/>
+      </div>
+
+      <!-- Pickup Location -->
+      <div class="form-group">
+        <label for="pickUpLocation">Pickup Location</label>
+        <input id="pickUpLocation" type="text" formControlName="pickUpLocation"/>
+      </div>
+
+      <!-- Drop-off Location -->
+      <div class="form-group">
+        <label for="returnLocation">Drop-off Location</label>
+        <input id="returnLocation" type="text" formControlName="returnLocation"/>
+      </div>
+
+      <!-- Date & Time -->
+      <div class="form-group">
+        <label for="pickUpDate">Date & Time</label>
+        <input id="pickUpDate" type="datetime-local" formControlName="pickUpDate"/>
+      </div>
+
+      <div class="form-group">
+        <label for="returnDate">Date & Time</label>
+        <input id="returnDate" type="datetime-local" formControlName="returnDate" aria-disabled="true"/>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="submit" class="save-btn" [disabled]="!isEditable">Save Changes</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

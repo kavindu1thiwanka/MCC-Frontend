@@ -1,0 +1,30 @@
+<div class="address-modal" *ngIf="display">
+  <div class="modal-overlay" (click)="closeModal()"></div>
+
+  <div class="modal-container glass-effect">
+    <div class="modal-header">
+      <h2 class="modal-title">Update Address</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-group" *ngFor="let field of fields">
+          <label [for]="field.id">{{ field.label }}</label>
+          <input
+            [id]="field.id"
+            type="text"
+            class="form-input"
+            [formControlName]="field.controlName"
+            [required]="field.required"
+            [placeholder]="field.placeholder" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">Update</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidenav">
+    <mat-list>
+      <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
+        <mat-icon>directions_car</mat-icon>
+        Ride History
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('earnings')" [ngClass]="{ active: activeSection === 'earnings' }">
+        <mat-icon>attach_money</mat-icon>
+        Earnings
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <!-- Main Content -->
+  <div class="dashboard-wrapper">
+    <!-- Header -->
+    <div *ngIf="activeSection === 'dashboard'" class="header">
+      <h2>Welcome, {{ driverName }}</h2>
+      <button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="toggleStatus()">
+        {{ isOnline ? 'Go Offline' : 'Go Online' }}
+      </button>
+    </div>
+
+    <section class="detail-section d-flex flex-column gap-3">
+      <!-- Dashboard Content -->
+      <div *ngIf="activeSection === 'dashboard'">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Daily Earnings</h3>
+            <p>${{ earnings.daily | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Weekly Earnings</h3>
+            <p>${{ earnings.weekly | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Monthly Earnings</h3>
+            <p>${{ earnings.monthly | number }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- Upcoming Rides Table in Dashboard -->
+      <div *ngIf="activeSection === 'dashboard'">
+        <div>
+          <h3>Upcoming Rides</h3>
+          <div class="table-container">
+            <table mat-table [dataSource]="upcomingRides" class="mat-elevation-z8 modern-table">
+
+              <ng-container matColumnDef="reservationId">
+                <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.id }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="pickup">
+                <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpLocation }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="dropoff">
+                <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.returnLocation }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="dateTime">
+                <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+                <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Rides Table -->
+      <div *ngIf="activeSection === 'rides'">
+        <h3>Ride History</h3>
+        <div class="table-container">
+          <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8 modern-table">
+
+            <ng-container matColumnDef="reservationId">
+              <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="pickup">
+              <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.pickUpLocation }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dropoff">
+              <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.returnLocation }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateTime">
+              <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+              <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let ride">
+                <app-status-indicator [status]="ride.status"></app-status-indicator>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Earnings -->
+      <div *ngIf="activeSection === 'earnings'">
+        <h3>Earnings Breakdown</h3>
+        <p>Daily: ${{ earnings.daily | number }}</p>
+        <p>Weekly: ${{ earnings.weekly | number }}</p>
+        <p>Monthly: ${{ earnings.monthly | number }}</p>
+      </div>
+    </section>
+  </div>
+</div>

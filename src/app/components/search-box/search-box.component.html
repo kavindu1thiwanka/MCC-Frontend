@@ -1,0 +1,228 @@
+<div class="search-box">
+  <div class="container-fluid card shadow-lg p-4 rounded-4 gap-1">
+    <div id="demo" [ngClass]="{ 'collapse': isCollapsed }">
+
+<!--      &lt;!&ndash; Booking Type Tabs &ndash;&gt;-->
+<!--      <ul class="nav nav-tabs mb-4">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'ride', 'text-muted': bookingType !== 'ride' }"-->
+<!--             (click)="setBookingType('ride')">-->
+<!--            <i class="fa fa-taxi" aria-hidden="true"></i> Book a Ride-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" role="button" [ngClass]="{ 'active': bookingType === 'reserve', 'text-muted': bookingType !== 'reserve' }"-->
+<!--             (click)="setBookingType('reserve')">-->
+<!--            <i class="fa fa-car" aria-hidden="true"></i> Reserve a Vehicle-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
+
+      <!-- Vehicle Type Selection -->
+      <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioM" autocomplete="off"
+               [checked]="selectedVehicleType === 'motorcycle'" (change)="setVehicleType('motorcycle')">
+        <label
+          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
+          for="btnRadioM">
+          <i class="fa fa-motorcycle" aria-hidden="true"></i>Motorcycle
+        </label>
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioC" autocomplete="off"
+               [checked]="selectedVehicleType === 'car'" (change)="setVehicleType('car')">
+        <label
+          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
+          for="btnRadioC">
+          <i class="fa fa-car" aria-hidden="true"></i>Car
+        </label>
+        <input type="radio" class="btn-check" name="tradition" id="btnRadioV" autocomplete="off"
+               [checked]="selectedVehicleType === 'van'" (change)="setVehicleType('van')">
+        <label
+          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
+          for="btnRadioV">
+          <i class="fa-solid fa-van-shuttle"></i>Van
+        </label>
+<!--        <input type="radio" class="btn-check" name="tradition" id="btnRadioT" autocomplete="off"-->
+<!--               [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">-->
+<!--        <label-->
+<!--          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"-->
+<!--          for="btnRadioT">-->
+<!--          <i class="fa fa-truck" aria-hidden="true"></i>Truck-->
+<!--        </label>-->
+      </div>
+
+      <!-- Search Form -->
+      <form [formGroup]="searchForm" class="row g-3 d-flex justify-content-center {{bookingType === 'ride' ? 'align-items-center' : ''}}"
+            (submit)="redirectToCarSelection(); $event.preventDefault()">
+
+        <!-- Pickup and Return Locations for Ride Booking -->
+<!--        <div *ngIf="bookingType === 'ride'" class="col-5">-->
+<!--          <label for="pickupLocationRide" class="form-label">Pickup Location</label>-->
+<!--          <div class="input-group input-group-lg">-->
+<!--            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
+<!--            <input type="text" id="pickupLocationRide" class="form-control form-control-lg"-->
+<!--                   placeholder="Enter location or select from map"-->
+<!--                   formControlName="pickupLocation" (input)="onPickupLocationChange($event)">-->
+<!--          </div>-->
+<!--          <button type="button" class="btn btn-link p-0" (click)="openMap('pickup')">-->
+<!--            <i class="fa fa-map" aria-hidden="true"></i> Select from map-->
+<!--          </button>-->
+<!--          <div *ngIf="pickupSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">-->
+<!--            <ul>-->
+<!--              <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">-->
+<!--                {{ suggestion.description }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div *ngIf="bookingType === 'ride'" class="col-5">-->
+<!--          <label for="returnLocationRide" class="form-label">Drop-off Location</label>-->
+<!--          <div class="input-group input-group-lg">-->
+<!--            <span class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
+<!--            <input type="text" id="returnLocationRide" class="form-control form-control-lg"-->
+<!--                   placeholder="Enter location or select from map"-->
+<!--                   formControlName="returnLocation" (input)="onReturnLocationChange($event)">-->
+<!--          </div>-->
+<!--          <button type="button" class="btn btn-link p-0" (click)="openMap('return')">-->
+<!--            <i class="fa fa-map" aria-hidden="true"></i> Select from map-->
+<!--          </button>-->
+<!--          <div *ngIf="returnSuggestions.length > 0" #locationSuggestionsDropdown class="dropdown-suggestions">-->
+<!--            <ul>-->
+<!--              <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">-->
+<!--                {{ suggestion.description }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <!-- Pickup Date & Time for Reserve -->
+        <div *ngIf="bookingType === 'reserve'" class="col-3">
+          <label for="pickupLocation" class="form-label">Pickup</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" id="pickupLocation" class="form-control form-control-lg"
+                   placeholder="Airport, city or address"
+                   formControlName="pickupLocation" (input)="onPickupLocationChange($event)">
+          </div>
+          <div class="dropdown-suggestions" [class.show]="pickupSuggestions.length > 0">
+            <ul>
+              <li *ngFor="let suggestion of pickupSuggestions" (click)="selectPickupSuggestion(suggestion)">
+                <i class="fa fa-map-marker"></i>
+                {{ suggestion.description }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Return Location Section -->
+        <div *ngIf="bookingType === 'reserve'" class="col-3">
+          <label for="returnLocation" class="form-label">Return</label>
+          <a *ngIf="!differentReturnLocation" (click)="toggleReturnLocation()"
+             class="d-flex mt-2 text-decoration-none return-location justify-content-start align-items-center gap-2">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Different return location
+          </a>
+          <div *ngIf="differentReturnLocation">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+              <input type="text" id="returnLocation" class="form-control form-control-lg"
+                     placeholder="Airport, city or address"
+                     formControlName="returnLocation" (input)="onReturnLocationChange($event)">
+            </div>
+            <div class="dropdown-suggestions" [class.show]="returnSuggestions.length > 0 || differentReturnLocation">
+              <ul>
+                <li class="return-same-location" (click)="toggleReturnLocation()">
+                  <i class="fa fa-rotate-left"></i>
+                  Return to same location
+                </li>
+                <li class="suggestions-divider" *ngIf="returnSuggestions.length > 0"></li>
+                <li *ngFor="let suggestion of returnSuggestions" (click)="selectReturnSuggestion(suggestion)">
+                  <i class="fa fa-map-marker"></i>
+                  {{ suggestion.description }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pickup Date & Time -->
+        <div *ngIf="bookingType === 'reserve'" class="col-2">
+          <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
+          <div class="input-group" id="pickupDateTimeGroup">
+            <input type="datetime-local" id="pickupDate"
+                   class="form-control form-control-lg"
+                   formControlName="pickupDate"
+                   [min]="minPickupDate"
+                   (change)="onPickupDateChange($event)">
+          </div>
+        </div>
+
+        <!-- Return Date & Time -->
+        <div *ngIf="bookingType === 'reserve'" class="col-2">
+          <label for="returnDateTimeGroup" class="form-label">Return date</label>
+          <div class="input-group" id="returnDateTimeGroup">
+            <input type="datetime-local" id="returnDate"
+                   class="form-control form-control-lg"
+                   formControlName="returnDate"
+                   [min]="minReturnDate"
+                   (change)="onReturnDateChange($event)">
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="col-2 w-100h-100 d-flex justify-content-center align-items-end">
+          <button type="button" class="btn btn-lg px-4 w-100 mx-1 rounded-3 show-vehicle-btn"
+                  (click)="redirectToCarSelection()">
+            {{ bookingType === 'reserve' ? 'Show Vehicles' : 'Book Now' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Collapsed Summary -->
+    <div *ngIf="isCollapsed" class="search-summary d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <!-- Vehicle Type -->
+        <div class="summary-item">
+          <i class="fa" [ngClass]="{
+            'fa-motorcycle': selectedVehicleType === 'motorcycle',
+            'fa-car': selectedVehicleType === 'car',
+            'fa-van-shuttle': selectedVehicleType === 'van',
+            'fa-truck': selectedVehicleType === 'truck'
+          }"></i>
+          <span class="ms-2">{{selectedVehicleType | titlecase}}</span>
+        </div>
+
+        <!-- Location -->
+        <div class="summary-item" *ngIf="searchForm.get('pickupLocation')?.value">
+          <i class="fa fa-map-marker"></i>
+          <span class="ms-2">{{searchForm.get('pickupLocation')?.value}}</span>
+        </div>
+
+        <!-- Dates -->
+        <div class="summary-item" *ngIf="searchForm.get('pickupDate')?.value">
+          <i class="fa fa-calendar"></i>
+          <span class="ms-2">
+            {{searchForm.get('pickupDate')?.value | date:'MMM d'}} -
+            {{searchForm.get('returnDate')?.value | date:'MMM d'}}
+          </span>
+        </div>
+      </div>
+
+      <button class="collapse-btn d-flex align-items-center gap-2" type="button"
+              (click)="isCollapsed = !isCollapsed">
+        <i class="fa fa-edit"></i>
+        Edit Search
+      </button>
+    </div>
+
+    <!-- Expand/Collapse Toggle -->
+    <div *ngIf="!isCollapsed" class="d-flex justify-content-end align-items-end m-0 pt-2">
+      <button class="collapse-btn d-flex flex-row justify-content-center align-items-center gap-2" type="button"
+              (click)="isCollapsed = !isCollapsed">
+        <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        Collapse
+      </button>
+    </div>
+  </div>
+</div>
