@@ -102,14 +102,14 @@
       <div class="vehicle-grid" *ngIf="carList && carList.length > 0">
         <div *ngFor="let car of carList" class="vehicle-card" (click)="openCarModal(car)">
           <div class="image-container">
-            <img [src]="car.vehicleImage" [alt]="car.name">
+            <img [src]="car.vehicleImage" [alt]="car.vehicleModel">
             <div class="price-tag">
               <span class="amount">LKR {{ car.pricePerDay }}</span>
               <span class="period">per day</span>
             </div>
           </div>
           <div class="vehicle-details">
-            <h5 class="vehicle-name">{{ car.name }}</h5>
+            <h5 class="vehicle-name">{{ car.vehicleModel  }}</h5>
             <div class="features">
               <span class="feature">
                 <i class="fa fa-car"></i>

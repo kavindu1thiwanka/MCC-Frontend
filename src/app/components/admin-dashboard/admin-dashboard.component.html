@@ -12,7 +12,7 @@
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('users')" [ngClass]="{ active: activeSection === 'users' }">
         <mat-icon>people</mat-icon>
-        Users
+        Customers
       </mat-list-item>
       <mat-list-item (click)="setActiveSection('drivers')" [ngClass]="{ active: activeSection === 'drivers' }">
         <mat-icon>local_taxi</mat-icon>
@@ -29,10 +29,6 @@
       <mat-list-item (click)="setActiveSection('reports')" [ngClass]="{ active: activeSection === 'reports' }">
         <mat-icon>assessment</mat-icon>
         Reports
-      </mat-list-item>
-      <mat-list-item (click)="setActiveSection('settings')" [ngClass]="{ active: activeSection === 'settings' }">
-        <mat-icon>settings</mat-icon>
-        Settings
       </mat-list-item>
     </mat-list>
   </div>
@@ -195,11 +191,11 @@
       <!-- Users Table -->
       <div *ngIf="activeSection === 'users'">
         <div class="d-flex flex-row justify-content-between align-items-center mb-3">
-          <h3>Manage Users</h3>
+          <h3>Manage Customers</h3>
           <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
                   color="warn" (click)="toggleUserUpdateModal(null, true)">
             <mat-icon>add</mat-icon>
-            Add User
+            Add Customer
           </button>
         </div>
         <div class="table-container">
@@ -445,12 +441,6 @@
       <div *ngIf="activeSection === 'reports'">
         <h3>Generate Report</h3>
         <app-report-section></app-report-section>
-      </div>
-
-      <!-- Settings -->
-      <div *ngIf="activeSection === 'settings'">
-        <h3>Settings</h3>
-        <p>Update system configurations...</p>
       </div>
     </section>
   </div>

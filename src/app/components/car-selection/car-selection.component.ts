@@ -211,6 +211,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   openCarModal(car: any) {
+    car.category = this.searchParams.category;
     this.selectedCar = car;
     this.showVehicleModal = true;
   }

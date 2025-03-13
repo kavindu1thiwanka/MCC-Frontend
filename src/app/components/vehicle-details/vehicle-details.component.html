@@ -33,7 +33,7 @@
           <li><strong>Price per day:</strong> LKR {{ vehicle?.pricePerDay }}</li>
         </ul>
 
-        <div class="driver-selection">
+        <div *ngIf="vehicle.category !== 'motorcycle'" class="driver-selection">
           <label>
             <input type="checkbox" [(ngModel)]="needDriver" (change)="onCheckboxChange()" />
             <span>Include Driver</span>

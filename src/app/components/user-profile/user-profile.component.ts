@@ -102,7 +102,7 @@ export class UserProfileComponent implements OnChanges {
         if (res?.status === 200 && res.body) {
           this.closeModal();
           this.profileForm.reset();
-          if ((res.body as any).isLoggedInProfileUpdated) {
+          if ((res.body as any).loggedInProfileUpdated) {
             localStorage.setItem(AppConstant.NAME, (res.body as any).firstName + ' ' + (res.body as any).lastName);
             window.location.reload();
           }
