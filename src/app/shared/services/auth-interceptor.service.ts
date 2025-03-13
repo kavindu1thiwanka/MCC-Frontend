@@ -68,7 +68,8 @@ export class AuthInterceptor implements HttpInterceptor {
           })
         );
       } else {
-        this.logout();
+        this.errorHandler.handleError(null, 'Username or password is incorrect. Please try again.');
+        return throwError(() => new Error('Username or password is incorrect. Please try again.'));
       }
     }
 

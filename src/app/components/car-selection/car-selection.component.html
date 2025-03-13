@@ -1,4 +1,4 @@
-<div class="car-selection">
+<div class="car-selection bg-light">
   <app-header class="position-absolute start-0 top-0 bg-dark z-3" [isLandingPage]="false"></app-header>
 
   <!-- Hero Section with Search Summary -->
@@ -12,7 +12,7 @@
                 <i class="fa" [ngClass]="{
               'fa-motorcycle': filterDto.category === 'motorcycle',
               'fa-car': filterDto.category === 'car',
-              'fa-van-shuttle': filterDto.category === 'van-shuttle',
+              'fa-van-shuttle': filterDto.category === 'van',
               'fa-truck': filterDto.category === 'truck'
             }"></i>
                 <span>{{ filterDto.category | titlecase }}</span>
@@ -104,7 +104,7 @@
           <div class="image-container">
             <img [src]="car.vehicleImage" [alt]="car.name">
             <div class="price-tag">
-              <span class="amount">${{ car.pricePerDay }}</span>
+              <span class="amount">LKR {{ car.pricePerDay }}</span>
               <span class="period">per day</span>
             </div>
           </div>

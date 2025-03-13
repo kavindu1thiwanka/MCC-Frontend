@@ -104,6 +104,7 @@ export class VehicleDetailsComponent implements OnChanges{
 
   setReservationDetails() {
     this.reservationDetails = {
+      vehicleModel: this.vehicle.vehicleModel,
       vehicleNo: this.vehicle.vehicleNo,
       pickUpDate: this.bookingDetails.pickupDate,
       returnDate: this.bookingDetails.returnDate,

@@ -46,7 +46,7 @@ export class CarSelectionComponent implements OnInit {
   filterButtonList: filterButton[] = [
     {
       name: 'Sort By',
-      category: ['motorcycle', 'car', 'van-shuttle', 'truck'],
+      category: ['motorcycle', 'car', 'van', 'truck'],
       dropdownItems: [
         {name: 'Price low to high', value: 'car.pricePerDay ASC'},
         {name: 'Price high to low', value: 'car.pricePerDay DESC'}
@@ -99,8 +99,7 @@ export class CarSelectionComponent implements OnInit {
       category: ['car'],
       dropdownItems: [
         {name: '2+', value: 'car.seats > 2'},
-        {name: '4+', value: 'car.seats > 4'},
-        {name: '5+', value: 'car.seats > 5'}
+        {name: '4+', value: 'car.seats > 4'}
       ]
     },
     {
@@ -113,7 +112,7 @@ export class CarSelectionComponent implements OnInit {
     },
     {
       name: 'Passengers',
-      category: ['van-shuttle'],
+      category: ['van'],
       dropdownItems: [
         {name: '4+', value: 'car.seats > 4'},
         {name: '6+', value: 'car.seats > 6'}
@@ -121,7 +120,7 @@ export class CarSelectionComponent implements OnInit {
     },
     {
       name: 'Gearshift',
-      category: ['car', 'motorcycle', 'van-shuttle', 'truck'],
+      category: ['car', 'motorcycle', 'van', 'truck'],
       dropdownItems: [
         {name: 'Automatic', value: "car.gearType = 'A'"},
         {name: 'Manual', value: "car.gearType = 'M'"}
@@ -227,7 +226,7 @@ export class CarSelectionComponent implements OnInit {
       pickupDate: this.searchParams.pickupDate,
       returnDate: this.searchParams.returnDate,
       category: this.searchParams.category,
-      edit: true // This flag will tell the search box to expand
+      edit: true
     };
 
     this.router.navigate(['/'], {

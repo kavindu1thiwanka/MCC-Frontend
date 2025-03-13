@@ -1,7 +1,6 @@
 .car-selection {
   min-height: 100vh;
   height: 100vh;
-  background-color: #f8f9fa;
   padding-top: 64px; // Header height
   display: flex;
   flex-direction: column;
@@ -355,9 +354,9 @@
 
     .price-tag {
       position: absolute;
-      bottom: 1rem;
+      bottom: 0.5rem;
       right: 1rem;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgb(218, 218, 218);
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       backdrop-filter: blur(4px);

@@ -35,19 +35,19 @@
           <i class="fa fa-car" aria-hidden="true"></i>Car
         </label>
         <input type="radio" class="btn-check" name="tradition" id="btnRadioV" autocomplete="off"
-               [checked]="selectedVehicleType === 'van-shuttle'" (change)="setVehicleType('van-shuttle')">
+               [checked]="selectedVehicleType === 'van'" (change)="setVehicleType('van')">
         <label
           class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
           for="btnRadioV">
           <i class="fa-solid fa-van-shuttle"></i>Van
         </label>
-        <input type="radio" class="btn-check" name="tradition" id="btnRadioT" autocomplete="off"
-               [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">
-        <label
-          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"
-          for="btnRadioT">
-          <i class="fa fa-truck" aria-hidden="true"></i>Truck
-        </label>
+<!--        <input type="radio" class="btn-check" name="tradition" id="btnRadioT" autocomplete="off"-->
+<!--               [checked]="selectedVehicleType === 'truck'" (change)="setVehicleType('truck')">-->
+<!--        <label-->
+<!--          class="btn btn-sm btn-outline-dark rounded-5 py-1 px-3 d-flex justify-content-center align-items-center gap-2"-->
+<!--          for="btnRadioT">-->
+<!--          <i class="fa fa-truck" aria-hidden="true"></i>Truck-->
+<!--        </label>-->
       </div>
 
       <!-- Search Form -->
@@ -149,8 +149,8 @@
         <div *ngIf="bookingType === 'reserve'" class="col-2">
           <label for="pickupDateTimeGroup" class="form-label">Pick-up date</label>
           <div class="input-group" id="pickupDateTimeGroup">
-            <input type="datetime-local" id="pickupDate" 
-                   class="form-control form-control-lg" 
+            <input type="datetime-local" id="pickupDate"
+                   class="form-control form-control-lg"
                    formControlName="pickupDate"
                    [min]="minPickupDate"
                    (change)="onPickupDateChange($event)">
@@ -161,8 +161,8 @@
         <div *ngIf="bookingType === 'reserve'" class="col-2">
           <label for="returnDateTimeGroup" class="form-label">Return date</label>
           <div class="input-group" id="returnDateTimeGroup">
-            <input type="datetime-local" id="returnDate" 
-                   class="form-control form-control-lg" 
+            <input type="datetime-local" id="returnDate"
+                   class="form-control form-control-lg"
                    formControlName="returnDate"
                    [min]="minReturnDate"
                    (change)="onReturnDateChange($event)">
@@ -187,7 +187,7 @@
           <i class="fa" [ngClass]="{
             'fa-motorcycle': selectedVehicleType === 'motorcycle',
             'fa-car': selectedVehicleType === 'car',
-            'fa-van-shuttle': selectedVehicleType === 'van-shuttle',
+            'fa-van-shuttle': selectedVehicleType === 'van',
             'fa-truck': selectedVehicleType === 'truck'
           }"></i>
           <span class="ms-2">{{selectedVehicleType | titlecase}}</span>
@@ -203,7 +203,7 @@
         <div class="summary-item" *ngIf="searchForm.get('pickupDate')?.value">
           <i class="fa fa-calendar"></i>
           <span class="ms-2">
-            {{searchForm.get('pickupDate')?.value | date:'MMM d'}} - 
+            {{searchForm.get('pickupDate')?.value | date:'MMM d'}} -
             {{searchForm.get('returnDate')?.value | date:'MMM d'}}
           </span>
         </div>

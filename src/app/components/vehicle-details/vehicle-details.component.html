@@ -2,7 +2,7 @@
   <div class="modal-overlay" (click)="handleClose()"></div>
   <div class="modal-container">
     <div class="modal-header">
-      <h2 class="modal-title">Vehicle Information</h2>
+      <h2 class="modal-title">{{ vehicle?.vehicleModel }}</h2>
       <button class="close-btn" (click)="handleClose()">×</button>
     </div>
 
@@ -12,16 +12,13 @@
           <img [src]="vehicle?.vehicleImage" alt="Vehicle Image" />
         </div>
         <div class="vehicle-details">
-          <h2>{{ vehicle?.name }}</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          <h2 class="pb-2">Vehicle Information</h2>
           <table class="details-table">
             <tr><th>Vehicle Number</th><td>{{ vehicle?.vehicleNo }}</td></tr>
             <tr><th>Type</th><td>{{ vehicle?.vehicleType }}</td></tr>
             <tr><th>Gear Type</th><td>{{ vehicle?.gearType === 'M' ? 'Manual' : 'Automatic' }}</td></tr>
             <tr><th>Seats</th><td>{{ vehicle?.seats }}</td></tr>
-            <tr><th>Price per Day</th><td>${{ vehicle?.pricePerDay }}</td></tr>
+            <tr><th>Price per Day</th><td>LKR {{ vehicle?.pricePerDay }}</td></tr>
           </table>
         </div>
       </div>
@@ -33,7 +30,7 @@
           <li><strong>Return location:</strong> {{ bookingDetails.return ? bookingDetails?.return : 'Same as pickup location' }}</li>
           <li><strong>Pickup date & time:</strong> {{ bookingDetails?.pickupDate | date:'medium' }}</li>
           <li><strong>Return date & time:</strong> {{ bookingDetails?.returnDate | date:'medium' }}</li>
-          <li><strong>Price per day:</strong> ${{ vehicle?.pricePerDay }}</li>
+          <li><strong>Price per day:</strong> LKR {{ vehicle?.pricePerDay }}</li>
         </ul>
 
         <div class="driver-selection">
@@ -43,7 +40,7 @@
           </label>
         </div>
 
-        <div class="full-amount"><strong>Full Amount:</strong> ${{ totalAmount }}</div>
+        <div class="full-amount"><strong>Full Amount:</strong> LKR {{ totalAmount }}</div>
         <div class="action-buttons">
           <button class="btn btn-secondary" (click)="handleClose()">Close</button>
           <button class="btn btn-primary" (click)="checkout()">Checkout</button>
