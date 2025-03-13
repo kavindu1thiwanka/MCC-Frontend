@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import {AppConstant} from './shared/utils/app-constant';
 
 @Injectable({
   providedIn: 'root',
@@ -8,18 +9,14 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    const token = localStorage.getItem('token');
-    if (token && !this.isTokenExpired(token)) {
+    const accessToken = localStorage.getItem(AppConstant.ACCESS_TOKEN);
+    const refreshToken = localStorage.getItem(AppConstant.REFRESH_TOKEN);
+    const identity = localStorage.getItem(AppConstant.IDENTIFIER);
+    if (accessToken && refreshToken && identity) {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['#']);
       return false;
     }
-  }
-
-  private isTokenExpired(token: string): boolean {
-    const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    const expiry = decodedToken.exp * 1000 * 60 * 60;
-    return expiry < Date.now();
   }
 }

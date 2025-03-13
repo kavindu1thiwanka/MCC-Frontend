@@ -1,0 +1,453 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidenav">
+    <mat-list>
+      <mat-list-item (click)="setActiveSection('dashboard')" [ngClass]="{ active: activeSection === 'dashboard' }">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('rides')" [ngClass]="{ active: activeSection === 'rides' }">
+        <mat-icon>commute</mat-icon>
+        Rides
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('users')" [ngClass]="{ active: activeSection === 'users' }">
+        <mat-icon>people</mat-icon>
+        Customers
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('drivers')" [ngClass]="{ active: activeSection === 'drivers' }">
+        <mat-icon>local_taxi</mat-icon>
+        Drivers
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('admins')" [ngClass]="{ active: activeSection === 'admins' }">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admins
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('vehicles')" [ngClass]="{ active: activeSection === 'vehicles' }">
+        <mat-icon>drive_eta</mat-icon>
+        Vehicles
+      </mat-list-item>
+      <mat-list-item (click)="setActiveSection('reports')" [ngClass]="{ active: activeSection === 'reports' }">
+        <mat-icon>assessment</mat-icon>
+        Reports
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <!-- Main Content -->
+  <div class="dashboard-wrapper">
+    <div *ngIf="activeSection === 'dashboard'" class="header">
+      <h2>Welcome, Admin</h2>
+    </div>
+
+    <section class="detail-section">
+      <div *ngIf="activeSection === 'dashboard'">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Total Users</h3>
+            <p>{{ stats.totalUsers }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Total Drivers</h3>
+            <p>{{ stats.totalDrivers }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Active Rides</h3>
+            <p>{{ stats.activeRides }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activeSection === 'dashboard'" class="chart-container">
+        <!-- Line Chart (Full Width and Height) -->
+        <div class="chart line-chart d-flex justify-content-start align-items-center flex-column gap-2 container">
+          <div class="d-flex w-100 justify-content-start">
+            <h4>Rides Statistics</h4>
+          </div>
+          <p-chart type="line" [data]="lineChartConfigData" [options]="lineChartOptions"></p-chart>
+        </div>
+
+        <!-- Pie && Doughnut Chart (Right) -->
+        <!--        <div class="chart pie-chart">-->
+        <!--          <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>-->
+        <!--        </div>-->
+
+        <div class="chart pie-chart d-flex justify-content-start align-items-center flex-column gap-1 container">
+          <h4>Drivers Availability</h4>
+          <p-chart *ngIf="isPieChartDataAvailable" type="doughnut" [data]="pieChartConfigData"
+                   [options]="pieChartOptions" class="w-full md:w-[30rem]"/>
+          <section *ngIf="!isPieChartDataAvailable" class="container">Data Not Available</section>
+        </div>
+      </div>
+
+      <!-- Rides Section -->
+      <div *ngIf="activeSection === 'rides'">
+        <ul class="nav nav-tabs d-flex flex-row justify-content-between" id="myTab" role="tablist">
+          <div class="d-flex flex-row">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link"
+                      [class.active]="activeTab === 'active'"
+                      id="active-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#active-ride"
+                      type="button"
+                      role="tab"
+                      aria-controls="active-ride"
+                      aria-selected="true"
+                      (click)="setActiveTab('active'); loadActiveRidesTableData()">
+                Active Rides
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link"
+                      [class.active]="activeTab === 'history'"
+                      id="history-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#ride-history"
+                      type="button"
+                      role="tab"
+                      aria-controls="ride-history"
+                      aria-selected="false"
+                      (click)="setActiveTab('history'); loadRidesHistoryTableData()">
+                Rides History
+              </button>
+            </li>
+          </div>
+
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1 mb-1"
+                  color="warn" (click)="showManageBookingModal = true">
+            <mat-icon class="d-flex justify-content-center align-items-center fs-5">edit</mat-icon>
+            Manage Rides
+          </button>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="active-ride" role="tabpanel" aria-labelledby="active-tab">
+            <div class="table-container">
+              <table mat-table [dataSource]="activeRides" class="mat-elevation-z8 modern-table">
+
+                <ng-container matColumnDef="reservationId">
+                  <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="pickup">
+                  <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickUpLocation }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dropoff">
+                  <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.returnLocation }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateTime">
+                  <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsActiveRides"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsActiveRides;"></tr>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="ride-history" role="tabpanel" aria-labelledby="history-tab">
+            <div class="table-container">
+              <table mat-table [dataSource]="rideHistory" class="mat-elevation-z8 modern-table">
+
+                <ng-container matColumnDef="reservationId">
+                  <th mat-header-cell *matHeaderCellDef> Reservation ID</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="pickup">
+                  <th mat-header-cell *matHeaderCellDef> Pickup Location</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickUpLocation }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dropoff">
+                  <th mat-header-cell *matHeaderCellDef> Drop off Location</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.returnLocation }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateTime">
+                  <th mat-header-cell *matHeaderCellDef> Date & Time</th>
+                  <td mat-cell *matCellDef="let ride"> {{ ride.pickUpDate.split('T')[0] + ' ⇾ ' + ride.returnDate.split('T')[0] }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status</th>
+                  <td mat-cell *matCellDef="let ride">
+                    <app-status-indicator [status]="ride.status"></app-status-indicator>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsRidesHistory"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsRidesHistory;"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div *ngIf="activeSection === 'users'">
+        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+          <h3>Manage Customers</h3>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
+                  color="warn" (click)="toggleUserUpdateModal(null, true)">
+            <mat-icon>add</mat-icon>
+            Add Customer
+          </button>
+        </div>
+        <div class="table-container">
+          <table mat-table [dataSource]="users" class="mat-elevation-z8 modern-table">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let user"> {{ user.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="firstname">
+              <th mat-header-cell *matHeaderCellDef> Firstname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.firstName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef> Lastname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.lastName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let user">
+                <app-status-indicator [status]="user.status"></app-status-indicator>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions</th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="toggleUserUpdateModal(user, false)">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon
+                    (click)="changeUserStatus(user.id, user.status)">{{ user.status === 'A' ? 'toggle_off' : 'toggle_on' }}
+                  </mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="changeUserStatus(user.id, 'D')">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Drivers Table -->
+      <div *ngIf="activeSection === 'drivers'">
+        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+          <h3>Manage Drivers</h3>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
+                  color="warn" (click)="toggleUserUpdateModal(null, true)">
+            <mat-icon>add</mat-icon>
+            Add User
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table mat-table [dataSource]="drivers" class="mat-elevation-z8 modern-table">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let user"> {{ user.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="firstname">
+              <th mat-header-cell *matHeaderCellDef> Firstname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.firstName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef> Lastname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.lastName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="isOnline">
+              <th mat-header-cell *matHeaderCellDef> Online</th>
+              <td mat-cell *matCellDef="let user">
+                <app-status-indicator [status]="user.isOnline"></app-status-indicator>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let user">
+                <app-status-indicator [status]="user.status"></app-status-indicator>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions</th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="toggleUserUpdateModal(user, false)">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon
+                    (click)="changeUserStatus(user.id, user.status)">{{ user.status === 'A' ? 'toggle_off' : 'toggle_on' }}
+                  </mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="changeUserStatus(user.id, 'D')">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="driverColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: driverColumns;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admins Table -->
+      <div *ngIf="activeSection === 'admins'">
+        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+          <h3>Manage Admins</h3>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
+                  color="warn" (click)="toggleUserUpdateModal(null, true)">
+            <mat-icon>add</mat-icon>
+            Add User
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table mat-table [dataSource]="admins" class="mat-elevation-z8 modern-table">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let user"> {{ user.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="firstname">
+              <th mat-header-cell *matHeaderCellDef> Firstname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.firstName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef> Lastname</th>
+              <td mat-cell *matCellDef="let user"> {{ user.lastName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let user">
+                <app-status-indicator [status]="user.status"></app-status-indicator>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions</th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="toggleUserUpdateModal(user, false)">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon
+                    (click)="changeUserStatus(user.id, user.status)">{{ user.status === 'A' ? 'toggle_off' : 'toggle_on' }}
+                  </mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="changeUserStatus(user.id, 'D')">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="adminColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: adminColumns;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Vehicle Table -->
+      <div *ngIf="activeSection === 'vehicles'">
+        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+          <h3>Manage Vehicles</h3>
+          <button pButton class="d-flex justify-content-center align-items-center w-auto fs-6 gap-1"
+                  color="warn" (click)="toggleVehicleModal(false)">
+            <mat-icon>add</mat-icon>
+            Add Vehicle
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table mat-table [dataSource]="vehicles" class="mat-elevation-z8 modern-table">
+            <ng-container matColumnDef="vehicleNo">
+              <th mat-header-cell *matHeaderCellDef> Vehicle Number</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.vehicleNo }}</td>
+            </ng-container>
+            <ng-container matColumnDef="modelName">
+              <th mat-header-cell *matHeaderCellDef> Model Name</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.vehicleModel }}</td>
+            </ng-container>
+            <ng-container matColumnDef="vehicleType">
+              <th mat-header-cell *matHeaderCellDef> Vehicle Type</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.vehicleType }}</td>
+            </ng-container>
+            <ng-container matColumnDef="gearType">
+              <th mat-header-cell *matHeaderCellDef> Gear Type</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.gearType }}</td>
+            </ng-container>
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef> Category</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.category }}</td>
+            </ng-container>
+            <ng-container matColumnDef="seats">
+              <th mat-header-cell *matHeaderCellDef> Seats Count</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.seats }}</td>
+            </ng-container>
+            <ng-container matColumnDef="pricePerDay">
+              <th mat-header-cell *matHeaderCellDef> Price Per Day</th>
+              <td mat-cell *matCellDef="let vehicle"> {{ vehicle.pricePerDay }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status</th>
+              <td mat-cell *matCellDef="let vehicle">
+                <app-status-indicator [status]="vehicle.status"></app-status-indicator>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions</th>
+              <td mat-cell *matCellDef="let vehicle">
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="toggleVehicleModal(true, vehicle.vehicleNo)">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon
+                    (click)="changeVehicleStatus(vehicle.vehicleNo, vehicle.status)">{{ vehicle.status === 'A' ? 'toggle_off' : 'toggle_on' }}
+                  </mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="changeVehicleStatus(vehicle.vehicleNo, 'D')">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="vehicleColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: vehicleColumns;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div *ngIf="activeSection === 'reports'">
+        <h3>Generate Report</h3>
+        <app-report-section></app-report-section>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-user-profile [display]="showUserProfile" [user]="selectedUser" [isDriver]="activeSection === 'drivers'"
+                  [createNewUser]="createNewUser" [identifier]="identifier"
+                  (close)="closeUserProfileModal()"></app-user-profile>
+<app-add-vehicle *ngIf="showVehicleModal" [vehicleNumber]="selectedVehicleNumber" [isEdit]="isVehicleEdit" (close)="closeVehicleModal()"></app-add-vehicle>
+<app-manage-booking-modal [display]="showManageBookingModal" (close)="closeManageBookingModal()"></app-manage-booking-modal>

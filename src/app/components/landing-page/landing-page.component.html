@@ -1,14 +1,203 @@
-<div class="landing-container landing-page">
-
-  <app-header></app-header>
-
-  <main class="main-content">
-    <div class="hero-section">
-      <app-search-box></app-search-box>
-      <div class="hero-content">
-        <h1 class="roboto-condensed">DON'T RENT A CAR.<br>RENT THE CAR.</h1>
-        <p>Premium car rental at affordable rates. Worldwide.</p>
+<div class="landing-page-wrapper vw-100 vh-100 p-0 m-0 position-relative overflow-y-auto overflow-x-hidden">
+  <app-header class="position-absolute top-0 z-3 w-100 {{!userLoggedIn ? 'bg-dark' : ''}}"></app-header>
+  <app-search-box *ngIf="userLoggedIn" class="sticky-top z-2 w-100"></app-search-box>
+  <div *ngIf="userLoggedIn" class="d-flex flex-column m-0 position-absolute top-0 z-1 w-100">
+    <!-- Hero Section -->
+    <div class="hero-section text-center text-white w-100 row align-content-center m-0 min-vh-100">
+      <div class="hero-overlay"></div>
+      <div class="hero-content position-relative z-2">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+              <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">Experience Luxury on Wheels</h1>
+              <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">Premium vehicles. Exceptional service. Unforgettable journeys.</p>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+              <div class="floating-car-image"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+
+    <!-- Features Section -->
+    <section class="features-section py-5 w-100">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="feature-card animate__animated animate__fadeInUp">
+              <div class="icon-wrapper">
+                <i class="fas fa-car-side"></i>
+              </div>
+              <h4>Premium Fleet</h4>
+              <p>Latest models from top brands</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+              <div class="icon-wrapper">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h4>Safe & Secure</h4>
+              <p>Fully insured vehicles</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+              <div class="icon-wrapper">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h4>24/7 Support</h4>
+              <p>Always here to help</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+              <div class="icon-wrapper">
+                <i class="fas fa-tag"></i>
+              </div>
+              <h4>Best Rates</h4>
+              <p>Competitive pricing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section py-5 w-100 bg-light">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">How It Works</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="step-card animate__animated animate__fadeInUp">
+              <div class="step-number">1</div>
+              <h4>Choose Your Car</h4>
+              <p>Browse our extensive fleet and select your perfect vehicle</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+              <div class="step-number">2</div>
+              <h4>Book & Pay</h4>
+              <p>Secure your reservation with our easy booking process</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+              <div class="step-number">3</div>
+              <h4>Enjoy Your Ride</h4>
+              <p>Pick up your car and start your journey</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section py-5 w-100">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">What Our Customers Say</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="testimonial-card animate__animated animate__fadeInUp">
+              <div class="testimonial-image">
+                <img src="/assets/images/Emily.jpg" alt="Emily R." class="rounded-circle">
+              </div>
+              <div class="testimonial-content">
+                <p class="testimonial-text">"Outstanding service! The car was immaculate and the staff was incredibly helpful."</p>
+                <h5 class="testimonial-name">Emily R.</h5>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+              <div class="testimonial-image">
+                <img src="/assets/images/James%20W.jpg" alt="James W." class="rounded-circle">
+              </div>
+              <div class="testimonial-content">
+                <p class="testimonial-text">"Best car rental experience I've ever had. Will definitely use again!"</p>
+                <h5 class="testimonial-name">James W.</h5>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+              <div class="testimonial-image">
+                <img src="/assets/images/Sarah.jpg" alt="Sarah T." class="rounded-circle">
+              </div>
+              <div class="testimonial-content">
+                <p class="testimonial-text">"Seamless booking process and excellent customer service. Highly recommend!"</p>
+                <h5 class="testimonial-name">Sarah T.</h5>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-5 w-100 bg-light">
+      <div class="container">
+        <div class="cta-content text-center">
+          <h2 class="mb-4">Ready to Start Your Journey?</h2>
+          <p class="lead mb-4">Experience the freedom of premium car rental services</p>
+          <!-- <button class="btn btn-primary btn-lg px-5">Book Now</button> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-5 w-100">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <h5 class="footer-title">About Us</h5>
+            <p class="footer-text">We provide premium vehicle rental services worldwide, ensuring an exceptional experience for every customer.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h5 class="footer-title">Contact Us</h5>
+            <ul class="footer-contact">
+              <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Colombo, Sri Lanka</li>
+              <li><i class="fas fa-phone"></i> +94 77 123 4567</li>
+              <li><i class="fas fa-envelope"></i> {{ 'mcc@info.com' }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom text-center mt-4 pt-4 border-top">
+          <p class="mb-0">&copy; 2025 Mega City Cab. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <app-driver-dashboard *ngIf="!userLoggedIn && !adminLoggedIn"></app-driver-dashboard>
+  <app-admin-dashboard *ngIf="adminLoggedIn && !userLoggedIn"></app-admin-dashboard>
 </div>
+

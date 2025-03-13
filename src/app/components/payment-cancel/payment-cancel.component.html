@@ -1,0 +1,23 @@
+<div class="payment-canceled-container d-flex justify-content-center align-items-center vh-100">
+  <div class="clean-card text-center shadow-sm p-4">
+    <div class="card-body">
+      <i class="fa fa-ban canceled-icon mb-3"></i>
+      <h2 class="text-danger fw-semibold mb-2">Payment Canceled</h2>
+      <p class="text-muted mb-4">
+        Your payment was not completed. If this was a mistake, try again.
+      </p>
+
+      <div class="d-grid gap-2">
+        <button pButton label="Try Again" icon="pi pi-replay"
+                class="btn btn-danger rounded"
+                (click)="redirectToCarSelection()">
+        </button>
+
+        <button pButton label="Back to Home" icon="pi pi-home"
+                class="btn btn-outline-secondary rounded"
+                routerLink="/">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

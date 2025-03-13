@@ -1,0 +1,34 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Booking Details</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <div *ngIf="reservations.length > 0; else noReservations" class="reservations-list">
+      <div *ngFor="let reservation of reservations" class="reservation-card">
+        <div class="reservation-content">
+          <div class="reservation-info">
+            <h3>{{ reservation.vehicleName }}</h3>
+            <p><strong>Pickup:</strong> {{ reservation.pickUpLocation }}</p>
+            <p><strong>Return:</strong> {{ reservation.returnLocation }}</p>
+            <p><strong>Pickup Date:</strong> {{ reservation.pickUpDate | date:'medium' }}</p>
+            <p><strong>Return Date:</strong> {{ reservation.returnDate | date:'medium' }}</p>
+            <p><strong>Payment Status:</strong> {{ reservation.paymentStatus === 'C' ? 'Completed' : 'Pending' }}</p>
+          </div>
+
+          <div class="reservation-actions">
+            <p><strong>Status:</strong> {{ reservation.status === 'A' ? 'Active' : reservation.status === 'C' ? 'Completed' : 'Cancelled' }}</p>
+<!--            <button class="edit-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="editReservation(reservation)">Edit</button>-->
+            <button class="cancel-btn" *ngIf="reservation.status === 'A' && !reservation.onTrip" (click)="cancelReservation(reservation.id)">Cancel</button>
+            <button class="started-btn" *ngIf="reservation.status === 'A' && reservation.onTrip">Trip Started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noReservations>
+      <p>No reservations found.</p>
+    </ng-template>
+  </div>
+</div>

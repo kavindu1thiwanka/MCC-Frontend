@@ -1,0 +1,142 @@
+$primary-color: #2c3e50;
+$accent-color: #1abc9c;
+$error-color: #e74c3c;
+$background-color: rgba(255, 255, 255, 0.15);
+$input-border: rgba(255, 255, 255, 0.3);
+$input-radius: 10px;
+$shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+$backdrop-filter: blur(16px);
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  z-index: 1000;
+  text-align: center;
+  color: #fff;
+
+  option {
+    color: #000;
+  }
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.image-upload {
+  text-align: center;
+  margin-bottom: 15px;
+  width: 100%;
+  height: 20vh;
+
+  .upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.form-group {
+  margin-bottom: 12px;
+  text-align: left;
+
+  label {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border-radius: $input-radius;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.submit-btn {
+  background: $accent-color;
+  color: #fff;
+
+  &:hover {
+    background: darken($accent-color, 10%);
+  }
+
+  &:disabled {
+    background: rgba($accent-color, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.cancel-btn {
+  background: $error-color;
+  color: #fff;
+
+  &:hover {
+    background: darken($error-color, 10%);
+  }
+
+  &:disabled {
+    background: rgba($error-color, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

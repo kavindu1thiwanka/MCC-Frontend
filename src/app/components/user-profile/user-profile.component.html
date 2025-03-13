@@ -1,0 +1,185 @@
+<div class="modal-overlay" *ngIf="display" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>User Profile</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="createNewUser ? createUser() : updateUserDetails()">
+      <!-- First Name Field -->
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          placeholder="First Name"
+          autocomplete="off"
+          required
+        />
+        <div
+          *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)"
+          class="error">
+          First Name is required.
+        </div>
+      </div>
+
+      <!-- Last Name Field -->
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          placeholder="Last Name"
+          autocomplete="off"
+          required
+        />
+        <div
+          *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)"
+          class="error">
+          Last Name is required.
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="email"
+          autocomplete="off"
+          required
+          email
+        />
+        <div
+          *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)"
+          class="error">
+          <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="profileForm.get('email')?.errors?.['email']">Invalid email address.</div>
+        </div>
+      </div>
+
+      <!-- Contact Number Field -->
+      <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input
+          id="contactNumber"
+          type="text"
+          formControlName="contactNumber"
+          placeholder="Contact Number"
+          pattern="^\d{10}$"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)"
+          class="error">
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Contact Number is required.</div>
+          <div *ngIf="profileForm.get('contactNumber')?.errors?.['pattern']">Contact number must be exactly 10 digits.
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Username Field (disabled) -->
+      <div *ngIf="!createNewUser" class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          [value]="profileForm.get('username')?.value"
+          autocomplete="off"
+          placeholder="Username"
+          disabled
+        />
+      </div>
+
+      <div class="form-group" *ngIf="isDriver">
+        <label for="drivingLicense">Upload Driving License</label>
+        <input
+          id="drivingLicense"
+          type="file"
+          formControlName="drivingLicense"
+          (change)="onFileChange($event)"
+          accept="image/*, .pdf"
+        />
+        <div
+          *ngIf="profileForm.get('drivingLicense')?.invalid && (profileForm.get('drivingLicense')?.dirty || profileForm.get('drivingLicense')?.touched)"
+          class="error">
+          Please upload a valid driving license.
+        </div>
+      </div>
+
+      <!-- Driving License Details -->
+      <div *ngIf="isDriver" class="form-group">
+        <label for="driverLicenseNo">License Number</label>
+        <input
+          id="driverLicenseNo"
+          formControlName="driverLicenseNo"
+          placeholder="Driving License Number"
+        >
+      </div>
+
+      <!-- Change Password Link -->
+      <div *ngIf="!disablePasswordChange && !createNewUser" class="form-group">
+        <a href="#" (click)="toggleChangePassword()">Change Password</a>
+      </div>
+
+      <!-- Conditionally Show Password Fields -->
+      <div *ngIf="isChangePasswordVisible || createNewUser" class="d-flex flex-column gap-3">
+        <!-- New Password Field -->
+        <div class="form-group password-group">
+          <label for="password">New Password</label>
+          <div class="input-container">
+            <input id="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password"
+              autocomplete="new-password" required minlength="6"/>
+            <button type="button" class="toggle-password" (click)="togglePassword()">
+              <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <div
+            *ngIf="profileForm.get('password')?.invalid && (profileForm.get('password')?.dirty || profileForm.get('password')?.touched)"
+            class="error">
+            <div *ngIf="profileForm.get('password')?.errors?.['required']">Password is required.</div>
+            <div *ngIf="profileForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters
+              long.
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Confirm Password Field -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            required
+            minlength="6"
+            autocomplete="off"
+            (ngModelChange)="validateConfirmPassword()"
+          />
+          <div
+            *ngIf="profileForm.get('confirmPassword')?.invalid && (profileForm.get('confirmPassword')?.dirty || profileForm.get('confirmPassword')?.touched)"
+            class="error">
+            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
+            <div *ngIf="profileForm.get('confirmPassword')?.errors?.['minlength']">Confirm Password must be at least 6
+              characters long.
+            </div>
+            <div *ngIf="confirmPasswordMismatch">Passwords do not match.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="submit" class="save-btn">Save Changes</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

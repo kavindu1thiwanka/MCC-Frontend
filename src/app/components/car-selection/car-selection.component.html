@@ -1,0 +1,186 @@
+<div class="car-selection bg-light">
+  <app-header class="position-absolute start-0 top-0 bg-dark z-3" [isLandingPage]="false"></app-header>
+
+  <!-- Hero Section with Search Summary -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="search-summary-card">
+        <div class="d-flex align-items-center gap-4">
+          <div class="summary-item">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                <i class="fa" [ngClass]="{
+              'fa-motorcycle': filterDto.category === 'motorcycle',
+              'fa-car': filterDto.category === 'car',
+              'fa-van-shuttle': filterDto.category === 'van',
+              'fa-truck': filterDto.category === 'truck'
+            }"></i>
+                <span>{{ filterDto.category | titlecase }}</span>
+              </div>
+              <small>Duration</small>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                <i class="fa fa-map-marker"></i>
+                <span>{{ searchParams.pickup }}</span>
+              </div>
+              <small>Pick-up</small>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                <i class="fa fa-map-marker"></i>
+                <span *ngIf="searchParams.return">{{ searchParams.return }}</span>
+                <span *ngIf="!searchParams.return">{{ searchParams.pickup }}</span>
+              </div>
+              <small>Return</small>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                <i class="fa fa-calendar"></i>
+                <span>{{ searchParams.pickupDate | date:'MMM d' }} - {{ searchParams.returnDate | date:'MMM d' }}</span>
+              </div>
+              <small>Duration</small>
+            </div>
+          </div>
+          <button class="edit-search-btn" (click)="modifySearch()">
+            <i class="fa fa-edit"></i>
+            Modify Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section class="main-content">
+    <div class="container">
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <div class="container">
+          <div class="filter-header">
+            <h4>Available Vehicles</h4>
+            <span class="vehicle-count">{{ carList.length }} vehicles found</span>
+            <button *ngIf="(filterDto.filters && filterDto.filters.length > 0) || (filterDto.sortBy && filterDto.sortBy != '')"
+                    class="clear-filters"
+                    type="button"
+                    (click)="clearFilter()"
+                    aria-label="Clear all filters">
+              <i class="fa fa-times-circle" aria-hidden="true"></i>
+              Clear Filters
+            </button>
+          </div>
+
+          <div class="filter-buttons">
+            <ng-container *ngFor="let btn of filterButtonList">
+              <div class="filter-dropdown" *ngIf="btn.category?.includes(filterDto.category)">
+                <button class="filter-btn" type="button" data-bs-toggle="dropdown"
+                        [ngClass]="{'active': isDropdownItemSelected(btn.name)}">
+                  {{ btn.name }}
+                  <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let data of btn.dropdownItems"
+                      class="dropdown-item"
+                      [ngClass]="{'active': isFilterSelected(btn.name, data)}"
+                      (click)="applyFilter(btn.name, data)">
+                    {{ data.name }}
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle Grid -->
+      <div class="vehicle-grid" *ngIf="carList && carList.length > 0">
+        <div *ngFor="let car of carList" class="vehicle-card" (click)="openCarModal(car)">
+          <div class="image-container">
+            <img [src]="car.vehicleImage" [alt]="car.vehicleModel">
+            <div class="price-tag">
+              <span class="amount">LKR {{ car.pricePerDay }}</span>
+              <span class="period">per day</span>
+            </div>
+          </div>
+          <div class="vehicle-details">
+            <h5 class="vehicle-name">{{ car.vehicleModel  }}</h5>
+            <div class="features">
+              <span class="feature">
+                <i class="fa fa-car"></i>
+                {{ car.vehicleType }}
+              </span>
+              <span class="feature">
+                <i class="fa fa-users"></i>
+                {{ car.seats }} Seats
+              </span>
+              <span class="feature">
+                <i class="fa fa-gear"></i>
+                {{ car.gearType === 'A' ? 'Automatic' : 'Manual' }}
+              </span>
+            </div>
+            <button class="select-btn">
+              Select Vehicle
+              <i class="fa fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div *ngIf="!carList || carList.length == 0" class="no-results">
+        <i class="fa fa-search fa-3x mb-3"></i>
+        <h4>No Vehicles Found</h4>
+        <p>We couldn't find any vehicles matching your criteria. Try adjusting your filters or search parameters.</p>
+        <button class="modify-search-btn" routerLink="/">
+          Modify Search
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-vehicle-details
+  [visible]="showVehicleModal"
+  [vehicle]="selectedCar"
+  [bookingDetails]="searchParams"
+  (close)="handleVehicleDetailsModalClose($event)">
+</app-vehicle-details>
+
+<style>
+.edit-search-btn {
+  margin-left: auto;
+  height: 40px;
+  background: #2C3E50;
+  border: none;
+  color: white;
+  padding: 0 1.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    background: darken(#2C3E50, 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+</style>
