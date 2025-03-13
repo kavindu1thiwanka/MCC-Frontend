@@ -60,6 +60,8 @@ import { StatusIndicatorComponent } from './components/status-indicator/status-i
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { ManageBookingModalComponent } from './components/manage-booking-modal/manage-booking-modal.component';
 import { ReportSectionComponent } from './components/report-section/report-section.component';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -120,6 +122,7 @@ import { ReportSectionComponent } from './components/report-section/report-secti
     MatTableModule,
     MatToolbarModule,
     ChartModule,
+    ToastModule,
   ],
   providers: [
     {
@@ -127,6 +130,7 @@ import { ReportSectionComponent } from './components/report-section/report-secti
       useClass: AuthInterceptor,
       multi: true
     },
+    MessageService,
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {

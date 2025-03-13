@@ -4,7 +4,8 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AppConstant } from '../utils/app-constant';
-import {ApiEndPoint} from '../utils/api-end-point';
+import { ApiEndPoint } from '../utils/api-end-point';
+import { ErrorHandlerService } from './error-handler.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -12,7 +13,11 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = localStorage.getItem(AppConstant.ACCESS_TOKEN);
@@ -26,6 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           return this.handle401Error(request, next);
         }
+        this.errorHandler.handleError(error);
         return throwError(() => error);
       })
     );
@@ -57,6 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
           catchError(() => {
             this.isRefreshing = false;
             this.logout();
+            this.errorHandler.handleError(null, 'Session expired. Please log in again.');
             return throwError(() => new Error('Session expired. Please log in again.'));
           })
         );
