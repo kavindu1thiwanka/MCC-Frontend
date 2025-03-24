@@ -121,9 +121,7 @@
       <!-- Earnings -->
       <div *ngIf="activeSection === 'earnings'">
         <h3>Earnings Breakdown</h3>
-        <p>Daily: ${{ earnings.daily | number }}</p>
-        <p>Weekly: ${{ earnings.weekly | number }}</p>
-        <p>Monthly: ${{ earnings.monthly | number }}</p>
+        <app-report-section [reportTypes]="['driver']"></app-report-section>
       </div>
     </section>
   </div>
