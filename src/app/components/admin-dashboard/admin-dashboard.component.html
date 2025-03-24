@@ -440,7 +440,7 @@
       <!-- Reports -->
       <div *ngIf="activeSection === 'reports'">
         <h3>Generate Report</h3>
-        <app-report-section></app-report-section>
+        <app-report-section [reportTypes]="['reservations', 'revenue']"></app-report-section>
       </div>
     </section>
   </div>

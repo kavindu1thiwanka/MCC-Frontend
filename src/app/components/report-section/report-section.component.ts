@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ReportService } from '../../shared/services/report.service';
 
@@ -9,7 +9,10 @@ import { ReportService } from '../../shared/services/report.service';
   styleUrls: ['./report-section.component.scss']
 })
 export class ReportSectionComponent {
-  selectedReportType: string = 'reservations';
+
+  @Input() reportTypes: any = [];
+
+  selectedReportType: string = '';
   startDate: string | null = null;
   endDate: string | null = null;
   selectedFileFormat: string = 'pdf';

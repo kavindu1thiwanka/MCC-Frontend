@@ -4,10 +4,9 @@
     <mat-form-field appearance="fill" class="inline-field">
       <mat-label>Select Report Type</mat-label>
       <mat-select [(ngModel)]="selectedReportType" name="reportType" required>
-        <mat-option value="reservations">Reservations Report</mat-option>
-        <mat-option value="revenue">Revenue Report</mat-option>
-<!--        <mat-option value="customer">Customer Report</mat-option>-->
-<!--        <mat-option value="vehicleUtilization">Vehicle Utilization Report</mat-option>-->
+        <mat-option *ngFor="let reportType of reportTypes" value="{{ reportType }}">{{ reportType == 'reservations' ? 'Reservations Report' : reportType == 'revenue' ? 'Revenue Report' : 'Driver Earning Report' }}</mat-option>
+<!--        <mat-option value="reservations">Reservations Report</mat-option>-->
+<!--        <mat-option value="revenue">Revenue Report</mat-option>-->
       </mat-select>
     </mat-form-field>
 
